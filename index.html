@@ -47,7 +47,7 @@
                         'cyan-glow-hover': {
                             '0%, 100%': { boxShadow: '0 0 8px rgba(52, 211, 255, 0.5)' },
                             '50%': { boxShadow: '0 0 18px rgba(52, 211, 255, 0.9)' },
-                        }
+                        },
                     },
                     animation: {
                         float: 'float 7s ease-in-out infinite',
@@ -70,22 +70,22 @@
                               linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 20%);
             min-height: 100vh;
             color: #f0f6f6;
+            position: relative; 
+            scroll-behavior: smooth; /* Smooth scrolling for navigation */
         }
 
-        /* 2. Character Image Styling (to stand out) */
+        /* 2. Character Image Styling (Kept for potential future use) */
         .character-img-vs {
             width: 300px;
             height: 300px;
             max-width: 80vw;
             max-height: 80vw;
             border-radius: 9999px; /* Full rounded */
-            /* Subtle holographic border/shadow */
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.6), 0 0 40px rgba(52, 211, 255, 0.4);
             transition: transform 0.3s ease-in-out;
             object-fit: cover;
         }
 
-        /* 3. Code Interface Container (The floating snippet) */
+        /* 3. Code Interface Container (The floating snippet - The VS Code Window) */
         .vs-interface {
             background-color: rgba(30, 41, 59, 0.85); /* Slate-800 semi-transparent */
             backdrop-filter: blur(8px);
@@ -101,21 +101,135 @@
             transform: rotate(2deg); /* Added slight rotation for flair */
         }
         
-        /* Mobile Adjustments */
+        /* Mobile Adjustments for Illustration Section */
         @media (max-width: 768px) {
             .character-img-vs {
                 width: 250px;
                 height: 250px;
             }
-            .vs-interface {
-                transform: scale(0.85) translate(0, 20px) rotate(2deg);
-                /* Positioning adjustments for smaller screens */
+            /* Positioning the Avatar and Code unit correctly for mobile */
+            /* Main Avatar container (to translate it back to center) */
+            .character-art {
                 position: absolute;
-                top: 70%;
+                top: 50%;
                 left: 50%;
-                transform: translate(-50%, 0) scale(0.85) rotate(2deg);
+                transform: translate(-50%, -50%) !important;
             }
+
+            /* Main Code Snippet container (relative to the Avatar) */
+            .illustration-code-snippet {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                /* Resetting desktop translations and applying new centered, scaled translation */
+                transform: translate(-50%, -50%) rotate(-5deg) scale(0.75) !important;
+                margin-top: 100px; /* Adjusting vertical position below the avatar's center */
+            }
+
+            /* Hide some floating elements on small screens to avoid clutter */
+            .hologram-glow.hidden-sm {
+                display: none;
+            }
+
+            /* Adjust mobile positioning of the central Avatar and Code group */
+            .top-28 { top: 10%; } /* Pushing the central group slightly higher */
         }
+
+        /* Quiz Modal and Content Styling */
+        #quiz-modal {
+            display: none; /* Initially hidden */
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            place-items: center;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+        }
+
+        #quiz-content {
+            background-color: #1a202c; /* Dark slate background for the quiz container */
+            border: 3px solid #34D3FF; /* Neon border */
+            box-shadow: 0 0 25px rgba(52, 211, 255, 0.7);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 90vw;
+            width: 600px;
+            position: relative;
+            min-height: 400px;
+        }
+
+        /* Answer Button Styling */
+        .answer-btn {
+            background-color: #1f2937; /* Gray-800 */
+            color: #E5E7EB; /* Light text */
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid #374151; /* Gray-700 */
+            text-align: right;
+            width: 100%;
+            margin-bottom: 0.75rem;
+        }
+
+        .answer-btn:hover {
+            background-color: #374151; /* Gray-700 on hover */
+            border-color: #C084FC; /* Violet glow */
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+        }
+
+        .answer-btn.correct {
+            background-color: #10B981; /* Neon green */
+            border-color: #10B981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
+        }
+        
+        .answer-btn.wrong {
+            background-color: #EF4444; /* Red */
+            border-color: #EF4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.7);
+        }
+
+        /* Quiz Status Styling */
+        #quiz-status {
+            text-align: center;
+            font-size: 1.125rem;
+            color: #A8A8B3;
+            margin-bottom: 1.5rem;
+        }
+
+        #final-score-message {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 0.75rem;
+            border: 1px solid #C084FC;
+        }
+
+        /* NEW: Unified Button Styling */
+        .quiz-control-btn {
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        /* Custom glow styles for buttons */
+        .start-btn-glow {
+            background-color: #10B981; /* Neon green */
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.7), 0 0 30px rgba(16, 185, 129, 0.4);
+        }
+        .next-btn-glow {
+            background-color: #C084FC; /* VS Purple */
+            box-shadow: 0 0 15px rgba(192, 132, 252, 0.7), 0 0 30px rgba(192, 132, 252, 0.4);
+        }
+        
     </style>
 </head>
 <body class="hero-bg">
@@ -124,19 +238,23 @@
         <div class="flex justify-between items-center max-w-7xl mx-auto">
             <!-- Logo corrected for consistency -->
             <div class="text-2xl font-black text-white">
-                Hello<span class="text-light-gray-text">TECHNO</span><span class="text-vs-cyan">.NANO</span>
+                Tech<span class="text-light-gray-text">Hire</span><span class="text-vs-cyan">.io</span>
             </div>
 
             <nav class="hidden lg:flex space-x-8 text-sm font-medium text-light-gray-text">
+                <!-- Navigation links updated for functionality -->
                 <a href="#" class="hover:text-white transition duration-300">Home</a>
-                <a href="#" class="hover:text-white transition duration-300">For Developers</a>
-                <a href="#" class="hover:text-white transition duration-300">About</a>
-                <a href="#" class="hover:text-white transition duration-300">Contact</a>
+                <a href="#skills-section" class="hover:text-white transition duration-300">For Developers</a>
+                <a href="About.html" class="hover:text-white transition duration-300">About</a>
+                <!-- Contact link now triggers the quiz modal -->
+                <a href="#" id="contact-quiz-link" class="hover:text-white transition duration-300">Contact</a>
             </nav>
 
-            <button class="bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2 px-5 rounded-full shadow-lg shadow-purple-900/40 hover:opacity-90 transition duration-300 animate-glow">
-                Login
-            </button>
+            <!-- LOGIN button changed to RESUME link -->
+            <a href="resume.html" target="_blank" class="bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2 px-5 rounded-full shadow-lg shadow-purple-900/40 hover:opacity-90 transition duration-300 animate-glow">
+                السيرة الذاتية
+            </a>
+            <!-- END of RESUME link -->
         </div>
     </header>
 
@@ -166,15 +284,90 @@
                     </button>
                 </div>
                 
-                <div class="pt-8 flex flex-wrap items-center space-x-4 opacity-70">
-                    <span class="text-sm text-light-gray-text">Trusted by:</span>
-                    <!-- Client logos -->
-                    <img src="https://placehold.co/100x20/1F2937/FFFFFF?text=TechCorp" alt="TechCorp Logo" class="h-5" onerror="this.src='https://placehold.co/100x20/1F2937/FFFFFF?text=Client+A'">
-                    <img src="https://placehold.co/100x20/1F2937/FFFFFF?text=GlobalSoft" alt="GlobalSoft Logo" class="h-5" onerror="this.src='https://placehold.co/100x20/1F2937/FFFFFF?text=Client+B'">
-                    <img src="https://placehold.co/100x20/1F2937/FFFFFF?text=Innovate" alt="Innovate Logo" class="h-5 hidden sm:block" onerror="this.src='https://placehold.co/100x20/1F2937/FFFFFF?text=Client+C'">
+                <!-- START: Embedded Skills Showcase (Skills placed below CTAs) -->
+                <!-- Added ID for 'For Developers' link to jump here -->
+                <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10">
+                    <h3 class="text-xl font-bold text-white mb-6">مستويات الإتقان التقني</h3>
+                    <!-- Skills List Container -->
+                    <div class="space-y-5">
+                        
+                        <!-- Skill Item 1: HTML -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-html5 text-orange-500 text-lg"></i>
+                                    <span>HTML</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">100%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-orange-500 h-1.5 rounded-full" style="width: 100%; box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill Item 2: CSS -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-css3-alt text-blue-500 text-lg"></i>
+                                    <span>CSS</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 80%; box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 3: JavaScript (JS) -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-js-square text-yellow-400 text-lg"></i>
+                                    <span>JavaScript (JS)</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">60%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-yellow-400 h-1.5 rounded-full" style="width: 60%; box-shadow: 0 0 8px rgba(250, 204, 21, 0.6);"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 4: Python -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-python text-sky-400 text-lg"></i>
+                                    <span>Python</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-sky-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 5: Flutter -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <!-- استخدام أيقونة الهاتف للدلالة على إطار عمل تطوير تطبيقات الجوال (Flutter) -->
+                                    <i class="fas fa-mobile-alt text-cyan-400 text-lg"></i> 
+                                    <span>Flutter</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-cyan-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);"></div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
+                <!-- END: Embedded Skills Showcase -->
             </div>
 
+            <!-- START: Illustration Section (Reintroduced) -->
             <div class="relative flex justify-center items-center h-full min-h-[500px] md:min-h-[600px] mt-10 md:mt-0">
                 
                 <!-- Floating code elements -->
@@ -184,16 +377,20 @@
                 
                 <div class="absolute text-xl font-mono text-neon-green opacity-80 animate-float z-20 top-1/2 right-0 transform translate-y-[-50%] hologram-glow hidden sm:block" style="filter: drop-shadow(0 0 8px rgba(16,185,129,0.8)); animation-delay: 5s;">0101101;</div>
                 
+                <!-- Code Snippet Above Avatar (Floating Code) -->
                 <div class="absolute w-32 h-20 p-2 bg-gray-600/30 backdrop-blur-md rounded-lg border border-gray-500/50 text-xs text-vs-cyan font-mono top-20 right-1/4 shadow-xl animate-float z-20 hidden md:block" style="animation-delay: 2s; transform: rotate(-5deg);">
                     <p class="mb-1 text-vs-purple">const <span class="text-vs-orange">App</span> <span class="text-white">=</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span></p>
                     <p class="ml-2 text-vs-green">return <span class="text-white">&lt;</span><span class="text-vs-orange">main</span><span class="text-white">&gt;</span>;</p>
                     <p class="text-vs-cyan">}</p>
                 </div>
+                <!-- نهاية قطعة الكود العائمة -->
+
 
                 <div class="absolute w-3 h-3 rounded-full bg-yellow-400 opacity-90 animate-float z-20 bottom-0 left-[25%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)); animation-delay: 6s;"></div>
-                
-                <!-- Central Avatar -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%] z-30 character-art text-center">
+
+                <!-- Central Avatar & Code -->
+                <!-- Avatar Position: تم تعديل موقعه ليكون تحت الكود العلوي -->
+                <div class="absolute top-28 left-1/2 transform -translate-x-1/2 translate-y-[10px] z-30 character-art text-center">
                     <img 
                         src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
                         alt="3D Cartoon Male Character Avatar representing a developer" 
@@ -202,9 +399,10 @@
                     />
                 </div>
 
-                <!-- Central Code Snippet (VS Interface) -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-[50%] z-40">
-                    <div class="vs-interface">
+                <!-- Central Code Snippet (VS Interface) - تم تعديل موقعه ليكون على كتف Avatar في الموضع الجديد -->
+                <!-- Z-index 40 ensures it overlaps the avatar -->
+                <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet"> <!-- تمت إضافة فئة illustration-code-snippet -->
+                    <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);"> <!-- تم تغيير التدوير والتصغير قليلاً لتحقيق المظهر المطلوب -->
                         <div class="code-line">
                             <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
                         </div>
@@ -230,9 +428,8 @@
                     </div>
                 </div>
 
-                <!-- Background Blur/Glow effect -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%] w-[500px] h-[500px] bg-gradient-to-r from-orange-400 to-pink-500 rounded-full opacity-30 blur-2xl z-10"></div>
             </div>
+            <!-- END: Illustration Section -->
         </div>
     </main>
 
@@ -247,7 +444,226 @@
             </div>
         </div>
     </footer>
+    
+    <!-- START: Quiz Modal (Tech Quiz) -->
+    <div id="quiz-modal" class="grid" onclick="closeQuiz(event)">
+        <div id="quiz-content" onclick="event.stopPropagation()">
+            <!-- Close Button -->
+            <!-- تم تعديل دالة onclick لتمرير 'close-btn' كعلامة للإغلاق -->
+            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closeQuiz(event)">
+                &times;
+            </button>
+            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-4">اختبار المهارات التقنية (Tech Quiz)</h2>
+            
+            <div id="quiz-status"></div>
+            
+            <div id="quiz-area">
+                <p id="question-text" class="text-lg text-white font-semibold mb-6 text-right"></p>
+                <div id="answers-container" class="space-y-3">
+                    <!-- Answer buttons generated here -->
+                </div>
+            </div>
+
+            <div id="final-score-message" style="display: none;">
+                <!-- Final score message here -->
+            </div>
+
+            <!-- تم تعديل حاوية الأزرار لتكون مرنة ومتوسطة -->
+            <div class="mt-6 flex justify-center space-x-4">
+                <!-- تم تطبيق الفئة الجديدة quiz-control-btn -->
+                <button id="start-quiz-btn" class="quiz-control-btn start-btn-glow">ابدأ الاختبار</button>
+                <!-- تم تطبيق الفئة الجديدة quiz-control-btn -->
+                <button id="next-question-btn" class="quiz-control-btn next-btn-glow hidden">السؤال التالي</button>
+                <button id="restart-quiz-btn" class="quiz-control-btn hidden">إعادة الاختبار</button>
+            </div>
+        </div>
+    </div>
+    <!-- END: Quiz Modal -->
+
+    <script>
+        // Quiz Data
+        const quizQuestions = [
+            {
+                question: "ما هو العنصر الذي يُستخدم لتحديد تنسيق الصفحة في HTML5؟",
+                options: ["<style>", "<format>", "<css>", "<layout>"],
+                answer: "<style>"
+            },
+            {
+                question: "ما هي الخاصية التي تُستخدم لتغيير لون الخلفية في CSS؟",
+                options: ["color", "font-color", "background-color", "bgcolor"],
+                answer: "background-color"
+            },
+            {
+                question: "ما هي الكلمة المفتاحية (Keyword) التي تُستخدم لإعلان متغير ثابت (لا يمكن إعادة تعيينه) في JavaScript؟",
+                options: ["var", "let", "const", "static"],
+                answer: "const"
+            },
+            {
+                question: "في Python، ما هي الدالة التي تُستخدم لطباعة مخرجات على الشاشة؟",
+                options: ["output()", "print()", "display()", "write()"],
+                answer: "print()"
+            },
+            {
+                question: "في Flutter، ما هو المفهوم الذي يصف كيفية بناء الواجهة الرسومية (UI)؟",
+                options: ["Components", "Widgets", "Elements", "Views"],
+                answer: "Widgets"
+            }
+        ];
+
+        // Quiz Logic Variables
+        const contactLink = document.getElementById('contact-quiz-link');
+        const quizModal = document.getElementById('quiz-modal');
+        const questionText = document.getElementById('question-text');
+        const answersContainer = document.getElementById('answers-container');
+        const quizStatus = document.getElementById('quiz-status');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+        const finalScoreMessage = document.getElementById('final-score-message');
+        const quizArea = document.getElementById('quiz-area');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let isAnswered = false;
+        let shuffledQuestions = []; // New array for shuffled questions
+
+        // --- Core Quiz Functions ---
+
+        function loadQuestion() {
+            // استخدام المصفوفة التي تم خلطها
+            if (currentQuestionIndex >= shuffledQuestions.length) {
+                showFinalScore();
+                return;
+            }
+
+            const q = shuffledQuestions[currentQuestionIndex];
+            questionText.textContent = q.question;
+            answersContainer.innerHTML = ''; // Clear previous answers
+            isAnswered = false;
+
+            quizStatus.textContent = `السؤال ${currentQuestionIndex + 1} من ${shuffledQuestions.length} | النقاط الحالية: ${score}`;
+            nextQuestionBtn.classList.add('hidden');
+
+            // Shuffle options (optional, but good practice)
+            const shuffledOptions = shuffleArray(q.options.slice()); 
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.classList.add('answer-btn');
+                button.textContent = option;
+                button.onclick = () => checkAnswer(button, option, q.answer);
+                answersContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedAnswer, correctAnswer) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const allButtons = answersContainer.querySelectorAll('.answer-btn');
+            
+            allButtons.forEach(btn => {
+                btn.onclick = null; // Disable further clicks
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                    btn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)'; // Apply glow
+                } else if (btn === selectedButton) {
+                    btn.classList.add('wrong');
+                    btn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.7)'; // Apply glow
+                }
+            });
+
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            }
+            
+            quizStatus.textContent = `السؤال ${currentQuestionIndex + 1} من ${shuffledQuestions.length} | النقاط الحالية: ${score}`;
+            
+            nextQuestionBtn.classList.remove('hidden');
+        }
+        
+        function showFinalScore() {
+            quizArea.style.display = 'none';
+            quizStatus.style.display = 'none';
+            nextQuestionBtn.classList.add('hidden');
+            restartQuizBtn.classList.remove('hidden');
+
+            let message = '';
+            let color = 'text-neon-cyan';
+
+            if (score === shuffledQuestions.length) {
+                message = "مذهل! أنت مطور من الطراز الأول. أداء مثالي!";
+                color = 'text-neon-green';
+            } else if (score >= shuffledQuestions.length / 2) {
+                message = "أداء قوي! لديك أساس متين في هذه التقنيات.";
+                color = 'text-vs-orange';
+            } else {
+                message = "لا بأس، ربما تحتاج لمزيد من المراجعة! استمر في التعلم.";
+                color = 'text-vs-keyword';
+            }
+
+            finalScoreMessage.innerHTML = `
+                <p class="text-3xl font-extrabold mb-4 ${color}">النتيجة النهائية: ${score} / ${shuffledQuestions.length}</p>
+                <p class="text-xl text-white">${message}</p>
+            `;
+            finalScoreMessage.style.display = 'block';
+        }
+
+        function startQuiz() {
+            // خلط الأسئلة قبل البدء
+            shuffledQuestions = shuffleArray(quizQuestions.slice()); 
+            currentQuestionIndex = 0;
+            score = 0;
+            finalScoreMessage.style.display = 'none';
+            quizArea.style.display = 'block';
+            quizStatus.style.display = 'block';
+            startQuizBtn.classList.add('hidden');
+            restartQuizBtn.classList.add('hidden');
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        // Utility: Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // --- Event Listeners and Modal Control ---
+        
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            quizModal.style.display = 'grid'; // Show the modal
+            // Reset modal appearance to initial state
+            quizArea.style.display = 'none';
+            quizStatus.style.display = 'none';
+            finalScoreMessage.style.display = 'none';
+            startQuizBtn.classList.remove('hidden');
+            // التأكد من أن زر البدء يحمل التباين العالي عند الإظهار
+            startQuizBtn.classList.add('start-btn-glow'); 
+            nextQuestionBtn.classList.add('hidden');
+            restartQuizBtn.classList.add('hidden');
+        });
+
+        function closeQuiz(e) {
+            // Check if the click target is the modal background, the content container, or the close button itself
+            // If the element has the class 'close-btn' (the X button) or is the modal background, close it.
+            if (e.target.classList.contains('close-btn') || e.target === quizModal) {
+                quizModal.style.display = 'none';
+            }
+        }
+        
+        startQuizBtn.onclick = startQuiz;
+        nextQuestionBtn.onclick = nextQuestion;
+        restartQuizBtn.onclick = startQuiz;
+
+    </script>
 </body>
 </html>
-
-
