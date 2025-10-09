@@ -316,13 +316,79 @@
 
     <!-- MAIN CONTENT: Reduced top padding (pt-12) to start right below the header -->
     <main class="relative z-20 p-4 md:p-12 lg:px-20 pt-12 pb-20 md:pt-24 md:pb-32">
-        <!-- تم عكس ترتيب الأعمدة على الهواتف (flex-col-reverse) لجعل الصورة تظهر أولاً -->
-        <!-- استخدام flex-col-reverse يجعل العمود الثاني يظهر أولاً على الهاتف -->
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center flex flex-col-reverse md:flex-row">
+        <!-- تم تغيير تخطيط الـ grid إلى تخطيط بعمود واحد على الهاتف، مع إخفاء العمود الأيمن على الهاتف -->
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
-            <!-- Column 1: Text, Buttons, Skills (Centered on Mobile) -->
-            <!-- هذا العمود سيظهر ثانياً على الهاتف -->
+            <!-- Column 1: Text, Buttons, Skills (Contains all mobile content) -->
             <div class="space-y-6 text-center md:text-left">
+                
+                <!-- NEW SECTION: Illustration Container (Moved to Column 1 to control mobile order) -->
+                <!-- هذا القسم يظهر فقط على الهاتف أولاً ثم يتم إخفاؤه على سطح المكتب -->
+                <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mb-4">
+                    
+                    <!-- Floating code elements -->
+                    <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
+                    
+                    <div class="absolute text-4xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
+                    
+                    <div class="absolute text-xl font-mono text-neon-green opacity-80 animate-float z-20 top-1/2 right-0 transform translate-y-[-50%] hologram-glow hidden sm:block" style="filter: drop-shadow(0 0 8px rgba(16,185,129,0.8)); animation-delay: 5s;">0101101;</div>
+                    
+                    <!-- Code Snippet Above Avatar (Floating Code) -->
+                    <div class="absolute w-32 h-20 p-2 bg-gray-600/30 backdrop-blur-md rounded-lg border border-gray-500/50 text-xs text-vs-cyan font-mono top-20 right-1/4 shadow-xl animate-float z-20 hidden md:block" style="animation-delay: 2s; transform: rotate(-5deg);">
+                        <p class="mb-1 text-vs-purple">const <span class="text-vs-orange">App</span> <span class="text-white">=</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span></p>
+                        <p class="ml-2 text-vs-green">return <span class="text-white">&lt;</span><span class="text-vs-orange">main</span><span class="text-white">&gt;</span>;</p>
+                        <p class="text-vs-cyan">}</p>
+                    </div>
+                    <!-- نهاية قطعة الكود العائمة -->
+
+
+                    <div class="absolute w-3 h-3 rounded-full bg-yellow-400 opacity-90 animate-float z-20 bottom-0 left-[25%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)); animation-delay: 6s;"></div>
+
+                    <!-- Central Avatar & Code -->
+                    <!-- Avatar Position: تم تعديل موقعه ليكون تحت الكود العلوي -->
+                    <div class="absolute top-28 left-1/2 transform -translate-x-1/2 translate-y-[10px] z-30 character-art text-center">
+                        <img 
+                            src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
+                            alt="3D Cartoon Male Character Avatar representing a developer" 
+                            class="character-img-vs"
+                            onerror="this.src='https://placehold.co/300x300/FF914D/FFFFFF?text=3D+Avatar'"
+                        />
+                    </div>
+
+                    <!-- Central Code Snippet (VS Interface) - تم تعديل موقعه ليكون على كتف Avatar في الموضع الجديد -->
+                    <!-- Z-index 40 ensures it overlaps the avatar -->
+                    <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
+                        <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
+                            <div class="code-line">
+                                <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
+                            </div>
+                            <div class="code-line mt-2">
+                                <span class="text-vs-keyword">const</span> <span class="text-vs-orange">getBestDevs</span> <span class="text-white">=</span> <span class="text-vs-purple">async</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span>
+                            </div>
+                            <div class="code-line ml-4">
+                                <span class="text-vs-keyword">let</span> <span class="text-vs-orange">candidates</span> <span class="text-white">=</span> <span class="text-vs-purple">await</span> <span class="text-vs-orange">FindTalent</span><span class="text-vs-cyan">.</span><span class="text-vs-orange">query</span><span class="text-vs-cyan">({</span>
+                            </div>
+                            <div class="code-line ml-8">
+                                <span class="text-vs-purple">role</span>: <span class="text-vs-green">'FullStack'</span><span class="text-white">,</span>
+                            </div>
+                            <div class="code-line ml-8">
+                                <span class="text-vs-purple">vetted</span>: <span class="text-vs-orange">true</span><span class="text-white">,</span>
+                            </div>
+                            <div class="code-line ml-4">
+                                <span class="text-vs-cyan">})</span><span class="text-white">;</span>
+                            </div>
+                            <div class="code-line"><span class="text-vs-cyan">}</span><span class="text-white">;</span></div>
+                            <div class="code-line mt-2">
+                                <span class="text-vs-orange">getBestDevs</span><span class="text-vs-cyan">()</span><span class="text-white">;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END: Illustration Container for Mobile -->
+
+
+                <!-- Text Content starts here -->
                 <p class="text-sm font-medium text-neon-green">
                     NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
                 </p>
@@ -428,10 +494,9 @@
                 <!-- END: Embedded Skills Showcase -->
             </div>
 
-            <!-- Column 2: Illustration Section (Will appear FIRST on mobile due to flex-col-reverse) -->
-            <!-- تم تعديل min-h إلى 0 على شاشات الهاتف لضمان الصعود لأقصى ارتفاع -->
-            <!-- تم إزالة mt-10 لضمان الصعود لأقصى ارتفاع ممكن على الهاتف -->
-            <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:min-h-[600px] md:mt-0 mx-auto py-0">
+            <!-- Column 2: Illustration Section (Hidden on Mobile) -->
+            <!-- هذا العمود يظهر فقط على سطح المكتب -->
+            <div class="relative flex justify-center items-center h-full min-h-[600px] md:mt-0 mx-auto hidden md:block">
                 
                 <!-- Floating code elements -->
                 <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
@@ -492,7 +557,7 @@
                 </div>
 
             </div>
-            <!-- END: Illustration Section -->
+            <!-- END: Illustration Section (Desktop Only) -->
         </div>
     </main>
 
