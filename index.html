@@ -316,9 +316,11 @@
 
     <!-- MAIN CONTENT: Reduced top padding (pt-12) to start right below the header -->
     <main class="relative z-20 p-4 md:p-12 lg:px-20 pt-12 pb-20 md:pt-24 md:pb-32">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+        <!-- تم عكس ترتيب الأعمدة على الهواتف (flex-col-reverse) لجعل الصورة تظهر أولاً -->
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center flex flex-col-reverse md:flex-row">
 
             <!-- Column 1: Text, Buttons, Skills (Centered on Mobile) -->
+            <!-- هذا العمود سيظهر ثانياً على الهاتف -->
             <div class="space-y-6 text-center md:text-left">
                 <p class="text-sm font-medium text-neon-green">
                     NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
@@ -425,9 +427,8 @@
                 <!-- END: Embedded Skills Showcase -->
             </div>
 
-            <!-- Column 2: Illustration Section (Hidden on Mobile) -->
-            <!-- تم الإبقاء على خاصية الإخفاء على شاشات الهاتف -->
-            <div class="relative flex justify-center items-center h-full min-h-[500px] md:min-h-[600px] md:mt-0 hidden md:block">
+            <!-- Column 2: Illustration Section (Will appear FIRST on mobile due to flex-col-reverse) -->
+            <div class="relative flex justify-center items-center h-full min-h-[500px] md:min-h-[600px] md:mt-0 mx-auto">
                 
                 <!-- Floating code elements -->
                 <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
