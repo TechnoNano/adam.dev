@@ -134,6 +134,38 @@
             /* Adjust mobile positioning of the central Avatar and Code group */
             .top-28 { top: 10%; } /* Pushing the central group slightly higher */
         }
+        
+        /* SIDEBAR STYLING */
+        #offcanvas-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 999;
+            width: 75%; /* Quarter of the screen width (100% - 75% = 25% for content) */
+            max-width: 300px; /* Max width for larger screens */
+            height: 100%;
+            background-color: #1a202c; /* Dark background */
+            border-left: 2px solid #34D3FF;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+            transform: translateX(100%); /* Start off-screen to the right */
+            transition: transform 0.3s ease-in-out;
+            padding: 2rem 1.5rem;
+        }
+
+        #offcanvas-menu.open {
+            transform: translateX(0); /* Slide in */
+        }
+
+        #menu-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 998;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+        /* END SIDEBAR STYLING */
+
 
         /* Quiz Modal and Content Styling */
         #quiz-modal {
@@ -234,34 +266,60 @@
 </head>
 <body class="hero-bg">
     
-    <header class="sticky top-0 z-50 p-4 md:p-6 lg:px-20 border-b border-gray-800/50 backdrop-blur-md">
+    <!-- HEADER: Smaller on Mobile -->
+    <header class="sticky top-0 z-50 py-3 px-4 md:p-6 lg:px-20 border-b border-gray-800/50 backdrop-blur-md">
         <div class="flex justify-between items-center max-w-7xl mx-auto">
             <!-- Logo corrected for consistency -->
             <div class="text-2xl font-black text-white">
                 Tech<span class="text-light-gray-text">Hire</span><span class="text-vs-cyan">.io</span>
             </div>
 
+            <!-- Main Navigation (Hidden on All Screens, now managed by Sidebar on all sizes) -->
             <nav class="hidden lg:flex space-x-8 text-sm font-medium text-light-gray-text">
-                <!-- Navigation links updated for functionality -->
-                <a href="#" class="hover:text-white transition duration-300">Home</a>
-                <a href="#skills-section" class="hover:text-white transition duration-300">For Developers</a>
-                <a href="About.html" class="hover:text-white transition duration-300">About</a>
-                <!-- Contact link now triggers the quiz modal -->
-                <a href="#" id="contact-quiz-link" class="hover:text-white transition duration-300">Contact</a>
+                <!-- Links moved to sidebar, keeping this div for layout structure -->
             </nav>
 
-            <!-- LOGIN button changed to RESUME link -->
-            <a href="resume.html" target="_blank" class="bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2 px-5 rounded-full shadow-lg shadow-purple-900/40 hover:opacity-90 transition duration-300 animate-glow">
-                السيرة الذاتية
-            </a>
-            <!-- END of RESUME link -->
+            <!-- Menu Button (Visible on ALL Screens) - Replaced Login/Resume link -->
+            <button id="menu-toggle-btn" class="text-white text-2xl hover:text-neon-cyan transition duration-300">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Removed the Resume link here entirely -->
         </div>
     </header>
+    
+    <!-- START: Off-Canvas Menu (Sidebar) -->
+    <div id="menu-backdrop" onclick="toggleMenu()"></div>
+    <div id="offcanvas-menu" class="flex flex-col space-y-8">
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xl font-bold text-neon-cyan">قائمة التنقل</span>
+            <button class="text-white text-3xl hover:text-red-500" onclick="toggleMenu()">
+                &times;
+            </button>
+        </div>
+        
+        <!-- Navigation Links -->
+        <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">Home</a>
+        <a href="#skills-section" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">For Developers</a>
+        <a href="About.html" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">About</a>
+        <a href="#" id="contact-quiz-link-mobile" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu(); openQuizFromMenu(event);">Contact (Quiz)</a>
+        
+        <!-- Resume Link -->
+        <div class="pt-8 border-t border-gray-700">
+             <a href="resume.html" target="_blank" class="w-full block text-center bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2.5 px-5 rounded-full shadow-lg hover:opacity-90 transition duration-300">
+                السيرة الذاتية
+            </a>
+        </div>
+    </div>
+    <!-- END: Off-Canvas Menu -->
 
-    <main class="relative z-20 p-4 md:p-12 lg:px-20 pt-20 pb-20 md:pt-24 md:pb-32">
+
+    <!-- MAIN CONTENT: Reduced top padding for mobile (pt-12) -->
+    <main class="relative z-20 p-4 md:p-12 lg:px-20 pt-12 pb-20 md:pt-24 md:pb-32">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
-            <div class="space-y-6 text-left">
+            <!-- Column 1: Text, Buttons, Skills (Centered on Mobile) -->
+            <div class="space-y-6 text-center md:text-left">
                 <p class="text-sm font-medium text-neon-green">
                     NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
                 </p>
@@ -270,11 +328,12 @@
                     Hire. The World’s <br class="hidden sm:block"/> Best Talent.
                 </h1>
 
-                <p class="text-base text-light-gray-text max-w-lg mb-8">
+                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0">
                     Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.
                 </p>
 
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                <!-- Buttons: Centered on Mobile -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4 justify-center md:justify-start">
                     <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50">
                         Find Talent
                     </button>
@@ -285,9 +344,8 @@
                 </div>
                 
                 <!-- START: Embedded Skills Showcase (Skills placed below CTAs) -->
-                <!-- Added ID for 'For Developers' link to jump here -->
-                <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10">
-                    <h3 class="text-xl font-bold text-white mb-6">مستويات الإتقان التقني</h3>
+                <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-left">
+                    <h3 class="text-xl font-bold text-white mb-6 text-center md:text-left">مستويات الإتقان التقني</h3>
                     <!-- Skills List Container -->
                     <div class="space-y-5">
                         
@@ -367,7 +425,7 @@
                 <!-- END: Embedded Skills Showcase -->
             </div>
 
-            <!-- START: Illustration Section (Reintroduced) -->
+            <!-- Column 2: Illustration Section -->
             <div class="relative flex justify-center items-center h-full min-h-[500px] md:min-h-[600px] mt-10 md:mt-0">
                 
                 <!-- Floating code elements -->
@@ -401,8 +459,8 @@
 
                 <!-- Central Code Snippet (VS Interface) - تم تعديل موقعه ليكون على كتف Avatar في الموضع الجديد -->
                 <!-- Z-index 40 ensures it overlaps the avatar -->
-                <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet"> <!-- تمت إضافة فئة illustration-code-snippet -->
-                    <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);"> <!-- تم تغيير التدوير والتصغير قليلاً لتحقيق المظهر المطلوب -->
+                <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
+                    <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
                         <div class="code-line">
                             <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
                         </div>
@@ -481,7 +539,35 @@
     <!-- END: Quiz Modal -->
 
     <script>
-        // Quiz Data
+        // --- Sidebar/Off-Canvas Menu Logic ---
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const offcanvasMenu = document.getElementById('offcanvas-menu');
+        const menuBackdrop = document.getElementById('menu-backdrop');
+        
+        function toggleMenu() {
+            offcanvasMenu.classList.toggle('open');
+            menuBackdrop.style.display = offcanvasMenu.classList.contains('open') ? 'block' : 'none';
+        }
+        
+        menuToggleBtn.onclick = toggleMenu;
+        
+        // Function to open quiz from the mobile menu link
+        function openQuizFromMenu(e) {
+            e.preventDefault();
+            // This function is called after toggleMenu, so the menu closes, then the quiz opens
+            quizModal.style.display = 'grid'; 
+            // Reset quiz state
+            quizArea.style.display = 'none';
+            quizStatus.style.display = 'none';
+            finalScoreMessage.style.display = 'none';
+            startQuizBtn.classList.remove('hidden');
+            startQuizBtn.classList.add('start-btn-glow'); 
+            nextQuestionBtn.classList.add('hidden');
+            restartQuizBtn.classList.add('hidden');
+        }
+
+        // --- Quiz Data and Logic (Kept as is) ---
+        
         const quizQuestions = [
             {
                 question: "ما هو العنصر الذي يُستخدم لتحديد تنسيق الصفحة في HTML5؟",
@@ -511,7 +597,7 @@
         ];
 
         // Quiz Logic Variables
-        const contactLink = document.getElementById('contact-quiz-link');
+        const contactLinkMobile = document.getElementById('contact-quiz-link-mobile');
         const quizModal = document.getElementById('quiz-modal');
         const questionText = document.getElementById('question-text');
         const answersContainer = document.getElementById('answers-container');
@@ -525,12 +611,9 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let isAnswered = false;
-        let shuffledQuestions = []; // New array for shuffled questions
-
-        // --- Core Quiz Functions ---
+        let shuffledQuestions = [];
 
         function loadQuestion() {
-            // استخدام المصفوفة التي تم خلطها
             if (currentQuestionIndex >= shuffledQuestions.length) {
                 showFinalScore();
                 return;
@@ -538,13 +621,12 @@
 
             const q = shuffledQuestions[currentQuestionIndex];
             questionText.textContent = q.question;
-            answersContainer.innerHTML = ''; // Clear previous answers
+            answersContainer.innerHTML = '';
             isAnswered = false;
 
             quizStatus.textContent = `السؤال ${currentQuestionIndex + 1} من ${shuffledQuestions.length} | النقاط الحالية: ${score}`;
             nextQuestionBtn.classList.add('hidden');
 
-            // Shuffle options (optional, but good practice)
             const shuffledOptions = shuffleArray(q.options.slice()); 
 
             shuffledOptions.forEach(option => {
@@ -563,13 +645,13 @@
             const allButtons = answersContainer.querySelectorAll('.answer-btn');
             
             allButtons.forEach(btn => {
-                btn.onclick = null; // Disable further clicks
+                btn.onclick = null;
                 if (btn.textContent === correctAnswer) {
                     btn.classList.add('correct');
-                    btn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)'; // Apply glow
+                    btn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
                 } else if (btn === selectedButton) {
                     btn.classList.add('wrong');
-                    btn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.7)'; // Apply glow
+                    btn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.7)';
                 }
             });
 
@@ -610,7 +692,6 @@
         }
 
         function startQuiz() {
-            // خلط الأسئلة قبل البدء
             shuffledQuestions = shuffleArray(quizQuestions.slice()); 
             currentQuestionIndex = 0;
             score = 0;
@@ -638,23 +719,20 @@
 
         // --- Event Listeners and Modal Control ---
         
-        contactLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            quizModal.style.display = 'grid'; // Show the modal
-            // Reset modal appearance to initial state
-            quizArea.style.display = 'none';
-            quizStatus.style.display = 'none';
-            finalScoreMessage.style.display = 'none';
-            startQuizBtn.classList.remove('hidden');
-            // التأكد من أن زر البدء يحمل التباين العالي عند الإظهار
-            startQuizBtn.classList.add('start-btn-glow'); 
-            nextQuestionBtn.classList.add('hidden');
-            restartQuizBtn.classList.add('hidden');
-        });
+        // If the mobile link exists, attach a click listener to ensure quiz opens even if menu is closed externally
+        if (contactLinkMobile) {
+            contactLinkMobile.addEventListener('click', (e) => {
+                // Ensure event handler works if called directly from menu link
+                openQuizFromMenu(e);
+                // Also ensure the menu closes if the quiz is launched from it
+                if (offcanvasMenu.classList.contains('open')) {
+                    toggleMenu();
+                }
+            });
+        }
+
 
         function closeQuiz(e) {
-            // Check if the click target is the modal background, the content container, or the close button itself
-            // If the element has the class 'close-btn' (the X button) or is the modal background, close it.
             if (e.target.classList.contains('close-btn') || e.target === quizModal) {
                 quizModal.style.display = 'none';
             }
