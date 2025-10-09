@@ -337,8 +337,8 @@
                 <!-- 2. Illustration Container (Moved UP, directly after NEW badge) -->
                 <!-- هذا القسم يظهر فقط على الهاتف أولاً ثم يتم إخفاؤه على سطح المكتب -->
                 <!-- تم استخدام mt-2 لضبط المسافة العلوية لتكون 10 بكسل فقط -->
-                <!-- وتم إضافة mb-6 لمنح مساحة كافية قبل المحتوى النصي التالي -->
-                <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mt-2 mb-6 opacity-0 animate-hero-enter">
+                <!-- وتم إزالة mb-6 ليعتمد على space-y-6 الموجود في الوالد -->
+                <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mt-2 opacity-0 animate-hero-enter">
                     
                     <!-- Floating code elements -->
                     <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
