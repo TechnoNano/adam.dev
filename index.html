@@ -329,15 +329,16 @@
             <!-- Column 1: Text, Buttons, Skills (Contains all mobile content) -->
             <div class="space-y-6 text-center md:text-left">
                 
-                <!-- Text Content: NEW Badge (Stays at the very top) -->
+                <!-- 1. Text Content: NEW Badge (Stays at the very top) -->
                 <p class="text-sm font-medium text-neon-green mb-0">
                     NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
                 </p>
 
-                <!-- NEW SECTION: Illustration Container (Moved UP, directly after NEW badge) -->
+                <!-- 2. Illustration Container (Moved UP, directly after NEW badge) -->
                 <!-- هذا القسم يظهر فقط على الهاتف أولاً ثم يتم إخفاؤه على سطح المكتب -->
-                <!-- تم استخدام ms-10 لضبط المسافة العلوية لتكون 10 بكسل فقط -->
-                <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mt-2 opacity-0 animate-hero-enter">
+                <!-- تم استخدام mt-2 لضبط المسافة العلوية لتكون 10 بكسل فقط -->
+                <!-- وتم إضافة mb-6 لمنح مساحة كافية قبل المحتوى النصي التالي -->
+                <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mt-2 mb-6 opacity-0 animate-hero-enter">
                     
                     <!-- Floating code elements -->
                     <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
@@ -401,9 +402,8 @@
                 <!-- END: Illustration Container for Mobile -->
 
 
-                <!-- Text Content: Main Headline and Description (Now comes after the avatar on mobile) -->
-                <!-- تم إزالة space-y-6 من العنصر الأب، ولكن تم الحفاظ على تباعد العناصر بداخله -->
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mt-6">
+                <!-- 3. Text Content: Main Headline and Description (يأتي بعد الأفاتار) -->
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
                     Hire. The World’s <br class="hidden sm:block"/> Best Talent.
                 </h1>
 
@@ -411,7 +411,7 @@
                     Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.
                 </p>
 
-                <!-- Buttons: Centered on Mobile -->
+                <!-- 4. Buttons: Centered on Mobile -->
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4 justify-center md:justify-start">
                     <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50">
                         Find Talent
@@ -422,7 +422,7 @@
                     </button>
                 </div>
                 
-                <!-- START: Embedded Skills Showcase (Skills placed below CTAs) -->
+                <!-- 5. START: Embedded Skills Showcase (Skills placed below CTAs) -->
                 <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-left">
                     <h3 class="text-xl font-bold text-white mb-6 text-center md:text-left">مستويات الإتقان التقني</h3>
                     <!-- Skills List Container -->
