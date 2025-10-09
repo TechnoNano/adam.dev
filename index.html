@@ -429,7 +429,9 @@
             </div>
 
             <!-- Column 2: Illustration Section (Will appear FIRST on mobile due to flex-col-reverse) -->
-            <div class="relative flex justify-center items-center h-full min-h-[500px] md:min-h-[600px] md:mt-0 mx-auto">
+            <!-- تم تعديل min-h إلى 0 على شاشات الهاتف لضمان الصعود لأقصى ارتفاع -->
+            <!-- تم إزالة mt-10 لضمان الصعود لأقصى ارتفاع ممكن على الهاتف -->
+            <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:min-h-[600px] md:mt-0 mx-auto py-0">
                 
                 <!-- Floating code elements -->
                 <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
