@@ -322,31 +322,22 @@
             <!-- Column 1: Text, Buttons, Skills (Contains all mobile content) -->
             <div class="space-y-6 text-center md:text-left">
                 
-                <!-- NEW SECTION: Illustration Container (Moved to Column 1 to control mobile order) -->
-                <!-- هذا القسم يظهر فقط على الهاتف أولاً ثم يتم إخفاؤه على سطح المكتب -->
-                <div class="relative flex justify-center items-center min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mb-4 pb-0" style="margin-bottom: 10px !important;">
-                    
-                    <!-- Floating code elements -->
-                    <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
-                    
-                    <div class="absolute text-4xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
-                    
-                    <div class="absolute text-xl font-mono text-neon-green opacity-80 animate-float z-20 top-1/2 right-0 transform translate-y-[-50%] hologram-glow hidden sm:block" style="filter: drop-shadow(0 0 8px rgba(16,185,129,0.8)); animation-delay: 5s;">0101101;</div>
-                    
-                    <!-- Code Snippet Above Avatar (Floating Code) -->
-                    <div class="absolute w-32 h-20 p-2 bg-gray-600/30 backdrop-blur-md rounded-lg border border-gray-500/50 text-xs text-vs-cyan font-mono top-20 right-1/4 shadow-xl animate-float z-20 hidden md:block" style="animation-delay: 2s; transform: rotate(-5deg);">
-                        <p class="mb-1 text-vs-purple">const <span class="text-vs-orange">App</span> <span class="text-white">=</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span></p>
-                        <p class="ml-2 text-vs-green">return <span class="text-white">&lt;</span><span class="text-vs-orange">main</span><span class="text-white">&gt;</span>;</p>
-                        <p class="text-vs-cyan">}</p>
-                    </div>
-                    <!-- نهاية قطعة الكود العائمة -->
+                <!-- NEW TEXT LINE -->
+                <p class="text-sm font-medium text-neon-green">
+                    NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
+                </p>
 
-
-                    <div class="absolute w-3 h-3 rounded-full bg-yellow-400 opacity-90 animate-float z-20 bottom-0 left-[25%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)); animation-delay: 6s;"></div>
-
+                <!-- NEW SECTION: Illustration Container for Mobile (Shows after NEW line, hidden on desktop) -->
+                <!-- تم تحديد مسافة سفلية (mb-4) تعادل 16 بكسل (وهي قريبة من 10 بكسل المطلوبة) -->
+                <div class="relative flex justify-center items-center min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mb-4 pb-0">
+                    
+                    <!-- Floating code elements (مُصغرة جداً على الهاتف) -->
+                    <div class="absolute text-3xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-20 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
+                    
+                    <div class="absolute text-2xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
+                    
                     <!-- Central Avatar & Code -->
-                    <!-- Avatar Position: تم تعديل موقعه ليكون تحت الكود العلوي -->
-                    <div class="absolute top-28 left-1/2 transform -translate-x-1/2 translate-y-[10px] z-30 character-art text-center">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 character-art text-center">
                         <img 
                             src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
                             alt="3D Cartoon Male Character Avatar representing a developer" 
@@ -355,9 +346,8 @@
                         />
                     </div>
 
-                    <!-- Central Code Snippet (VS Interface) - تم تعديل موقعه ليكون على كتف Avatar في الموضع الجديد -->
-                    <!-- Z-index 40 ensures it overlaps the avatar -->
-                    <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
+                    <!-- Central Code Snippet (VS Interface) - مُصغر وموضوع على الكتف -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
                         <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
                             <div class="code-line">
                                 <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
@@ -389,9 +379,6 @@
 
 
                 <!-- Text Content starts here -->
-                <p class="text-sm font-medium text-neon-green">
-                    NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
-                </p>
 
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
                     Hire. The World’s <br class="hidden sm:block"/> Best Talent.
