@@ -261,6 +261,28 @@
             background-color: #C084FC; /* VS Purple */
             box-shadow: 0 0 15px rgba(192, 132, 252, 0.7), 0 0 30px rgba(192, 132, 252, 0.4);
         }
+
+        /* Social Icon Styling */
+        .social-icon {
+            color: #A8A8B3; /* light-gray-text */
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover {
+            transform: scale(1.15);
+        }
+        .social-icon.github:hover {
+            color: #ffffff; /* White */
+        }
+        .social-icon.facebook:hover {
+            color: #1877F2; /* Facebook Blue */
+        }
+        .social-icon.instagram:hover {
+            /* Instagram gradient is tricky with Tailwind/CSS, using a strong violet/pink for effect */
+            color: #E1306C; 
+        }
+        .social-icon.whatsapp:hover {
+            color: #25D366; /* WhatsApp Green */
+        }
         
     </style>
 </head>
@@ -393,6 +415,34 @@
                         <span>Play Video</span>
                     </button>
                 </div>
+
+                <!-- ------------------------------------------------------------- -->
+                <!-- NEW: Social Media Links Section -->
+                <!-- ------------------------------------------------------------- -->
+                <div class="pt-8 mt-6 border-t border-gray-800/50">
+                    <p class="text-sm font-semibold text-light-gray-text mb-4 text-center md:text-left">تواصل معنا عبر:</p>
+                    <div class="flex space-x-6 justify-center md:justify-start">
+                        <!-- GitHub -->
+                        <a href="#" class="text-3xl social-icon github" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="#" class="text-3xl social-icon facebook" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" class="text-3xl social-icon instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="#" class="text-3xl social-icon whatsapp" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------- -->
+                <!-- END: Social Media Links Section -->
+                <!-- ------------------------------------------------------------- -->
 
                 <!-- Embedded Skills Showcase -->
                 <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-center md:text-left w-full">
