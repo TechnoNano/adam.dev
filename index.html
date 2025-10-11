@@ -48,18 +48,11 @@
                             '0%, 100%': { boxShadow: '0 0 8px rgba(52, 211, 255, 0.5)' },
                             '50%': { boxShadow: '0 0 18px rgba(52, 211, 255, 0.9)' },
                         },
-                        // NEW: Keyframe for slide-up animation
-                        'slide-in-up': {
-                            '0%': { opacity: '0', transform: 'translateY(50px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
                     },
                     animation: {
                         float: 'float 7s ease-in-out infinite',
                         glow: 'glow 3s ease-in-out infinite',
                         'cyan-glow-hover': 'cyan-glow-hover 5s ease-in-out infinite alternate',
-                        // NEW: Animation property
-                        'hero-enter': 'slide-in-up 0.8s ease-out forwards',
                     }
                 }
             }
@@ -73,8 +66,8 @@
             background-color: #0d1117; /* Very dark background */
             /* Subtle radial gradients for atmosphere */
             background-image: radial-gradient(circle at 50% 10%, rgba(147, 51, 234, 0.15) 0%, transparent 40%),
-                                     radial-gradient(circle at 50% 90%, rgba(52, 211, 255, 0.05) 0%, transparent 30%),
-                                     linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 20%);
+                              radial-gradient(circle at 50% 90%, rgba(52, 211, 255, 0.05) 0%, transparent 30%),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 20%);
             min-height: 100vh;
             color: #f0f6f6;
             position: relative; 
@@ -329,16 +322,9 @@
             <!-- Column 1: Text, Buttons, Skills (Contains all mobile content) -->
             <div class="space-y-6 text-center md:text-left">
                 
-                <!-- 1. Text Content: NEW Badge (Stays at the very top) -->
-                <p class="text-sm font-medium text-neon-green mb-0">
-                    NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
-                </p>
-
-                <!-- 2. Illustration Container (Moved UP, directly after NEW badge) -->
+                <!-- NEW SECTION: Illustration Container (Moved to Column 1 to control mobile order) -->
                 <!-- هذا القسم يظهر فقط على الهاتف أولاً ثم يتم إخفاؤه على سطح المكتب -->
-                <!-- تم استخدام mt-2 لضبط المسافة العلوية لتكون 10 بكسل فقط -->
-                <!-- وتم إزالة mb-6 ليعتمد على space-y-6 الموجود في الوالد -->
-                <div class="relative flex justify-center items-center h-full min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mt-2 opacity-0 animate-hero-enter">
+                <div class="relative flex justify-center items-center min-h-0 sm:min-h-[500px] md:hidden mx-auto py-0 mb-4 pb-0" style="margin-bottom: 10px !important;">
                     
                     <!-- Floating code elements -->
                     <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
@@ -402,7 +388,11 @@
                 <!-- END: Illustration Container for Mobile -->
 
 
-                <!-- 3. Text Content: Main Headline and Description (يأتي بعد الأفاتار) -->
+                <!-- Text Content starts here -->
+                <p class="text-sm font-medium text-neon-green">
+                    NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
+                </p>
+
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
                     Hire. The World’s <br class="hidden sm:block"/> Best Talent.
                 </h1>
@@ -411,7 +401,7 @@
                     Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.
                 </p>
 
-                <!-- 4. Buttons: Centered on Mobile -->
+                <!-- Buttons: Centered on Mobile -->
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4 justify-center md:justify-start">
                     <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50">
                         Find Talent
@@ -422,7 +412,7 @@
                     </button>
                 </div>
                 
-                <!-- 5. START: Embedded Skills Showcase (Skills placed below CTAs) -->
+                <!-- START: Embedded Skills Showcase (Skills placed below CTAs) -->
                 <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-left">
                     <h3 class="text-xl font-bold text-white mb-6 text-center md:text-left">مستويات الإتقان التقني</h3>
                     <!-- Skills List Container -->
