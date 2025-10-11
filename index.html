@@ -307,35 +307,197 @@
     <!-- END: Off-Canvas Menu -->
 
 
-    <!-- MAIN CONTENT: Refactored to single column (flex-col) and centered -->
+    <!-- MAIN CONTENT: Restored two-column grid for desktop, but mobile content is prioritized in column 1 -->
     <main class="relative z-20 p-4 md:p-12 lg:px-20 pt-12 pb-20 md:pt-24 md:pb-32">
-        <!-- Main container now uses flex-col for vertical stacking and centers all content -->
-        <div class="max-w-4xl mx-auto flex flex-col items-center">
+        <!-- Main container uses grid layout for md screens and up -->
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
-            <!-- 1. NEW TEXT LINE (Centered) -->
-            <p class="text-sm font-medium text-neon-green text-center">
-                NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
-            </p>
+            <!-- Column 1: Text, Buttons, Skills (Contains all mobile content + Avatar in mobile flow) -->
+            <div class="space-y-6 text-center md:text-left">
+                
+                <!-- NEW TEXT LINE (Always First in this column) -->
+                <p class="text-sm font-medium text-neon-green text-center md:text-left">
+                    NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
+                </p>
 
-            <!-- 2. UNIFIED ILLUSTRATION SECTION (Centered, 10px margin-top below NEW) -->
-            <div class="relative flex justify-center items-center w-full min-h-[400px] md:min-h-[500px] mt-[10px] mb-8"> 
+                <!-- ------------------------------------------------------------- -->
+                <!-- AVATAR SECTION - MOBILE ONLY (Applies 10px spacing and conditional visibility) -->
+                <!-- ------------------------------------------------------------- -->
+                <div class="relative flex justify-center items-center min-h-[400px] md:hidden mx-auto mt-[10px] pb-0">
+                    
+                    <!-- Floating code elements (Mobile) -->
+                    <div class="absolute text-3xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-20 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
+                    
+                    <div class="absolute text-2xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
+                    
+                    <!-- Central Avatar -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 character-art text-center">
+                        <img 
+                            src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
+                            alt="3D Cartoon Male Character Avatar representing a developer" 
+                            class="character-img-vs"
+                            onerror="this.src='https://placehold.co/300x300/FF914D/FFFFFF?text=3D+Avatar'"
+                        />
+                    </div>
+
+                    <!-- Central Code Snippet (VS Interface) -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
+                        <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
+                            <div class="code-line">
+                                <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
+                            </div>
+                            <div class="code-line mt-2">
+                                <span class="text-vs-keyword">const</span> <span class="text-vs-orange">getBestDevs</span> <span class="text-white">=</span> <span class="text-vs-purple">async</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span>
+                            </div>
+                            <div class="code-line ml-4">
+                                <span class="text-vs-keyword">let</span> <span class="text-vs-orange">candidates</span> <span class="text-white">=</span> <span class="text-vs-purple">await</span> <span class="text-vs-orange">FindTalent</span><span class="text-vs-cyan">.</span><span class="text-vs-orange">query</span><span class="text-vs-cyan">({</span>
+                            </div>
+                            <div class="code-line ml-8">
+                                <span class="text-vs-purple">role</span>: <span class="text-vs-green">'FullStack'</span><span class="text-white">,</span>
+                            </div>
+                            <div class="code-line ml-8">
+                                <span class="text-vs-purple">vetted</span>: <span class="text-vs-orange">true</span><span class="text-white">,</span>
+                            </div>
+                            <div class="code-line ml-4">
+                                <span class="text-vs-cyan">})</span><span class="text-white">;</span>
+                            </div>
+                            <div class="code-line"><span class="text-vs-cyan">}</span><span class="text-white">;</span></div>
+                            <div class="code-line mt-2">
+                                <span class="text-vs-orange">getBestDevs</span><span class="text-vs-cyan">()</span><span class="text-white">;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------- -->
+                <!-- END: AVATAR SECTION - MOBILE ONLY -->
+                <!-- ------------------------------------------------------------- -->
+
+
+                <!-- Title -->
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+                    Hire. The World’s <br class="hidden sm:block"/> Best Talent.
+                </h1>
+
+                <!-- Description -->
+                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0">
+                    Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.
+                </p>
+
+                <!-- Buttons: Centered on Mobile, left-aligned on Desktop -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4 justify-center md:justify-start">
+                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50">
+                        Find Talent
+                    </button>
+                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 border border-gray-700 transform hover:scale-[1.03]">
+                        <i class="fas fa-play text-sm"></i>
+                        <span>Play Video</span>
+                    </button>
+                </div>
+
+                <!-- Embedded Skills Showcase -->
+                <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-center md:text-left w-full">
+                    <h3 class="text-xl font-bold text-white mb-6">مستويات الإتقان التقني</h3>
+                    <!-- Skills List Container -->
+                    <div class="space-y-5">
+                        
+                        <!-- Skill Item 1: HTML -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-html5 text-orange-500 text-lg"></i>
+                                    <span>HTML</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">100%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-orange-500 h-1.5 rounded-full" style="width: 100%; box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill Item 2: CSS -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-css3-alt text-blue-500 text-lg"></i>
+                                    <span>CSS</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 80%; box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 3: JavaScript (JS) -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-js-square text-yellow-400 text-lg"></i>
+                                    <span>JavaScript (JS)</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">60%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-yellow-400 h-1.5 rounded-full" style="width: 60%; box-shadow: 0 0 8px rgba(250, 204, 21, 0.6);"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 4: Python -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <i class="fab fa-python text-sky-400 text-lg"></i>
+                                    <span>Python</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-sky-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 5: Flutter -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                    <!-- Using mobile icon for Flutter framework -->
+                                    <i class="fas fa-mobile-alt text-cyan-400 text-lg"></i> 
+                                    <span>Flutter</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-cyan-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);"></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- END: Embedded Skills Showcase -->
+            </div>
+            <!-- END: Column 1 -->
+
+            <!-- Column 2: Illustration Section (Desktop Only) -->
+            <div class="relative flex justify-center items-center h-full min-h-[600px] md:mt-0 mx-auto hidden md:block">
                 
-                <!-- Floating code elements (visible on all screen sizes for maximum flair) -->
-                <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8)); font-size: 3rem;">{}</div>
+                <!-- Floating code elements (Desktop) -->
+                <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
                 
-                <div class="absolute text-4xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s; font-size: 2.5rem;">&lt;/&gt;</div>
+                <div class="absolute text-4xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
                 
                 <div class="absolute text-xl font-mono text-neon-green opacity-80 animate-float z-20 top-1/2 right-0 transform translate-y-[-50%] hologram-glow hidden sm:block" style="filter: drop-shadow(0 0 8px rgba(16,185,129,0.8)); animation-delay: 5s;">0101101;</div>
                 
-                <!-- Code Snippet Above Avatar (Floating Code) - Hidden on smallest screens -->
-                <div class="absolute w-32 h-20 p-2 bg-gray-600/30 backdrop-blur-md rounded-lg border border-gray-500/50 text-xs text-vs-cyan font-mono top-20 right-1/4 shadow-xl animate-float z-20 hidden sm:block" style="animation-delay: 2s; transform: rotate(-5deg);">
+                <!-- Code Snippet Above Avatar (Floating Code) -->
+                <div class="absolute w-32 h-20 p-2 bg-gray-600/30 backdrop-blur-md rounded-lg border border-gray-500/50 text-xs text-vs-cyan font-mono top-20 right-1/4 shadow-xl animate-float z-20 hidden md:block" style="animation-delay: 2s; transform: rotate(-5deg);">
                     <p class="mb-1 text-vs-purple">const <span class="text-vs-orange">App</span> <span class="text-white">=</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span></p>
                     <p class="ml-2 text-vs-green">return <span class="text-white">&lt;</span><span class="text-vs-orange">main</span><span class="text-white">&gt;</span>;</p>
                     <p class="text-vs-cyan">}</p>
                 </div>
+                <!-- Floating small element -->
+                <div class="absolute w-3 h-3 rounded-full bg-yellow-400 opacity-90 animate-float z-20 bottom-0 left-[25%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)); animation-delay: 6s;"></div>
 
                 <!-- Central Avatar -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 character-art text-center">
+                <div class="absolute top-28 left-1/2 transform -translate-x-1/2 translate-y-[10px] z-30 character-art text-center">
                     <img 
                         src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
                         alt="3D Cartoon Male Character Avatar representing a developer" 
@@ -344,8 +506,8 @@
                     />
                 </div>
 
-                <!-- Central Code Snippet (VS Interface) - positioned on the Avatar's shoulder -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet hidden sm:block">
+                <!-- Central Code Snippet (VS Interface) -->
+                <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
                     <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
                         <div class="code-line">
                             <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
@@ -373,113 +535,7 @@
                 </div>
 
             </div>
-            <!-- END: Unified Illustration Section -->
-            
-            <!-- 3. Text Content (Title, Description) - Added mt-8 for spacing below illustration -->
-            <div class="space-y-6 text-center max-w-2xl mx-auto">
-                <!-- Title -->
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
-                    Hire. The World’s <br class="hidden sm:block"/> Best Talent.
-                </h1>
-
-                <!-- Description -->
-                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto">
-                    Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.
-                </p>
-
-                <!-- 4. Buttons: Centered -->
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4 justify-center">
-                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50">
-                        Find Talent
-                    </button>
-                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 border border-gray-700 transform hover:scale-[1.03]">
-                        <i class="fas fa-play text-sm"></i>
-                        <span>Play Video</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- 5. Embedded Skills Showcase -->
-            <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-center max-w-2xl mx-auto w-full">
-                <h3 class="text-xl font-bold text-white mb-6">مستويات الإتقان التقني</h3>
-                <!-- Skills List Container -->
-                <div class="space-y-5">
-                    
-                    <!-- Skill Item 1: HTML -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                            <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
-                                <i class="fab fa-html5 text-orange-500 text-lg"></i>
-                                <span>HTML</span>
-                            </span>
-                            <span class="text-neon-cyan text-sm">100%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 100%; box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Skill Item 2: CSS -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                            <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
-                                <i class="fab fa-css3-alt text-blue-500 text-lg"></i>
-                                <span>CSS</span>
-                            </span>
-                            <span class="text-neon-cyan text-sm">80%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 80%; box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);"></div>
-                        </div>
-                    </div>
-
-                    <!-- Skill Item 3: JavaScript (JS) -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                            <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
-                                <i class="fab fa-js-square text-yellow-400 text-lg"></i>
-                                <span>JavaScript (JS)</span>
-                            </span>
-                            <span class="text-neon-cyan text-sm">60%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-yellow-400 h-1.5 rounded-full" style="width: 60%; box-shadow: 0 0 8px rgba(250, 204, 21, 0.6);"></div>
-                        </div>
-                    </div>
-
-                    <!-- Skill Item 4: Python -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                            <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
-                                <i class="fab fa-python text-sky-400 text-lg"></i>
-                                <span>Python</span>
-                            </span>
-                            <span class="text-neon-cyan text-sm">90%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-sky-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);"></div>
-                        </div>
-                    </div>
-
-                    <!-- Skill Item 5: Flutter -->
-                    <div class="space-y-1">
-                        <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                            <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
-                                <!-- Using mobile icon for Flutter framework -->
-                                <i class="fas fa-mobile-alt text-cyan-400 text-lg"></i> 
-                                <span>Flutter</span>
-                            </span>
-                            <span class="text-neon-cyan text-sm">90%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-1.5">
-                            <div class="bg-cyan-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);"></div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- END: Embedded Skills Showcase -->
-
+            <!-- END: Column 2: Illustration Section (Desktop Only) -->
         </div>
     </main>
 
