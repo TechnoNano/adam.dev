@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechHire.io - Modern UI</title>
+    <title data-i18n="page_title">TechHire.io - Modern UI</title>
+    
+    <!-- Site Icon (Favicon) - أيقونة الموقع -->
+    <link rel="icon" type="image/png" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Ftechnology_4257824&psig=AOvVaw3sZK0Nh0RkkBpU9NkjO9AG&ust=1760320510280000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNCkh43HnZADFQAAAAAdAAAAABAE">
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -139,14 +142,14 @@
         #offcanvas-menu {
             position: fixed;
             top: 0;
-            right: 0;
+            right: 0; /* Default position for RTL */
             z-index: 999;
             width: 75%; /* Quarter of the screen width (100% - 75% = 25% for content) */
             max-width: 300px; /* Max width for larger screens */
             height: 100%;
             background-color: #1a202c; /* Dark background */
-            border-left: 2px solid #34D3FF;
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+            border-left: 2px solid #34D3FF; /* Default border */
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7); /* Default shadow */
             transform: translateX(100%); /* Start off-screen to the right */
             transition: transform 0.3s ease-in-out;
             padding: 2rem 1.5rem;
@@ -154,6 +157,20 @@
 
         #offcanvas-menu.open {
             transform: translateX(0); /* Slide in */
+        }
+
+        /* Adjustments for LTR mode (English) */
+        #html-root[dir="ltr"] #offcanvas-menu {
+            right: auto;
+            left: 0;
+            border-left: none;
+            border-right: 2px solid #34D3FF;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.7);
+            transform: translateX(-100%);
+        }
+
+        #html-root[dir="ltr"] #offcanvas-menu.open {
+            transform: translateX(0);
         }
 
         #menu-backdrop {
@@ -202,7 +219,7 @@
             transition: all 0.2s;
             cursor: pointer;
             border: 1px solid #374151; /* Gray-700 */
-            text-align: right;
+            text-align: inherit; /* Inherit text-align from direction */
             width: 100%;
             margin-bottom: 0.75rem;
         }
@@ -296,10 +313,17 @@
                 Tech<span class="text-light-gray-text">Hire</span><span class="text-vs-cyan">.io</span>
             </div>
 
-            <!-- Menu Button (Visible on ALL Screens) -->
-            <button id="menu-toggle-btn" class="text-white text-2xl hover:text-neon-cyan transition duration-300">
-                <i class="fas fa-bars"></i>
-            </button>
+            <!-- Menu and Language Buttons Group -->
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <!-- NEW: Language Toggle Button -->
+                <button id="language-toggle-btn" class="text-white text-sm font-semibold py-1 px-2 rounded border border-gray-700 hover:border-neon-cyan transition duration-300" onclick="toggleLanguage()">
+                    EN
+                </button>
+                <!-- Menu Button (Visible on ALL Screens) -->
+                <button id="menu-toggle-btn" class="text-white text-2xl hover:text-neon-cyan transition duration-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
     
@@ -307,21 +331,21 @@
     <div id="menu-backdrop" onclick="toggleMenu()"></div>
     <div id="offcanvas-menu" class="flex flex-col space-y-8">
         <div class="flex justify-between items-center mb-6">
-            <span class="text-xl font-bold text-neon-cyan">قائمة التنقل</span>
+            <span class="text-xl font-bold text-neon-cyan" data-i18n="nav_title">قائمة التنقل</span>
             <button class="text-white text-3xl hover:text-red-500" onclick="toggleMenu()">
                 &times;
             </button>
         </div>
         
         <!-- Navigation Links -->
-        <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">Home</a>
-        <a href="#skills-section" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">For Developers</a>
-        <a href="About.html" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">About</a>
-        <a href="#" id="contact-quiz-link-mobile" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="openQuizFromMenu(event);">Contact (Quiz)</a>
+        <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_home">الرئيسية</a>
+        <a href="#skills-section" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_for_developers">للمطورين</a>
+        <a href="About.html" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_about">حول الشركة</a>
+        <a href="#" id="contact-quiz-link-mobile" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="openQuizFromMenu(event);" data-i18n="nav_contact">تواصل معنا (اختبار)</a>
         
         <!-- Resume Link -->
         <div class="pt-8 border-t border-gray-700">
-             <a href="resume.html" target="_blank" class="w-full block text-center bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2.5 px-5 rounded-full shadow-lg hover:opacity-90 transition duration-300">
+             <a href="resume.html" target="_blank" class="w-full block text-center bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2.5 px-5 rounded-full shadow-lg hover:opacity-90 transition duration-300" data-i18n="nav_resume">
                 السيرة الذاتية
             </a>
         </div>
@@ -339,7 +363,7 @@
                 
                 <!-- NEW TEXT LINE (Always First in this column) -->
                 <p class="text-sm font-medium text-neon-green text-center md:text-left">
-                    NEW <span class="text-light-gray-text ml-2">Get access to Top Pre-vetted Software Engineers.</span>
+                    <span data-i18n="new_tag" class="inline-block" id="new-tag-text">جديد</span> <span class="text-light-gray-text ml-2 rtl:mr-2 inline-block" data-i18n="new_text" id="new-text-content">احصل على أفضل مهندسي البرمجيات الذين تم فحصهم مسبقاً.</span>
                 </p>
 
                 <!-- ------------------------------------------------------------- -->
@@ -397,22 +421,22 @@
 
                 <!-- Title -->
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
-                    Hire. The World’s <br class="hidden sm:block"/> Best Talent.
+                    <span data-i18n="title_part1" id="title-part1">وظف.</span> <br class="hidden sm:block"/> <span data-i18n="title_part2" id="title-part2">أفضل الكفاءات العالمية.</span>
                 </h1>
 
                 <!-- Description -->
-                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0">
-                    Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.
+                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0" data-i18n="description" id="hero-description">
+                    تخلص من متاعب التوظيف واختر من بين أفضل مهندسي البرمجيات في العالم. يضمن الفحص التقني والسلوكي الصارم تقديم أفضل 1% فقط من الكفاءات لك.
                 </p>
 
                 <!-- Buttons: Centered on Mobile, left-aligned on Desktop -->
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4 justify-center md:justify-start">
-                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50">
-                        Find Talent
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-4 justify-center md:justify-start">
+                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50" data-i18n="btn_talent">
+                        إيجاد الكفاءات
                     </button>
-                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 border border-gray-700 transform hover:scale-[1.03]">
+                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 rtl:space-x-reverse border border-gray-700 transform hover:scale-[1.03]" data-i18n="btn_video">
                         <i class="fas fa-play text-sm"></i>
-                        <span>Play Video</span>
+                        <span>تشغيل الفيديو</span>
                     </button>
                 </div>
 
@@ -420,8 +444,8 @@
                 <!-- NEW: Social Media Links Section -->
                 <!-- ------------------------------------------------------------- -->
                 <div class="pt-8 mt-6 border-t border-gray-800/50">
-                    <p class="text-sm font-semibold text-light-gray-text mb-4 text-center md:text-left">تواصل معنا عبر:</p>
-                    <div class="flex space-x-6 justify-center md:justify-start">
+                    <p class="text-sm font-semibold text-light-gray-text mb-4 text-center md:text-left" data-i18n="social_connect">تواصل معنا عبر:</p>
+                    <div class="flex space-x-6 rtl:space-x-reverse justify-center md:justify-start">
                         <!-- GitHub -->
                         <a href="#" class="text-3xl social-icon github" aria-label="GitHub">
                             <i class="fab fa-github"></i>
@@ -446,14 +470,14 @@
 
                 <!-- Embedded Skills Showcase -->
                 <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-center md:text-left w-full">
-                    <h3 class="text-xl font-bold text-white mb-6">مستويات الإتقان التقني</h3>
+                    <h3 class="text-xl font-bold text-white mb-6" data-i18n="skills_title">مستويات الإتقان التقني</h3>
                     <!-- Skills List Container -->
                     <div class="space-y-5">
                         
                         <!-- Skill Item 1: HTML -->
                         <div class="space-y-1">
                             <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
                                     <i class="fab fa-html5 text-orange-500 text-lg"></i>
                                     <span>HTML</span>
                                 </span>
@@ -467,7 +491,7 @@
                         <!-- Skill Item 2: CSS -->
                         <div class="space-y-1">
                             <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
                                     <i class="fab fa-css3-alt text-blue-500 text-lg"></i>
                                     <span>CSS</span>
                                 </span>
@@ -481,7 +505,7 @@
                         <!-- Skill Item 3: JavaScript (JS) -->
                         <div class="space-y-1">
                             <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
                                     <i class="fab fa-js-square text-yellow-400 text-lg"></i>
                                     <span>JavaScript (JS)</span>
                                 </span>
@@ -495,7 +519,7 @@
                         <!-- Skill Item 4: Python -->
                         <div class="space-y-1">
                             <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
                                     <i class="fab fa-python text-sky-400 text-lg"></i>
                                     <span>Python</span>
                                 </span>
@@ -509,7 +533,7 @@
                         <!-- Skill Item 5: Flutter -->
                         <div class="space-y-1">
                             <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 text-white rtl:space-x-reverse">
+                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
                                     <!-- Using mobile icon for Flutter framework -->
                                     <i class="fas fa-mobile-alt text-cyan-400 text-lg"></i> 
                                     <span>Flutter</span>
@@ -591,12 +615,12 @@
 
     <footer class="relative z-20 p-6 md:p-10 lg:px-20 border-t border-gray-800/50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-light-gray-text text-sm space-y-4 md:space-y-0">
-            <p>&copy; 2025 TechHire. All rights reserved. The future of global talent acquisition.</p>
+            <p id="footer-copyright" data-i18n="footer_copyright">&copy; 2025 TechHire. جميع الحقوق محفوظة. مستقبل استقطاب الكفاءات العالمية.</p>
             
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-white transition duration-200">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition duration-200">Terms of Service</a>
-                <a href="#" class="hover:text-white transition duration-200">Careers</a>
+            <div class="flex space-x-6 rtl:space-x-reverse">
+                <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_privacy">سياسة الخصوصية</a>
+                <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_terms">شروط الخدمة</a>
+                <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_careers">الوظائف</a>
             </div>
         </div>
     </footer>
@@ -608,12 +632,12 @@
             <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closeQuiz(event)">
                 &times;
             </button>
-            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-4">اختبار المهارات التقنية (Tech Quiz)</h2>
+            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-4" data-i18n="quiz_title" id="quiz-title">اختبار المهارات التقنية (Tech Quiz)</h2>
             
             <div id="quiz-status"></div>
             
             <div id="quiz-area">
-                <p id="question-text" class="text-lg text-white font-semibold mb-6 text-right"></p>
+                <p id="question-text" class="text-lg text-white font-semibold mb-6"></p>
                 <div id="answers-container" class="space-y-3">
                     <!-- Answer buttons generated here -->
                 </div>
@@ -624,16 +648,182 @@
             </div>
 
             <!-- Control Buttons -->
-            <div class="mt-6 flex justify-center space-x-4">
-                <button id="start-quiz-btn" class="quiz-control-btn start-btn-glow">ابدأ الاختبار</button>
-                <button id="next-question-btn" class="quiz-control-btn next-btn-glow hidden">السؤال التالي</button>
-                <button id="restart-quiz-btn" class="quiz-control-btn next-btn-glow hidden">إعادة الاختبار</button>
+            <div class="mt-6 flex justify-center space-x-4 rtl:space-x-reverse">
+                <button id="start-quiz-btn" class="quiz-control-btn start-btn-glow" data-i18n="quiz_start">ابدأ الاختبار</button>
+                <button id="next-question-btn" class="quiz-control-btn next-btn-glow hidden" data-i18n="quiz_next">السؤال التالي</button>
+                <button id="restart-quiz-btn" class="quiz-control-btn next-btn-glow hidden" data-i18n="quiz_restart">إعادة الاختبار</button>
             </div>
         </div>
     </div>
     <!-- END: Quiz Modal -->
 
     <script>
+        // --- Language and Translation Setup ---
+        const translations = {
+            en: {
+                // Header & Nav
+                page_title: "TechHire.io - Modern UI",
+                nav_title: "Navigation Menu",
+                nav_home: "Home",
+                nav_for_developers: "For Developers",
+                nav_about: "About",
+                nav_contact: "Contact (Quiz)",
+                nav_resume: "Resume",
+                lang_button: "AR",
+                // Hero Section
+                new_tag: "NEW",
+                new_text: "Get access to Top Pre-vetted Software Engineers.",
+                title_part1: "Hire.",
+                title_part2: "The World’s Best Talent.",
+                description: "Take the friction out of hiring and choose from the world’s best software engineers. Rigorous technical and behavioral vetting ensures only the top 1% of talent is presented to you.",
+                btn_talent: "Find Talent",
+                btn_video: "Play Video",
+                social_connect: "Connect with us on:",
+                // Skills
+                skills_title: "Technical Proficiency Levels",
+                // Footer
+                footer_copyright: "© 2025 TechHire. All rights reserved. The future of global talent acquisition.",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service",
+                footer_careers: "Careers",
+                // Quiz
+                quiz_title: "Tech Skills Quiz",
+                quiz_start: "Start Quiz",
+                quiz_next: "Next Question",
+                quiz_restart: "Restart Quiz",
+                quiz_status_base: "Question",
+                quiz_status_from: "of",
+                quiz_status_score: "Current Score",
+                quiz_result_perfect: "Amazing! You are a top-tier developer. Perfect performance!",
+                quiz_result_strong: "Strong performance! You have a solid foundation in these technologies.",
+                quiz_result_needs_work: "Not bad, maybe you need more review! Keep learning.",
+                quiz_result_final_score: "Final Score",
+                quiz_question1: "What element is used to define page styling in HTML5?",
+                quiz_answer1: ["<style>", "<format>", "<css>", "<layout>"],
+                quiz_question2: "What property is used to change the background color in CSS?",
+                quiz_answer2: ["color", "font-color", "background-color", "bgcolor"],
+                quiz_question3: "What keyword is used to declare a constant (non-reassignable) variable in JavaScript?",
+                quiz_answer3: ["var", "let", "const", "static"],
+                quiz_question4: "In Python, which function is used to print output to the screen?",
+                quiz_answer4: ["output()", "print()", "display()", "write()"],
+                quiz_question5: "In Flutter, what concept describes how the Graphical User Interface (UI) is built?",
+                quiz_answer5: ["Components", "Widgets", "Elements", "Views"],
+            },
+            ar: {
+                // Header & Nav
+                page_title: "TechHire.io - واجهة عصرية",
+                nav_title: "قائمة التنقل",
+                nav_home: "الرئيسية",
+                nav_for_developers: "للمطورين",
+                nav_about: "حول الشركة",
+                nav_contact: "تواصل معنا (اختبار)",
+                nav_resume: "السيرة الذاتية",
+                lang_button: "EN",
+                // Hero Section
+                new_tag: "جديد",
+                new_text: "احصل على أفضل مهندسي البرمجيات الذين تم فحصهم مسبقاً.",
+                title_part1: "وظف.",
+                title_part2: "أفضل الكفاءات العالمية.",
+                description: "تخلص من متاعب التوظيف واختر من بين أفضل مهندسي البرمجيات في العالم. يضمن الفحص التقني والسلوكي الصارم تقديم أفضل 1% فقط من الكفاءات لك.",
+                btn_talent: "إيجاد الكفاءات",
+                btn_video: "تشغيل الفيديو",
+                social_connect: "تواصل معنا عبر:",
+                // Skills
+                skills_title: "مستويات الإتقان التقني",
+                // Footer
+                footer_copyright: "© 2025 TechHire. جميع الحقوق محفوظة. مستقبل استقطاب الكفاءات العالمية.",
+                footer_privacy: "سياسة الخصوصية",
+                footer_terms: "شروط الخدمة",
+                footer_careers: "الوظائف",
+                // Quiz
+                quiz_title: "اختبار المهارات التقنية (Tech Quiz)",
+                quiz_start: "ابدأ الاختبار",
+                quiz_next: "السؤال التالي",
+                quiz_restart: "إعادة الاختبار",
+                quiz_status_base: "السؤال",
+                quiz_status_from: "من",
+                quiz_status_score: "النقاط الحالية",
+                quiz_result_perfect: "مذهل! أنت مطور من الطراز الأول. أداء مثالي!",
+                quiz_result_strong: "أداء قوي! لديك أساس متين في هذه التقنيات.",
+                quiz_result_needs_work: "لا بأس، ربما تحتاج لمزيد من المراجعة! استمر في التعلم.",
+                quiz_result_final_score: "النتيجة النهائية",
+                quiz_question1: "ما هو العنصر الذي يُستخدم لتحديد تنسيق الصفحة في HTML5؟",
+                quiz_answer1: ["<style>", "<format>", "<css>", "<layout>"],
+                quiz_question2: "ما هي الخاصية التي تُستخدم لتغيير لون الخلفية في CSS؟",
+                quiz_answer2: ["color", "font-color", "background-color", "bgcolor"],
+                quiz_question3: "ما هي الكلمة المفتاحية (Keyword) التي تُستخدم لإعلان متغير ثابت (لا يمكن إعادة تعيينه) في JavaScript؟",
+                quiz_answer3: ["var", "let", "const", "static"],
+                quiz_question4: "في Python، ما هي الدالة التي تُستخدم لطباعة مخرجات على الشاشة؟",
+                quiz_answer4: ["output()", "print()", "display()", "write()"],
+                quiz_question5: "في Flutter، ما هو المفهوم الذي يصف كيفية بناء الواجهة الرسومية (UI)؟",
+                quiz_answer5: ["Components", "Widgets", "Elements", "Views"],
+            }
+        };
+
+        // Quiz Logic Data (Answers are locale-agnostic, questions/options come from translations)
+        const quizQuestions = [
+            { q_key: "quiz_question1", o_key: "quiz_answer1", answer: "<style>" },
+            { q_key: "quiz_question2", o_key: "quiz_answer2", answer: "background-color" },
+            { q_key: "quiz_question3", o_key: "quiz_answer3", answer: "const" },
+            { q_key: "quiz_question4", o_key: "quiz_answer4", answer: "print()" },
+            { q_key: "quiz_question5", o_key: "quiz_answer5", answer: "Widgets" }
+        ];
+
+        let currentLanguage = 'ar'; // Default language is Arabic
+        const htmlRoot = document.getElementById('html-root');
+        const langToggleBtn = document.getElementById('language-toggle-btn');
+
+        function updateContent() {
+            const t = translations[currentLanguage];
+            const direction = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+            
+            // 1. Update HTML Root and Direction
+            htmlRoot.setAttribute('lang', currentLanguage);
+            htmlRoot.setAttribute('dir', direction);
+
+            // 2. Update Page Title
+            document.title = t.page_title;
+
+            // 3. Update Language Toggle Button
+            langToggleBtn.textContent = t.lang_button;
+
+            // 4. Update Text Content using data-i18n attributes
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (t[key]) {
+                    element.innerHTML = t[key];
+                }
+            });
+
+            // 5. Update the split Title dynamically (needed because it's split with <br>)
+            document.getElementById('title-part1').textContent = t.title_part1;
+            document.getElementById('title-part2').textContent = t.title_part2;
+
+            // 6. Re-render the current quiz state if the modal is open, to update language immediately
+            if (quizModal.style.display === 'grid' && currentQuestionIndex < quizQuestions.length) {
+                if (isAnswered) {
+                    // If an answer was selected, reload to show correct/wrong in new language
+                    loadQuestion(true); 
+                } else if (currentQuestionIndex > 0) {
+                    // If on a question but not answered
+                    loadQuestion();
+                }
+            } else if (quizModal.style.display === 'grid' && currentQuestionIndex >= quizQuestions.length) {
+                // If on final score screen
+                showFinalScore();
+            }
+        }
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            updateContent();
+        }
+
+        // Initialize content on load
+        // Initializing with 'ar' based on HTML structure, then updating dynamically.
+        window.onload = updateContent;
+
+
         // --- Sidebar/Off-Canvas Menu Logic ---
         const menuToggleBtn = document.getElementById('menu-toggle-btn');
         const offcanvasMenu = document.getElementById('offcanvas-menu');
@@ -666,40 +856,14 @@
             startQuizBtn.classList.add('start-btn-glow'); 
             nextQuestionBtn.classList.add('hidden');
             restartQuizBtn.classList.add('hidden');
+            currentQuestionIndex = 0; // Reset index to ensure start screen shows
+            score = 0;
+            isAnswered = false;
         }
 
         // --- Quiz Data and Logic ---
         
-        const quizQuestions = [
-            {
-                question: "ما هو العنصر الذي يُستخدم لتحديد تنسيق الصفحة في HTML5؟",
-                options: ["<style>", "<format>", "<css>", "<layout>"],
-                answer: "<style>"
-            },
-            {
-                question: "ما هي الخاصية التي تُستخدم لتغيير لون الخلفية في CSS؟",
-                options: ["color", "font-color", "background-color", "bgcolor"],
-                answer: "background-color"
-            },
-            {
-                question: "ما هي الكلمة المفتاحية (Keyword) التي تُستخدم لإعلان متغير ثابت (لا يمكن إعادة تعيينه) في JavaScript؟",
-                options: ["var", "let", "const", "static"],
-                answer: "const"
-            },
-            {
-                question: "في Python، ما هي الدالة التي تُستخدم لطباعة مخرجات على الشاشة؟",
-                options: ["output()", "print()", "display()", "write()"],
-                answer: "print()"
-            },
-            {
-                question: "في Flutter، ما هو المفهوم الذي يصف كيفية بناء الواجهة الرسومية (UI)؟",
-                options: ["Components", "Widgets", "Elements", "Views"],
-                answer: "Widgets"
-            }
-        ];
-
         // Quiz Logic Variables
-        const contactLinkMobile = document.getElementById('contact-quiz-link-mobile');
         const quizModal = document.getElementById('quiz-modal');
         const questionText = document.getElementById('question-text');
         const answersContainer = document.getElementById('answers-container');
@@ -716,28 +880,60 @@
         let shuffledQuestions = [];
 
         // Main function to load a question
-        function loadQuestion() {
+        function loadQuestion(reloading = false) {
+            const t = translations[currentLanguage];
+            
             if (currentQuestionIndex >= shuffledQuestions.length) {
                 showFinalScore();
                 return;
             }
 
-            const q = shuffledQuestions[currentQuestionIndex];
-            questionText.textContent = q.question;
+            const qIndex = shuffledQuestions[currentQuestionIndex];
+            const qData = quizQuestions[qIndex];
+            
+            // 1. Get localized question and options
+            const localizedQuestion = t[qData.q_key];
+            const localizedOptions = t[qData.o_key];
+
+            questionText.textContent = localizedQuestion;
             answersContainer.innerHTML = '';
-            isAnswered = false;
+            
+            if (!reloading) {
+                isAnswered = false;
+            }
 
-            quizStatus.textContent = `السؤال ${currentQuestionIndex + 1} من ${shuffledQuestions.length} | النقاط الحالية: ${score}`;
-            nextQuestionBtn.classList.add('hidden');
-            nextQuestionBtn.classList.remove('start-btn-glow'); // Ensure glow is off when hidden
+            // Update status text with current language
+            quizStatus.textContent = `${t.quiz_status_base} ${currentQuestionIndex + 1} ${t.quiz_status_from} ${quizQuestions.length} | ${t.quiz_status_score}: ${score}`;
+            
+            if (!reloading) {
+                nextQuestionBtn.classList.add('hidden');
+                nextQuestionBtn.classList.remove('start-btn-glow'); 
+            }
 
-            const shuffledOptions = shuffleArray(q.options.slice()); 
+            const optionsToDisplay = !reloading ? shuffleArray(localizedOptions.slice()) : localizedOptions.slice();
+            const correctOption = qData.answer;
 
-            shuffledOptions.forEach(option => {
+            optionsToDisplay.forEach(option => {
                 const button = document.createElement('button');
                 button.classList.add('answer-btn');
                 button.textContent = option;
-                button.onclick = () => checkAnswer(button, option, q.answer);
+                
+                if (reloading && isAnswered) {
+                    // If reloading after answering (for language change), apply previous state
+                    const wasCorrect = option === correctOption;
+                    
+                    if (wasCorrect) {
+                        button.classList.add('correct');
+                        button.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
+                    }
+                    button.onclick = null;
+                    if (isAnswered) nextQuestionBtn.classList.remove('hidden');
+
+                } else {
+                    // Normal behavior: allow selection
+                    button.onclick = () => checkAnswer(button, option, correctOption);
+                }
+                
                 answersContainer.appendChild(button);
             });
         }
@@ -746,31 +942,54 @@
         function checkAnswer(selectedButton, selectedAnswer, correctAnswer) {
             if (isAnswered) return;
             isAnswered = true;
+            const t = translations[currentLanguage];
 
             const allButtons = answersContainer.querySelectorAll('.answer-btn');
             
             allButtons.forEach(btn => {
                 btn.onclick = null; // Disable all buttons
-                if (btn.textContent === correctAnswer) {
-                    btn.classList.add('correct');
-                    btn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
-                } else if (btn === selectedButton) {
-                    btn.classList.add('wrong');
-                    btn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.7)';
+                
+                // Note: selectedAnswer is the *localized* text, but we check against the English/canonical answer text
+                const currentQuestion = quizQuestions[shuffledQuestions[currentQuestionIndex]];
+                const correctCanonicalAnswer = currentQuestion.answer;
+                
+                // Find the canonical text for the clicked button's content
+                let clickedCanonicalAnswer = null;
+                const optionsMap = {};
+                translations[currentLanguage][currentQuestion.o_key].forEach((text, index) => {
+                    optionsMap[text] = translations['en'][currentQuestion.o_key][index];
+                });
+                clickedCanonicalAnswer = optionsMap[selectedAnswer];
+
+
+                // Apply colors based on canonical comparison
+                if (btn.textContent === selectedButton.textContent) { // This is the button clicked
+                    if (clickedCanonicalAnswer === correctCanonicalAnswer) {
+                        selectedButton.classList.add('correct');
+                        selectedButton.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
+                        score++;
+                    } else {
+                        selectedButton.classList.add('wrong');
+                        selectedButton.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.7)';
+                        // Also highlight the correct answer in green
+                        allButtons.forEach(b => {
+                            if (b.textContent === translations[currentLanguage][currentQuestion.o_key][translations['en'][currentQuestion.o_key].indexOf(correctCanonicalAnswer)]) {
+                                b.classList.add('correct');
+                                b.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
+                            }
+                        });
+                    }
                 }
             });
-
-            if (selectedAnswer === correctAnswer) {
-                score++;
-            }
             
-            quizStatus.textContent = `السؤال ${currentQuestionIndex + 1} من ${shuffledQuestions.length} | النقاط الحالية: ${score}`;
+            quizStatus.textContent = `${t.quiz_status_base} ${currentQuestionIndex + 1} ${t.quiz_status_from} ${quizQuestions.length} | ${t.quiz_status_score}: ${score}`;
             
             nextQuestionBtn.classList.remove('hidden');
         }
         
         // Function to display the final score
         function showFinalScore() {
+            const t = translations[currentLanguage];
             quizArea.style.display = 'none';
             quizStatus.style.display = 'none';
             nextQuestionBtn.classList.add('hidden');
@@ -779,19 +998,19 @@
             let message = '';
             let color = 'text-neon-cyan';
 
-            if (score === shuffledQuestions.length) {
-                message = "مذهل! أنت مطور من الطراز الأول. أداء مثالي!";
+            if (score === quizQuestions.length) {
+                message = t.quiz_result_perfect;
                 color = 'text-neon-green';
-            } else if (score >= shuffledQuestions.length / 2) {
-                message = "أداء قوي! لديك أساس متين في هذه التقنيات.";
+            } else if (score >= quizQuestions.length / 2) {
+                message = t.quiz_result_strong;
                 color = 'text-vs-orange';
             } else {
-                message = "لا بأس، ربما تحتاج لمزيد من المراجعة! استمر في التعلم.";
+                message = t.quiz_result_needs_work;
                 color = 'text-vs-keyword';
             }
 
             finalScoreMessage.innerHTML = `
-                <p class="text-3xl font-extrabold mb-4 ${color}">النتيجة النهائية: ${score} / ${shuffledQuestions.length}</p>
+                <p class="text-3xl font-extrabold mb-4 ${color}">${t.quiz_result_final_score}: ${score} / ${quizQuestions.length}</p>
                 <p class="text-xl text-white">${message}</p>
             `;
             finalScoreMessage.style.display = 'block';
@@ -799,7 +1018,8 @@
 
         // Function to initialize the quiz
         function startQuiz() {
-            shuffledQuestions = shuffleArray(quizQuestions.slice()); 
+            // Shuffles indices (0 to 4) to pick questions in a random order
+            shuffledQuestions = shuffleArray(quizQuestions.map((_, index) => index)); 
             currentQuestionIndex = 0;
             score = 0;
             finalScoreMessage.style.display = 'none';
