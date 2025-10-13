@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="page_title">TechHire.io - Modern UI</title>
+    <title data-i18n="page_title">TECHNONANO.TN </title>
     
     <!-- Site Icon (Favicon) - أيقونة الموقع (تم تحديثها بالصورة الجديدة) -->
     <link rel="icon" type="image/png" href="https://i.postimg.cc/QCGMh82X/4-removebg-preview.png">
@@ -51,11 +51,21 @@
                             '0%, 100%': { boxShadow: '0 0 8px rgba(52, 211, 255, 0.5)' },
                             '50%': { boxShadow: '0 0 18px rgba(52, 211, 255, 0.9)' },
                         },
+                        toastFadeIn: {
+                            '0%': { opacity: 0, transform: 'translateY(-20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        toastFadeOut: {
+                            '0%': { opacity: 1, transform: 'translateY(0)' },
+                            '100%': { opacity: 0, transform: 'translateY(-20px)' },
+                        }
                     },
                     animation: {
                         float: 'float 7s ease-in-out infinite',
                         glow: 'glow 3s ease-in-out infinite',
                         'cyan-glow-hover': 'cyan-glow-hover 5s ease-in-out infinite alternate',
+                        'toast-in': 'toastFadeIn 0.3s forwards',
+                        'toast-out': 'toastFadeOut 0.3s forwards 2.7s',
                     }
                 }
             }
@@ -184,8 +194,8 @@
         /* END SIDEBAR STYLING */
 
 
-        /* Quiz Modal and Content Styling */
-        #quiz-modal {
+        /* Quiz Modal, Contact Modal, and Privacy Modal Styling */
+        #quiz-modal, #contact-modal, #privacy-modal {
             display: none; /* Initially hidden */
             position: fixed;
             inset: 0;
@@ -197,8 +207,8 @@
             padding: 2rem 1rem;
         }
 
-        #quiz-content {
-            background-color: #1a202c; /* Dark slate background for the quiz container */
+        #quiz-content, #contact-content, #privacy-content {
+            background-color: #1a202c; /* Dark slate background for the container */
             border: 3px solid #34D3FF; /* Neon border */
             box-shadow: 0 0 25px rgba(52, 211, 255, 0.7);
             border-radius: 1rem;
@@ -208,8 +218,61 @@
             position: relative;
             min-height: 400px;
         }
+        
+        #privacy-content {
+            max-width: 700px;
+            max-height: 90vh; /* Limits max height on screen */
+            overflow-y: auto; /* Allows scrolling inside the modal */
+        }
+        
+        /* General Markdown styling inside the Privacy Modal */
+        #privacy-content h1, #privacy-content h2 {
+            color: #34D3FF; /* Neon Cyan */
+            font-weight: 700;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(52, 211, 255, 0.2);
+            padding-bottom: 0.25rem;
+        }
+        #privacy-content p {
+            color: #A8A8B3; /* light-gray-text */
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        #privacy-content strong {
+            color: white;
+            font-weight: 700;
+        }
+        #privacy-content ul {
+            list-style-type: disc;
+            margin-right: 1.5rem;
+            padding-right: 0.5rem;
+            color: #A8A8B3;
+        }
+        #privacy-content li {
+            margin-bottom: 0.5rem;
+        }
 
-        /* Answer Button Styling */
+
+        /* Form and Input Styling for Contact Modal */
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            background-color: #1f2937; /* Gray-800 */
+            border: 1px solid #374151; /* Gray-700 */
+            border-radius: 0.5rem;
+            color: #E5E7EB;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #C084FC; /* VS Purple */
+            box-shadow: 0 0 5px rgba(192, 132, 252, 0.5);
+        }
+        
+        /* Answer Button Styling (Quiz) */
         .answer-btn {
             background-color: #1f2937; /* Gray-800 */
             color: #E5E7EB; /* Light text */
@@ -300,11 +363,40 @@
         .social-icon.whatsapp:hover {
             color: #25D366; /* WhatsApp Green */
         }
+
+        /* Toast Notification Styling */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            /* Adjust position for RTL */
+            left: auto;
+            right: 20px;
+        }
+        #html-root[dir="ltr"] #toast-container {
+            right: auto;
+            left: 20px;
+        }
+
+        .toast-message {
+            background-color: #10B981; /* Neon Green */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+            font-weight: 600;
+            opacity: 0; /* Starts hidden */
+            margin-bottom: 10px;
+        }
         
     </style>
 </head>
 <body class="hero-bg">
     
+    <!-- Toast Notification Container -->
+    <div id="toast-container" dir="rtl"></div>
+
     <!-- HEADER: Fixed at Top (sticky top-0) and Responsive -->
     <header class="sticky top-0 z-50 py-3 px-4 md:p-6 lg:px-20 border-b border-gray-800/50 backdrop-blur-md">
         <div class="flex justify-between items-center max-w-7xl mx-auto">
@@ -339,9 +431,10 @@
         
         <!-- Navigation Links -->
         <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_home">الرئيسية</a>
-        <a href="#skills-section" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_for_developers">المهارات التقنية</a>
-        <a href="About.html" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_about">ما أنجزته </a>
-        <a href="#" id="contact-quiz-link-mobile" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="openQuizFromMenu(event);" data-i18n="nav_contact">  اختبار المهارات</a>
+        <a href="#skills-section" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">المهارات التقنية</a>
+        <!-- UPDATED LINK: Calls showSoonToast and closes menu -->
+        <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu(); showSoonToast(translations[currentLanguage].soon_message);" data-i18n="nav_about">ما أنجزته </a>
+        <a href="#" id="contact-quiz-link-mobile" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="openQuizFromMenu(event);" data-i18n="nav_contact">  اختبار المهارات</a>
         
         <!-- Resume Link -->
         <div class="pt-8 border-t border-gray-700">
@@ -363,13 +456,37 @@
                 
                 <!-- NEW TEXT LINE (Always First in this column) -->
                 <p class="text-sm font-medium text-neon-green text-center md:text-left">
-                    <span data-i18n="new_tag" class="inline-block" id="new-tag-text">جديد</span> <span class="text-light-gray-text ml-2 rtl:mr-2 inline-block" data-i18n="new_text" id="new-text-content">احصل على أفضل مهندسي البرمجيات الذين تم فحصهم مسبقاً.</span>
+                    <span data-i18n="new_tag" class="inline-block" id="new-tag-text">جديد</span> <span class="text-light-gray-text ml-2 rtl:mr-2 inline-block" data-i18n="new_text" id="new-text-content">آخر ما أنجزته وتجربتي الجديدة تجدونه هنا أولاً.</span>
                 </p>
 
+                <!-- Title -->
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+                    <span data-i18n="title_part1" id="title-part1">وظف.</span> <br class="hidden sm:block"/> <span data-i18n="title_part2" id="title-part2">مرحباً بك في عالمي البرمجي</span>
+                </h1>
+
+                <!-- Description -->
+                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0" data-i18n="description" id="hero-description">
+                    أنا لا أكتب أكواد فقط، بل أصنع تجارب، وأحل المشكلات، وأبتكر فناً رقمياً يتحدث عن نفسه
+                </p>
+
+                <!-- Buttons: Centered on Mobile, left-aligned on Desktop -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-4 justify-center md:justify-start">
+                    <!-- UPDATED: Main CTA now opens the Contact Modal -->
+                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50" data-i18n="btn_talent" onclick="openContactModal()">
+                        قل مرحبآ لا تخجل  
+                    </button>
+                    <!-- Button: "ما أنجزته" now calls showSoonToast -->
+                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 rtl:space-x-reverse border border-gray-700 transform hover:scale-[1.03]" data-i18n="btn_video" onclick="showSoonToast(translations[currentLanguage].soon_message);">
+                        <i class="fas fa-play text-sm"></i>
+                        <span> ما أنجزته</span>
+                    </button>
+                </div>
+
                 <!-- ------------------------------------------------------------- -->
-                <!-- AVATAR SECTION - MOBILE ONLY (Applies 10px spacing and conditional visibility) -->
+                <!-- AVATAR SECTION - MOBILE ONLY (Placed after buttons, before social/skills) -->
                 <!-- ------------------------------------------------------------- -->
-                <div class="relative flex justify-center items-center min-h-[400px] md:hidden mx-auto mt-[10px] pb-0">
+                <!-- تم وضع مسافة علوية (mt-6) تعادل 24 بكسل لفصلها عن الأزرار -->
+                <div class="relative flex justify-center items-center min-h-[400px] md:hidden mx-auto mt-6 pb-0">
                     
                     <!-- Floating code elements (Mobile) -->
                     <div class="absolute text-3xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-20 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
@@ -386,7 +503,7 @@
                         />
                     </div>
 
-                    <!-- Central Code Snippet (VS Interface) -->
+                    <!-- Central Code Snippet (VS Interface) - مُصغر وموضوع على الكتف -->
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
                         <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
                             <div class="code-line">
@@ -419,32 +536,11 @@
                 <!-- ------------------------------------------------------------- -->
 
 
-                <!-- Title -->
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
-                    <span data-i18n="title_part1" id="title-part1">وظف.</span> <br class="hidden sm:block"/> <span data-i18n="title_part2" id="title-part2">أفضل الكفاءات العالمية.</span>
-                </h1>
-
-                <!-- Description -->
-                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0" data-i18n="description" id="hero-description">
-                    تخلص من متاعب التوظيف واختر من بين أفضل مهندسي البرمجيات في العالم. يضمن الفحص التقني والسلوكي الصارم تقديم أفضل 1% فقط من الكفاءات لك.
-                </p>
-
-                <!-- Buttons: Centered on Mobile, left-aligned on Desktop -->
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-4 justify-center md:justify-start">
-                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50" data-i18n="btn_talent">
-                        إيجاد الكفاءات
-                    </button>
-                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 rtl:space-x-reverse border border-gray-700 transform hover:scale-[1.03]" data-i18n="btn_video">
-                        <i class="fas fa-play text-sm"></i>
-                        <span>تشغيل الفيديو</span>
-                    </button>
-                </div>
-
                 <!-- ------------------------------------------------------------- -->
                 <!-- NEW: Social Media Links Section -->
                 <!-- ------------------------------------------------------------- -->
                 <div class="pt-8 mt-6 border-t border-gray-800/50">
-                    <p class="text-sm font-semibold text-light-gray-text mb-4 text-center md:text-left" data-i18n="social_connect">تواصل معنا عبر:</p>
+                    <p class="text-sm font-semibold text-light-gray-text mb-4 text-center md:text-left" data-i18n="social_connect"> تواصل معي:</p>
                     <div class="flex space-x-6 rtl:space-x-reverse justify-center md:justify-start">
                         <!-- GitHub -->
                         <a href="#" class="text-3xl social-icon github" aria-label="GitHub">
@@ -470,7 +566,7 @@
 
                 <!-- Embedded Skills Showcase -->
                 <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-center md:text-left w-full">
-                    <h3 class="text-xl font-bold text-white mb-6" data-i18n="skills_title">مستويات الإتقان التقني</h3>
+                    <h3 class="text-xl font-bold text-white mb-6" data-i18n="skills_title">مهاراتي التقنية  </h3>
                     <!-- Skills List Container -->
                     <div class="space-y-5">
                         
@@ -545,6 +641,20 @@
                             </div>
                         </div>
                         
+                        <!-- NEW Skill Item 6: AI / Machine Learning -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
+                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
+                                    <i class="fas fa-microchip text-vs-purple text-lg"></i>
+                                    <span>AI / Machine Learning</span>
+                                </span>
+                                <span class="text-neon-cyan text-sm">60%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                                <div class="bg-vs-purple h-1.5 rounded-full" style="width: 60%; box-shadow: 0 0 8px rgba(192, 132, 252, 0.6);"></div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- END: Embedded Skills Showcase -->
@@ -567,10 +677,13 @@
                     <p class="ml-2 text-vs-green">return <span class="text-white">&lt;</span><span class="text-vs-orange">main</span><span class="text-white">&gt;</span>;</p>
                     <p class="text-vs-cyan">}</p>
                 </div>
-                <!-- Floating small element -->
+                <!-- نهاية قطعة الكود العائمة -->
+
+
                 <div class="absolute w-3 h-3 rounded-full bg-yellow-400 opacity-90 animate-float z-20 bottom-0 left-[25%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)); animation-delay: 6s;"></div>
 
                 <!-- Central Avatar -->
+                <!-- Avatar Position: تم تعديل موقعه ليكون تحت الكود العلوي -->
                 <div class="absolute top-28 left-1/2 transform -translate-x-1/2 translate-y-[10px] z-30 character-art text-center">
                     <img 
                         src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
@@ -581,6 +694,7 @@
                 </div>
 
                 <!-- Central Code Snippet (VS Interface) -->
+                <!-- Z-index 40 ensures it overlaps the avatar -->
                 <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
                     <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
                         <div class="code-line">
@@ -618,7 +732,8 @@
             <p id="footer-copyright" data-i18n="footer_copyright">&copy; 2025 TechHire. جميع الحقوق محفوظة. مستقبل استقطاب الكفاءات العالمية.</p>
             
             <div class="flex space-x-6 rtl:space-x-reverse">
-                <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_privacy">سياسة الخصوصية</a>
+                <!-- UPDATED: Privacy Policy link now opens a modal -->
+                <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_privacy" onclick="openPrivacyModal()">سياسة الخصوصية</a>
                 <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_terms">شروط الخدمة</a>
                 <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_careers">الوظائف</a>
             </div>
@@ -657,22 +772,62 @@
     </div>
     <!-- END: Quiz Modal -->
 
+    <!-- START: Contact Modal -->
+    <div id="contact-modal" class="grid" onclick="closeContactModal(event)">
+        <div id="contact-content" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closeContactModal(event)">
+                &times;
+            </button>
+            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-6" data-i18n="contact_title">تواصل معي مباشرة</h2>
+            
+            <form action="https://formspree.io/f/mqaygejp" method="POST" class="space-y-4">
+                
+                <div class="text-left">
+                    <label for="name" class="block text-sm font-medium text-light-gray-text" data-i18n="contact_name">الاسم:</label>
+                    <input type="text" id="name" name="name" class="form-input" required data-i18n-placeholder="contact_name_placeholder" placeholder="أدخل اسمك هنا...">
+                </div>
+
+                <div class="text-left">
+                    <label for="email" class="block text-sm font-medium text-light-gray-text" data-i18n="contact_email">البريد الإلكتروني:</label>
+                    <input type="email" id="_replyto" name="_replyto" class="form-input" required data-i18n-placeholder="contact_email_placeholder" placeholder="your.email@example.com">
+                </div>
+
+                <div class="text-left">
+                    <label for="message" class="block text-sm font-medium text-light-gray-text" data-i18n="contact_message">رسالتك:</label>
+                    <textarea id="message" name="message" rows="4" class="form-textarea" required data-i18n-placeholder="contact_message_placeholder" placeholder="اكتب رسالتك هنا..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-neon-green text-black font-bold py-3 rounded-xl hover:bg-neon-green/90 transition duration-300 shadow-lg shadow-neon-green/40" data-i18n="contact_send">
+                    إرسال الرسالة
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- END: Contact Modal -->
+    
+    <!-- START: Privacy Policy Modal -->
+    <div id="privacy-modal" class="grid" onclick="closePrivacyModal(event)">
+        <div id="privacy-content" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closePrivacyModal(event)">
+                &times;
+            </button>
+            <div id="privacy-markdown-display">
+                <!-- Content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <!-- END: Privacy Policy Modal -->
+
+
     <script>
         // --- Language and Translation Setup ---
         const translations = {
             en: {
-                // Header & Nav
-                page_title: "TechHire.io - Modern UI",
-                nav_title: "Navigation Menu",
-                nav_home: "Home",
-                nav_for_developers: "Technical Skills",
-                nav_about: "My Projects",
-                nav_contact: " Quiz",
-                nav_resume: "Resume",
-                lang_button: "AR",
+                // ... (existing translations) ...
                 // Hero Section
                 new_tag: "NEW",
                 new_text: "Discover my latest achievements and new experiences here first.",
+                title_part1: "Hire.",
                 title_part2: "Hello and welcome to my programming universe",
                 description: "I don’t only code; I transform ideas into experiences and craft digital creations that tell their own story.",
                 btn_talent: "Feel free to say hello",
@@ -707,25 +862,65 @@
                 quiz_answer4: ["output()", "print()", "display()", "write()"],
                 quiz_question5: "In Flutter, what concept describes how the Graphical User Interface (UI) is built?",
                 quiz_answer5: ["Components", "Widgets", "Elements", "Views"],
+                // Toast Message
+                soon_message: "Projects section coming soon!",
+                // Contact Modal
+                contact_title: "Contact Me Directly",
+                contact_name: "Name:",
+                contact_name_placeholder: "Enter your name here...",
+                contact_email: "Email:",
+                contact_email_placeholder: "your.email@example.com",
+                contact_message: "Your Message:",
+                contact_message_placeholder: "Write your message here...",
+                contact_send: "Send Message",
+                // Privacy Policy Content (Markdown/HTML)
+                privacy_policy_content: `
+                    <h1>Privacy Policy for TechHire.io</h1>
+                    <p><strong>Last Updated:</strong> October 13, 2025</p>
+                    <p>We highly value the privacy of our visitors and users. This document explains the types of information collected, how it is used, and how it is protected regarding your use of my personal website, TechHire.io.</p>
+                    <h2>1. Information We Collect</h2>
+                    <h3>A. Information You Provide Directly (Via Contact Form)</h3>
+                    <p>When you use the "Feel free to say hello" contact form (powered by Formspree), we collect the following information:</p>
+                    <ul>
+                        <li><strong>Name:</strong> For the purpose of addressing you appropriately.</li>
+                        <li><strong>Email:</strong> To communicate with you and respond to your message.</li>
+                        <li><strong>Message/Inquiry:</strong> The content of the message you send.</li>
+                    </ul>
+                    <p><strong>Note on Formspree:</strong> This data is processed and temporarily stored by Formspree before being sent to us via email. This data is not stored directly in the site's databases.</p>
+                    <h3>B. Automatic Tracking and Usage Information</h3>
+                    <p>We use analytics tools (such as Google Analytics - implied) to understand how visitors use the site. This includes:</p>
+                    <ul>
+                        <li><strong>Device Data:</strong> Device type, operating system, browser type.</li>
+                        <li><strong>Usage Data:</strong> Pages visited, duration of visit, links clicked, and skills tests taken.</li>
+                    </ul>
+                    <h2>2. How We Use the Information</h2>
+                    <p>We use the collected information for the following purposes:</p>
+                    <ul>
+                        <li><strong>Communication:</strong> To respond to your inquiries and messages sent via the contact form.</li>
+                        <li><strong>Site Improvement:</strong> Analyzing feature usage (like quizzes and skills sections) to develop and enhance the site's design and performance.</li>
+                    </ul>
+                    <h2>3. Data Protection (Security)</h2>
+                    <p>We are committed to taking all reasonable measures to protect your personal data from unauthorized access, alteration, disclosure, or destruction. Data sent via Formspree is secured according to their service standards.</p>
+                    <h2>4. Sharing Information</h2>
+                    <p>We do not sell, trade, or rent your personal information collected via the contact form to any third party. Non-personal information (like aggregated usage data) may be shared with analytics providers to improve the site.</p>
+                    <h2>5. Your Legal Rights</h2>
+                    <p>As a user, you have the right to request access to, correction, or deletion of the personal data we hold about you. You can exercise these rights by contacting us directly via the email address you provide.</p>
+                    <h2>6. Changes to the Privacy Policy</h2>
+                    <p>We may update this policy periodically. The latest version will be posted here, and your continued use of the site after any changes constitutes your acceptance of the updated policy.</p>
+                    <p><strong>For any inquiries regarding the Privacy Policy, please contact us via the available contact form on the homepage.</strong></p>
+                `
             },
             ar: {
-                // Header & Nav
-                page_title: "TechHire.io - واجهة عصرية",
-                nav_title: "قائمة التنقل",
-                nav_home: "الرئيسية",
-                nav_for_developers: "المهارات التقنية",
-                nav_about: "مشاريعي",
-                nav_contact: "  اختبار",
-                nav_resume: "السيرة الذاتية",
-                lang_button: "EN",
+                // ... (existing translations) ...
                 // Hero Section
                 new_tag: "جديد",
                 new_text: "آخر ما أنجزته وتجربتي الجديدة تجدونه هنا أولاً.",
+                title_part1: "وظف.",
                 title_part2: "مرحباً بك في عالمي البرمجي",
                 description: "أنا لا أكتب أكواد فقط، بل أصنع تجارب، وأحل المشكلات، وأبتكر فناً رقمياً يتحدث عن نفسه",
                 btn_talent: "قل مرحبآ لا تخجل  ",
                 btn_video: " ما أنجزته",
-                social_connect: "  تواصل معي:",
+                social_connect: "  تواصل معي:",
                 // Skills
                 skills_title: "مهاراتي التقنية  ",
                 // Footer
@@ -755,6 +950,53 @@
                 quiz_answer4: ["output()", "print()", "display()", "write()"],
                 quiz_question5: "في Flutter، ما هو المفهوم الذي يصف كيفية بناء الواجهة الرسومية (UI)؟",
                 quiz_answer5: ["Components", "Widgets", "Elements", "Views"],
+                // Toast Message
+                soon_message: "قسم المشاريع سيفتح قريباً!",
+                // Contact Modal
+                contact_title: "تواصل معي مباشرة",
+                contact_name: "الاسم:",
+                contact_name_placeholder: "أدخل اسمك هنا...",
+                contact_email: "البريد الإلكتروني:",
+                contact_email_placeholder: "your.email@example.com",
+                contact_message: "رسالتك:",
+                contact_message_placeholder: "اكتب رسالتك هنا...",
+                contact_send: "إرسال الرسالة",
+                // Privacy Policy Content (Markdown/HTML)
+                privacy_policy_content: `
+                    <h1>سياسة الخصوصية لموقع TechHire.io</h1>
+                    <p><strong>تاريخ آخر تحديث:</strong> 13 أكتوبر 2025</p>
+                    <p>نحن نولي أهمية قصوى لخصوصية زوارنا ومستخدمينا. توضح هذه الوثيقة أنواع المعلومات التي يتم جمعها وكيفية استخدامها وحمايتها، وذلك فيما يتعلق باستخدامك لموقعنا الشخصي TechHire.io.</p>
+                    <h2>1. المعلومات التي نجمعها</h2>
+                    <h3>أ. المعلومات المقدمة مباشرة من قبلك (عبر نموذج التواصل)</h3>
+                    <p>عند استخدامك لنموذج <strong>"قل مرحباً لا تخجل"</strong> (المقدم عبر خدمة Formspree)، فإننا نجمع المعلومات التالية التي تزودنا بها طواعية:</p>
+                    <ul>
+                        <li><strong>الاسم:</strong> لغرض مخاطبتك بشكل لائق.</li>
+                        <li><strong>البريد الإلكتروني:</strong> للتواصل معك والرد على استفساراتك ورسالتك.</li>
+                        <li><strong>الرسالة/الاستفسار:</strong> محتوى الرسالة التي ترسلها إلينا.</li>
+                    </ul>
+                    <p><strong>ملاحظة حول Formspree:</strong> يتم التعامل مع هذه البيانات وتخزينها مؤقتاً بواسطة خدمة Formspree قبل إرسالها إلينا عبر البريد الإلكتروني. لا يتم تخزين هذه البيانات في قواعد بيانات الموقع مباشرة.</p>
+                    <h3>ب. معلومات التتبع والاستخدام التلقائية</h3>
+                    <p>نحن نستخدم أدوات تحليلية (مثل Google Analytics - افتراضياً) لمساعدتنا على فهم كيفية استخدام الزوار لموقعنا وتحسين تجربتهم. تشمل هذه المعلومات:</p>
+                    <ul>
+                        <li><strong>بيانات الجهاز:</strong> نوع الجهاز، نظام التشغيل، نوع المتصفح.</li>
+                        <li><strong>بيانات الاستخدام:</strong> الصفحات التي تمت زيارتها، مدة الزيارة، الروابط التي تم النقر عليها، واختبار المهارات الذي تم إجراؤه.</li>
+                    </ul>
+                    <h2>2. كيفية استخدامنا للمعلومات</h2>
+                    <p>نستخدم المعلومات المجمعة للأغراض التالية:</p>
+                    <ul>
+                        <li><strong>للتواصل:</strong> الرد على استفساراتك ورسائلك المرسلة إلينا عبر نموذج التواصل.</li>
+                        <li><strong>لتحسين الموقع:</strong> تحليل كيفية استخدام الزوار للميزات (مثل الاختبارات وأقسام المهارات) لتطوير الموقع وتحسين تصميمه وأدائه.</li>
+                    </ul>
+                    <h2>3. حماية البيانات (الأمان)</h2>
+                    <p>نحن نلتزم باتخاذ جميع التدابير المعقولة لحماية بياناتك الشخصية من الوصول غير المصرح به أو التغيير أو الإفصاح أو الإتلاف. يتم تخزين البيانات المرسلة عبر نموذج Formspree وتأمينها وفقاً لمعايير الخدمة الخاصة بهم.</p>
+                    <h2>4. مشاركة المعلومات</h2>
+                    <p>نحن لا نبيع أو نتاجر أو نؤجر معلوماتك الشخصية التي تم جمعها عبر نموذج الاتصال (الاسم والبريد الإلكتروني والرسالة) لأي طرف ثالث. يمكن مشاركة المعلومات غير الشخصية (مثل بيانات الاستخدام المجمعة) مع مزودي خدمات التحليل لتحسين الموقع.</p>
+                    <h2>5. حقوقك القانونية</h2>
+                    <p>بصفتك مستخدماً، لديك الحق في طلب الوصول إلى البيانات الشخصية التي نحتفظ بها عنك، أو طلب تصحيحها أو حذفها. يمكنك ممارسة هذه الحقوق عن طريق التواصل معنا مباشرة عبر البريد الإلكتروني الذي سنرد عليك من خلاله.</p>
+                    <h2>6. التغييرات في سياسة الخصوصية</h2>
+                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سيتم نشر أحدث إصدار على هذه الصفحة، ويعتبر استخدامك المستمر للموقع بعد أي تعديلات بمثابة موافقة منك على السياسة المحدثة.</p>
+                    <p><strong>لأي استفسارات بخصوص سياسة الخصوصية، يرجى التواصل معنا عبر نموذج الاتصال المتاح في الصفحة الرئيسية.</strong></p>
+                `
             }
         };
 
@@ -770,6 +1012,8 @@
         let currentLanguage = 'ar'; // Default language is Arabic
         const htmlRoot = document.getElementById('html-root');
         const langToggleBtn = document.getElementById('language-toggle-btn');
+        const privacyModal = document.getElementById('privacy-modal'); // Define privacy modal globally
+        const privacyDisplay = document.getElementById('privacy-markdown-display'); // Define privacy display globally
 
         function updateContent() {
             const t = translations[currentLanguage];
@@ -792,12 +1036,25 @@
                     element.innerHTML = t[key];
                 }
             });
+            // 4.1 Update Placeholder Texts (requires manual lookup for inputs/textareas)
+            document.querySelectorAll('input[data-i18n-placeholder], textarea[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (t[key]) {
+                    element.setAttribute('placeholder', t[key]);
+                }
+            });
+
 
             // 5. Update the split Title dynamically (needed because it's split with <br>)
             document.getElementById('title-part1').textContent = t.title_part1;
             document.getElementById('title-part2').textContent = t.title_part2;
 
-            // 6. Re-render the current quiz state if the modal is open, to update language immediately
+            // 6. Update Privacy Modal content if currently open
+            if (privacyModal.style.display === 'grid') {
+                privacyDisplay.innerHTML = t.privacy_policy_content;
+            }
+
+            // 7. Re-render the current quiz state if the modal is open, to update language immediately
             if (quizModal.style.display === 'grid' && currentQuestionIndex < quizQuestions.length) {
                 if (isAnswered) {
                     // If an answer was selected, reload to show correct/wrong in new language
@@ -818,7 +1075,6 @@
         }
 
         // Initialize content on load
-        // Initializing with 'ar' based on HTML structure, then updating dynamically.
         window.onload = updateContent;
 
 
@@ -840,8 +1096,13 @@
             e.preventDefault();
             // Close the sidebar first
             if (offcanvasMenu.classList.contains('open')) {
-                 toggleMenu();
+                   toggleMenu();
             }
+
+            // Hide other modals if open
+            contactModal.style.display = 'none';
+            privacyModal.style.display = 'none';
+
 
             // Show the modal
             quizModal.style.display = 'grid'; 
@@ -858,6 +1119,43 @@
             score = 0;
             isAnswered = false;
         }
+
+        // --- Contact Modal Logic ---
+        const contactModal = document.getElementById('contact-modal');
+
+        function openContactModal() {
+            // Hide other modals if open
+            quizModal.style.display = 'none';
+            privacyModal.style.display = 'none';
+            contactModal.style.display = 'grid';
+            updateContent(); // Update form placeholders if language changed
+        }
+        
+        function closeContactModal(e) {
+             // Check if the click target is the modal backdrop or the explicitly tagged close button
+            if (e.target.id === 'contact-modal' || e.target.classList.contains('close-btn')) {
+                contactModal.style.display = 'none';
+            }
+        }
+        
+        // --- Privacy Modal Logic ---
+        function openPrivacyModal() {
+            // Hide other modals if open
+            quizModal.style.display = 'none';
+            contactModal.style.display = 'none';
+            
+            // Set content and show modal
+            privacyDisplay.innerHTML = translations[currentLanguage].privacy_policy_content;
+            privacyModal.style.display = 'grid';
+        }
+
+        function closePrivacyModal(e) {
+             // Check if the click target is the modal backdrop or the explicitly tagged close button
+            if (e.target.id === 'privacy-modal' || e.target.classList.contains('close-btn')) {
+                privacyModal.style.display = 'none';
+            }
+        }
+
 
         // --- Quiz Data and Logic ---
         
@@ -1057,6 +1355,30 @@
         startQuizBtn.onclick = startQuiz;
         nextQuestionBtn.onclick = nextQuestion;
         restartQuizBtn.onclick = startQuiz;
+
+        // --- TOAST NOTIFICATION LOGIC ---
+        const toastContainer = document.getElementById('toast-container');
+
+        function showSoonToast(message) {
+            // 1. Create toast element
+            const toast = document.createElement('div');
+            toast.classList.add('toast-message', 'animate-toast-in');
+            toast.textContent = message;
+
+            // 2. Append to container
+            toastContainer.appendChild(toast);
+
+            // 3. Set timeout to start fade out animation after a delay (3000ms total)
+            setTimeout(() => {
+                toast.classList.remove('animate-toast-in');
+                toast.classList.add('animate-toast-out');
+            }, 2700); // Start fade-out animation slightly before 3s mark
+
+            // 4. Remove element after animation finishes (3s total duration)
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
 
     </script>
 </body>
