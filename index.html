@@ -3,1485 +3,1450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="page_title">TECHNO NANO.TN - واجهة عصرية</title>
+    <title data-i18n="name">Youseif Elshreif Portfolio</title>
     
-    <!-- Site Icon (Favicon) - أيقونة الموقع (تم تحديثها بالصورة الجديدة) -->
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/QCGMh82X/4-removebg-preview.png">
-    
-    <!-- Font Awesome for Icons -->
+    <!-- Fonts: Inter for modern, crisp look --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
     
     <script>
-        // Custom Tailwind Configuration
+        // Set Inter as the default font
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
                     },
-                    colors: {
-                        'primary-blue': '#4F46E5', 
-                        'violet-gradient-start': '#9333EA', 
-                        'violet-gradient-end': '#C084FC', 
-                        'light-gray-text': '#A8A8B3', 
-                        // Neon/Hologram colors
-                        'neon-cyan': '#34D3FF',
-                        'neon-violet': '#A78BFA',
-                        'neon-green': '#10B981',
-                        // Custom VS Code Syntax Colors
-                        'vs-purple': '#C084FC', 
-                        'vs-cyan': '#34D3FF', 
-                        'vs-green': '#4ADE80', 
-                        'vs-orange': '#FDBA74', 
-                        'vs-keyword': '#FF5F7E', 
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-10px) rotate(3deg)' },
-                        },
-                        glow: {
-                            '0%, 100%': { boxShadow: '0 0 10px rgba(147, 51, 234, 0.4)' },
-                            '50%': { boxShadow: '0 0 25px rgba(147, 51, 234, 0.8)' },
-                        },
-                        'cyan-glow-hover': {
-                            '0%, 100%': { boxShadow: '0 0 8px rgba(52, 211, 255, 0.5)' },
-                            '50%': { boxShadow: '0 0 18px rgba(52, 211, 255, 0.9)' },
-                        },
-                        toastFadeIn: {
-                            '0%': { opacity: 0, transform: 'translateY(-20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
-                        },
-                        toastFadeOut: {
-                            '0%': { opacity: 1, transform: 'translateY(0)' },
-                            '100%': { opacity: 0, transform: 'translateY(-20px)' },
-                        }
-                    },
-                    animation: {
-                        float: 'float 7s ease-in-out infinite',
-                        glow: 'glow 3s ease-in-out infinite',
-                        'cyan-glow-hover': 'cyan-glow-hover 5s ease-in-out infinite alternate',
-                        'toast-in': 'toastFadeIn 0.3s forwards',
-                        'toast-out': 'toastFadeOut 0.3s forwards 2.7s',
-                    }
                 }
             }
         }
     </script>
 
-    <!-- Custom CSS for the Dark/Holographic Theme -->
-    <style>
-        /* 1. Futuristic Dark Background and Base Styling */
-        .hero-bg {
-            background-color: #0d1117; /* Very dark background */
-            /* Subtle radial gradients for atmosphere */
-            background-image: radial-gradient(circle at 50% 10%, rgba(147, 51, 234, 0.15) 0%, transparent 40%),
-                              radial-gradient(circle at 50% 90%, rgba(52, 211, 255, 0.05) 0%, transparent 30%),
-                              linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 20%);
+    <!-- Custom CSS using the defined variables for precise styling --><style>
+        /* 1. Root Variables and General Setup (from prompt) */
+        :root {
+            --bg: #0b0b0b;
+            --page-vignette: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.02), rgba(0,0,0,0) 40%);
+            --surface: #121212;            /* سطح الكارد الداخلي */
+            --chrome-top: linear-gradient(180deg, #bfc6cb 0%, #98a0a6 40%, #6f757a 100%); /* شريط أعلى الكارد */
+            --muted-text: #9aa0a6;
+            --subtle-text: #b3b3b3;
+            --accent: #e6e9ee;
+            --primary-btn: #ffffff;
+            --secondary-btn-border: rgba(255,255,255,0.08);
+            --green: #39d353;
+            --purple: #9b59ff;
+            --card-border-light: rgba(255,255,255,0.06);
+            --card-inner-border: rgba(255,255,255,0.03);
+            --glass-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            /* NEW: Adjusted Neumorphism for lighter shadow */
+            --neumorphism-dark: 0 4px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition-fast: all 220ms cubic-bezier(.22,.9,.31,1);
+        }
+        
+        body {
+            background-color: var(--bg);
+            background-image: var(--page-vignette); /* Vignette effect */
             min-height: 100vh;
-            color: #f0f6f6;
-            position: relative; 
-            scroll-behavior: smooth; /* Smooth scrolling for navigation */
+            color: var(--accent);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            padding-top: 100px; /* Space for fixed header */
+            scroll-behavior: smooth;
         }
 
-        /* 2. Character Image Styling */
-        .character-img-vs {
-            width: 300px;
-            height: 300px;
-            max-width: 80vw;
-            max-height: 80vw;
-            border-radius: 9999px; /* Full rounded */
-            transition: transform 0.3s ease-in-out;
-            object-fit: cover;
+        /* General Container */
+        .container { 
+            max-width: 1200px; 
+            margin: 40px auto; 
+            padding: 0 24px; 
         }
 
-        /* 3. Code Interface Container (The floating snippet - The VS Code Window) */
-        .vs-interface {
-            background-color: rgba(30, 41, 59, 0.85); /* Slate-800 semi-transparent */
-            backdrop-filter: blur(8px);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            border: 1px solid rgba(167, 139, 250, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            max-width: 350px;
-            width: 85vw; /* Responsive width */
-            font-size: 0.875rem; /* text-sm */
-            font-weight: 500;
-            line-height: 1.5;
-            transform: rotate(2deg); /* Added slight rotation for flair */
+        /* 2. Window Card Structure (.window-card) */
+        .window-card {
+            background-color: var(--surface);
+            border-radius: var(--radius-lg);
+            margin-bottom: 36px;
+            
+            /* Outer Border and Neumorphism Shadow */
+            border: 1px solid var(--card-border-light);
+            /* Use the lighter neumorphism shadow */
+            box-shadow: var(--neumorphism-dark), 0 -6px 24px rgba(255,255,255,0.02) inset; 
+            transition: var(--transition-fast);
+
+            /* 10. Fix Header Overlap Issue on Scroll */
+            scroll-margin-top: 140px; 
         }
         
-        /* Mobile Adjustments for Illustration Section */
-        @media (max-width: 768px) {
-            .character-img-vs {
-                width: 250px;
-                height: 250px;
-            }
-            /* Positioning the Avatar and Code unit correctly for mobile */
-            /* Main Avatar container (to translate it back to center) */
-            .character-art {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) !important;
-            }
-
-            /* Main Code Snippet container (relative to the Avatar) */
-            .illustration-code-snippet {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                /* Applying new centered, scaled translation */
-                transform: translate(-50%, -50%) rotate(-5deg) scale(0.75) !important;
-                margin-top: 100px; /* Adjusting vertical position below the avatar's center */
-            }
-
-            /* Hide some floating elements on small screens to avoid clutter */
-            .hologram-glow.hidden-sm {
-                display: none;
-            }
-
-            /* Adjust mobile positioning of the central Avatar and Code group */
-            .top-28 { top: 10%; } /* Pushing the central group slightly higher */
+        /* Window Title Bar */
+        .window-bar {
+            background: var(--chrome-top);
+            height: 56px;
+            padding: 12px 20px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            display: flex;
+            align-items: center;
+            position: relative;
         }
         
-        /* SIDEBAR STYLING */
-        #offcanvas-menu {
+        .window-title {
+            color: var(--subtle-text);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Window Controls (Traffic Lights) */
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+        .window-control-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.6);
+        }
+
+        /* Window Body */
+        .window-body {
+            padding: 28px;
+            background-image: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+        }
+
+        /* 3. Header and Navigation */
+        .site-header {
             position: fixed;
             top: 0;
-            right: 0; /* Default position for RTL */
-            z-index: 999;
-            width: 75%; /* Quarter of the screen width (100% - 75% = 25% for content) */
-            max-width: 300px; /* Max width for larger screens */
-            height: 100%;
-            background-color: #1a202c; /* Dark background */
-            border-left: 2px solid #34D3FF; /* Default border */
-            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7); /* Default shadow */
-            transform: translateX(100%); /* Start off-screen to the right */
-            transition: transform 0.3s ease-in-out;
-            padding: 2rem 1.5rem;
-        }
-
-        #offcanvas-menu.open {
-            transform: translateX(0); /* Slide in */
-        }
-
-        /* Adjustments for LTR mode (English) */
-        #html-root[dir="ltr"] #offcanvas-menu {
-            right: auto;
             left: 0;
-            border-left: none;
-            border-right: 2px solid #34D3FF;
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.7);
-            transform: translateX(-100%);
+            right: 0;
+            z-index: 50;
+            background: rgba(18, 18, 18, 0.95); /* Match surface slightly transparent */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
 
-        #html-root[dir="ltr"] #offcanvas-menu.open {
-            transform: translateX(0);
+        .brand a {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
         }
 
-        #menu-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 998;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(2px);
-        }
-        /* END SIDEBAR STYLING */
-
-
-        /* Modal Group Styling (Quiz, Contact, Privacy, About) */
-        #quiz-modal, #contact-modal, #privacy-modal, #about-modal {
-            display: none; /* Initially hidden */
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            place-items: center;
-            overflow-y: auto;
-            padding: 2rem 1rem;
+        /* Pill Navigation Styling */
+        .center-pills ul {
+            display: flex;
+            list-style: none;
+            padding: 4px;
+            background: rgba(255,255,255,0.01);
+            border-radius: 999px;
+            box-shadow: var(--glass-shadow);
         }
 
-        #quiz-content, #contact-content, #privacy-content, #about-content {
-            background-color: #1a202c; /* Dark slate background for the container */
-            border: 3px solid #34D3FF; /* Neon border */
-            box-shadow: 0 0 25px rgba(52, 211, 255, 0.7);
-            border-radius: 1rem;
-            padding: 2rem;
-            max-width: 90vw;
-            width: 600px;
+        .pill {
+            padding: 10px 20px;
+            border-radius: 999px;
+            color: var(--subtle-text);
+            text-decoration: none;
+            font-weight: 500;
             position: relative;
-            min-height: 400px;
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+        .pill:hover {
+            color: var(--accent);
+        }
+
+        .pill.active {
+            background: rgba(255,255,255,0.07);
+            color: var(--accent);
+            box-shadow: 0 6px 18px rgba(255,255,255,0.04);
+        }
+
+        .pill.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--subtle-text));
         }
         
-        #privacy-content, #about-content {
-            max-width: 700px;
-            max-height: 90vh; /* Limits max height on screen */
-            overflow-y: auto; /* Allows scrolling inside the modal */
+        .external-links a {
+            color: var(--subtle-text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 16px;
+            transition: var(--transition-fast);
+        }
+        .external-links a:hover {
+            color: var(--accent);
+        }
+
+        /* 4. ABOUT Section */
+        #about.window-card {
+            border-radius: var(--radius-xl);
+        }
+        .about-grid {
+            display: grid; 
+            grid-template-columns: 45% 55%; 
+            gap: 28px; 
+            align-items: center; 
+        }
+
+        .hero-photo img {
+            width: 100%; 
+            height: 520px; 
+            object-fit: cover; 
+            border-radius: 14px; 
+            filter: grayscale(100%) contrast(1.05) brightness(0.85); 
+            /* Lightened shadow for a softer feel */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 -4px 10px rgba(0,0,0,0.4);
+            transition: var(--transition-fast);
+        }
+        .hero-photo img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 -6px 15px rgba(0,0,0,0.5);
         }
         
-        /* General Markdown styling inside the Privacy Modal */
-        #privacy-markdown-display h1, #privacy-markdown-display h2,
-        #about-markdown-display h1, #about-markdown-display h2 {
-            color: #34D3FF; /* Neon Cyan */
-            font-weight: 700;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(52, 211, 255, 0.3);
-            padding-bottom: 0.25rem;
+        .about-content small {
+            font-size: 16px; 
+            color: var(--muted-text); 
+            margin-bottom: 6px; 
+            display: block;
         }
-        #privacy-markdown-display p, #about-markdown-display p {
-            color: #A8A8B3; /* light-gray-text */
-            margin-bottom: 1rem;
+        .about-content h1 {
+            font-size: 56px; 
+            line-height: 1; 
+            font-weight: 800; 
+            color: #ffffff; 
+            margin: 0 0 12px; 
+            letter-spacing: -0.02em;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            padding: 8px 12px; 
+            border-radius: 999px; 
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid rgba(255,255,255,0.04); 
+            font-size: 13px;
+            color: var(--subtle-text);
+        }
+        .dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            box-shadow: 0 1px 6px rgba(0,0,0,0.6); 
+        }
+
+        .role {
+            font-size: 36px; 
+            color: #8d99a3; 
+            font-weight: 500; 
+            margin-top: 18px;
+            margin-bottom: 12px;
+        }
+
+        .bio {
+            max-width: 520px; 
+            font-size: 16px; 
+            color: var(--subtle-text); 
+            margin-top: 14px; 
             line-height: 1.6;
+            margin-bottom: 30px;
         }
-        #privacy-markdown-display strong, #about-markdown-display strong {
-            color: white;
-            font-weight: 700;
+
+        /* Tech Chips */
+        .chip { 
+            display: inline-block; 
+            padding: 8px 12px; 
+            border-radius: 999px; 
+            border: 1px solid rgba(255,255,255,0.06); 
+            background: rgba(255,255,255,0.01); 
+            font-size: 13px; 
+            margin-right: 8px; /* For RTL and LTR support */
+            margin-bottom: 8px;
+            cursor: pointer;
+            color: var(--subtle-text);
+            transition: var(--transition-fast);
         }
-        #privacy-markdown-display ul, #about-markdown-display ul {
-            list-style-type: disc;
-            margin-right: 1.5rem;
-            padding-right: 0.5rem;
-            color: #A8A8B3;
+        .chip:hover {
+            border-color: var(--subtle-text);
+            background: rgba(255,255,255,0.05);
         }
-        #privacy-markdown-display li, #about-markdown-display li {
-            margin-bottom: 0.5rem;
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .btn-primary { 
+            background: var(--primary-btn); 
+            color: #000; 
+            padding: 12px 20px; 
+            border-radius: 14px; 
+            font-weight: 600; 
+            box-shadow: 0 8px 22px rgba(0,0,0,0.6); 
+            border: none;
+            transition: var(--transition-fast);
+        }
+        .btn-primary:hover {
+            transform: translateY(-4px); 
+            box-shadow: 0 18px 40px rgba(0,0,0,0.7); 
+        }
+
+        .btn-outline { 
+            background: transparent; 
+            border: 1px solid var(--secondary-btn-border); 
+            color: var(--subtle-text); 
+            padding: 12px 18px; 
+            border-radius: 14px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+        .btn-outline:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* 5. SKILLS Section */
+        #skills .window-body { 
+            padding: 36px; 
+        }
+        .skills-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 34px; 
+            align-items: center; 
+            justify-items: center;
+        }
+        
+        .skill {
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .skill-icon-wrapper {
+            width: 92px;
+            height: 92px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.06));
+            border-radius: 20px;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: var(--transition-fast);
+        }
+        .skill-icon {
+            font-size: 40px;
+            color: var(--accent);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+        }
+
+        .skill-icon-wrapper:hover { 
+            transform: translateY(-10px) scale(1.03); 
+            box-shadow: 0 26px 60px rgba(0,0,0,0.75), 0 0 36px rgba(255,255,255,0.02); 
+            transition: transform .26s cubic-bezier(.16,.85,.36,1); /* Custom ease */
+        }
+        .skill-name { 
+            margin-top: 12px; 
+            font-size: 14px; 
+            color: var(--subtle-text); 
+        }
+        
+        /* Specific Skill Image size adjustment */
+        .skill-img {
+            width: 40px; 
+            height: 40px; 
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
         }
 
 
-        /* Form and Input Styling for Contact Modal */
+        /* 6. PROJECTS Section */
+        .projects-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 34px;
+        }
+
+        .project-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
+            border-radius: 14px;
+            border: 1px solid var(--card-border-light); /* Use card-border-light */
+            /* Use the lighter neumorphism shadow */
+            box-shadow: var(--neumorphism-dark);
+            overflow: hidden;
+            transition: var(--transition-fast);
+        }
+        .project-card:hover {
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+        }
+
+        .project-media {
+            position: relative;
+        }
+        .project-media img {
+            height: 180px; 
+            width: 100%; 
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Project Badge - Updated for consistency with image */
+        .project-badge {
+            position: absolute;
+            top: 0; 
+            right: 0;
+            background: rgba(255,255,255,0.95); 
+            color: #000; 
+            font-size: 12px; 
+            padding: 4px 10px; /* Adjusted padding */
+            border-radius: 12px; 
+            transform: translate(-12px, 12px); 
+            border: 1px solid rgba(0,0,0,0.06); 
+            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+            font-weight: 500; /* Adjusted font weight */
+            line-height: 1; /* Ensure single line height */
+        }
+
+        .project-body {
+            padding: 20px;
+        }
+        .project-body h3 {
+            font-size: 20px; /* Adjusted font size */
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .project-desc {
+            font-size: 15px; /* Adjusted font size */
+            color: var(--subtle-text);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .project-tags {
+            margin-bottom: 18px; /* Added margin-bottom for spacing */
+        }
+        .project-tags .chip {
+            font-size: 12px;
+            padding: 6px 10px;
+            margin-bottom: 6px; /* Adjusted margin-bottom for better spacing */
+        }
+
+        .show-details {
+            display: block; 
+            width: 100%; 
+            margin-top: 18px; /* Adjusted margin-top */
+            padding: 12px; 
+            border-radius: 12px; 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid rgba(255,255,255,0.02); 
+            color: var(--subtle-text); 
+            text-align: center;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+        .show-details:hover {
+            background: rgba(255,255,255,0.08);
+            color: var(--accent);
+        }
+        
+        /* 7. Floating Email Button */
+        .mail-fab {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--secondary-btn-border);
+            color: var(--subtle-text);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--glass-shadow);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            z-index: 40;
+        }
+        .mail-fab:hover {
+            color: var(--green);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transform: translateY(-4px);
+        }
+
+        /* Contact Form Specific Styles */
+        .contact-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 34px;
+        }
+        .contact-info-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .contact-icon-wrapper {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--subtle-text);
+            flex-shrink: 0;
+        }
+        .contact-info-details p:first-child {
+            font-size: 13px;
+            color: var(--muted-text);
+        }
+        .contact-info-details p:last-child {
+            font-size: 15px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .form-input-group {
+            display: flex;
+            gap: 16px;
+        }
         .form-input, .form-textarea {
             width: 100%;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            margin-bottom: 1.5rem;
-            background-color: #1f2937; /* Gray-800 */
-            border: 1px solid #374151; /* Gray-700 */
-            border-radius: 0.5rem;
-            color: #E5E7EB;
-            transition: border-color 0.3s;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--card-border-light);
+            color: var(--accent);
+            font-size: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.02);
+            transition: var(--transition-fast);
         }
         .form-input:focus, .form-textarea:focus {
             outline: none;
-            border-color: #C084FC; /* VS Purple */
-            box-shadow: 0 0 5px rgba(192, 132, 252, 0.5);
+            border-color: var(--subtle-text);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 0 1px var(--subtle-text);
         }
-        
-        /* Answer Button Styling (Quiz) */
-        .answer-btn {
-            background-color: #1f2937; /* Gray-800 */
-            color: #E5E7EB; /* Light text */
+        .form-message {
+            font-size: 13px;
+            color: var(--muted-text);
+            margin-top: 8px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .social-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--surface);
+            border: 1px solid var(--card-border-light);
+            color: var(--subtle-text);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+            text-decoration: none; /* Ensure no underline */
+        }
+        .social-icon-btn:hover {
+            color: var(--accent);
+            border-color: var(--subtle-text);
+        }
+
+        /* Footer Styles */
+        .site-footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--card-border-light);
+            padding: 40px 0;
+            color: var(--subtle-text);
+            margin-top: 60px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-column h4 {
+            font-size: 18px;
             font-weight: 600;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: 1px solid #374151; /* Gray-700 */
-            text-align: inherit; /* Inherit text-align from direction */
-            width: 100%;
-            margin-bottom: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 20px;
         }
-
-        .answer-btn:hover {
-            background-color: #374151; /* Gray-700 on hover */
-            border-color: #C084FC; /* Violet glow */
-            box-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+        .footer-column p, .footer-column a {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--muted-text);
+            text-decoration: none;
         }
-
-        .answer-btn.correct {
-            background-color: #10B981; /* Neon green */
-            border-color: #10B981;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
+        .footer-column a:hover {
+            color: var(--accent);
         }
-        
-        .answer-btn.wrong {
-            background-color: #EF4444; /* Red */
-            border-color: #EF4444;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.7);
-        }
-
-        /* Quiz Status Styling */
-        #quiz-status {
-            text-align: center;
-            font-size: 1.125rem;
-            color: #A8A8B3;
-            margin-bottom: 1.5rem;
-        }
-
-        #final-score-message {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: rgba(30, 41, 59, 0.7);
-            border-radius: 0.75rem;
-            border: 1px solid #C084FC;
-        }
-
-        /* NEW: Unified Button Styling */
-        .quiz-control-btn {
-            color: white;
-            font-weight: bold;
-            padding: 0.75rem 2rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s;
-            cursor: pointer;
-            min-width: 150px;
-        }
-
-        /* Custom glow styles for buttons */
-        .start-btn-glow {
-            background-color: #10B981; /* Neon green */
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.7), 0 0 30px rgba(16, 185, 129, 0.4);
-        }
-        .next-btn-glow {
-            background-color: #C084FC; /* VS Purple */
-            box-shadow: 0 0 15px rgba(192, 132, 252, 0.7), 0 0 30px rgba(192, 132, 252, 0.4);
-        }
-
-        /* Social Icon Styling */
-        .social-icon {
-            color: #A8A8B3; /* light-gray-text */
-            transition: color 0.3s, transform 0.3s;
-        }
-        .social-icon:hover {
-            transform: scale(1.15);
-        }
-        .social-icon.github:hover {
-            color: #ffffff; /* White */
-        }
-        .social-icon.facebook:hover {
-            color: #1877F2; /* Facebook Blue */
-        }
-        .social-icon.instagram:hover {
-            /* Instagram gradient is tricky with Tailwind/CSS, using a strong violet/pink for effect */
-            color: #E1306C; 
-        }
-        .social-icon.whatsapp:hover {
-            color: #25D366; /* WhatsApp Green */
-        }
-
-        /* Toast Notification Styling */
-        #toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-            /* Adjust position for RTL */
-            left: auto;
-            right: 20px;
-        }
-        #html-root[dir="ltr"] #toast-container {
-            right: auto;
-            left: 20px;
-        }
-
-        .toast-message {
-            background-color: #10B981; /* Neon Green */
-            color: white;
-            padding: 12px 20px;
+        .footer-column .social-icon-btn {
+            width: 38px;
+            height: 38px;
+            font-size: 18px;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
-            font-weight: 600;
-            opacity: 0; /* Starts hidden */
-            margin-bottom: 10px;
+            display: inline-flex;
+            margin-right: 10px;
+            background: rgba(255,255,255,0.01);
+        }
+        .footer-column .social-icon-btn:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .activate-windows {
+            font-size: 12px;
+            color: rgba(255,255,255,0.2);
+            text-align: right;
+            margin-top: 40px;
+        }
+        .activate-windows a {
+            color: rgba(255,255,255,0.3);
+            text-decoration: underline;
         }
         
+        /* 8. Modal Styling (for Show Details) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-card {
+            max-width: 880px;
+            width: 90%;
+            background-color: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--card-border-light);
+            box-shadow: var(--neumorphism-dark);
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .modal-overlay.open .modal-card {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--muted-text);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .modal-close:hover {
+            color: var(--accent);
+        }
+        
+        /* 9. Responsive Breakpoints (from prompt) */
+        @media (max-width: 1199px) {
+            .about-grid { grid-template-columns: 50% 50%; }
+            .skills-grid { grid-template-columns: repeat(3, 1fr); }
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-form-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 991px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .hero-photo img { height: 400px; margin-bottom: 24px; }
+            .header-inner { flex-direction: column; gap: 16px; }
+            .site-header { position: relative; padding-top: 0; }
+            body { padding-top: 0; }
+            .brand { order: 1; }
+            .center-pills { order: 3; }
+            .external-links { order: 2; margin-top: 10px; }
+            .contact-form-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-column { text-align: center; }
+            .footer-column .social-icon-btn { margin: 0 5px; }
+            .activate-windows { text-align: center; margin-top: 20px; }
+        }
+
+        @media (max-width: 767px) {
+            .container { padding: 0 16px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-content h1 { font-size: 42px; }
+            .role { font-size: 24px; }
+            .skill-icon-wrapper { width: 72px; height: 72px; border-radius: 16px; }
+            .skill-icon { font-size: 32px; }
+            .skill-name { font-size: 13px; }
+            .mail-fab { bottom: 20px; left: 20px; }
+        }
+
+        @media (max-width: 600px) {
+            .about-content h1 { font-size: 32px; }
+            .hero-photo img { height: 300px; }
+            .about-grid { gap: 16px; }
+            .window-bar { height: 48px; padding: 10px 16px; }
+            .window-body { padding: 20px; }
+        }
     </style>
 </head>
-<body class="hero-bg">
+<body style="background: var(--bg);">
     
-    <!-- Toast Notification Container -->
-    <div id="toast-container" dir="rtl"></div>
-
-    <!-- HEADER: Fixed at Top (sticky top-0) and Responsive -->
-    <header class="sticky top-0 z-50 py-3 px-4 md:p-6 lg:px-20 border-b border-gray-800/50 backdrop-blur-md">
-        <div class="flex justify-between items-center max-w-7xl mx-auto">
-            <!-- Logo - UPDATED -->
-            <div class="text-2xl font-black text-white">
-                TECHNO<span class="text-light-gray-text">NANO</span><span class="text-vs-cyan">.TN</span>
+    <!-- HEADER: Fixed Navigation Bar --><header class="site-header" role="banner">
+        <div class="container header-inner">
+            <!-- Brand Name (Left) --><div class="brand">
+                <a href="#about" aria-label="Home" data-i18n="name">Youseif Elshreif</a>
             </div>
 
-            <!-- Menu and Language Buttons Group -->
-            <div class="flex items-center space-x-4 rtl:space-x-reverse">
-                <!-- NEW: Language Toggle Button -->
-                <button id="language-toggle-btn" class="text-white text-sm font-semibold py-1 px-2 rounded border border-gray-700 hover:border-neon-cyan transition duration-300" onclick="toggleLanguage()">
-                    EN
-                </button>
-                <!-- Menu Button (Visible on ALL Screens) -->
-                <button id="menu-toggle-btn" class="text-white text-2xl hover:text-neon-cyan transition duration-300">
-                    <i class="fas fa-bars"></i>
-                </button>
+            <!-- Pill Navigation (Center) --><nav class="center-pills" role="navigation" aria-label="Main">
+                <ul>
+                    <li><a class="pill active" data-section="about" href="#about" data-i18n="nav_about">About</a></li>
+                    <li><a class="pill" data-section="skills" href="#skills" data-i18n="nav_skills">Skills</a></li>
+                    <li><a class="pill" data-section="projects" href="#projects" data-i18n="nav_projects">Projects</a></li>
+                    <li><a class="pill" data-section="contact" href="#contact" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- External Links (Right) --><div class="external-links">
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)" data-i18n="github_link">
+                    <span>GitHub</span> ↗
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)" data-i18n="linkedin_link">
+                    <span>LinkedIn</span> ↗
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Resume (opens in new tab)" data-i18n="resume_link">
+                    <span>Resume</span> ↗
+                </a>
             </div>
         </div>
     </header>
-    
-    <!-- START: Off-Canvas Menu (Sidebar) -->
-    <div id="menu-backdrop" onclick="toggleMenu()"></div>
-    <div id="offcanvas-menu" class="flex flex-col space-y-8">
-        <div class="flex justify-between items-center mb-6">
-            <span class="text-xl font-bold text-neon-cyan" data-i18n="nav_title">قائمة التنقل</span>
-            <button class="text-white text-3xl hover:text-red-500" onclick="toggleMenu()">
-                &times;
-            </button>
-        </div>
+
+    <main class="container">
         
-        <!-- Navigation Links -->
-        <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()" data-i18n="nav_home">الرئيسية</a>
-        <a href="#skills-section" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu()">المهارات التقنية</a>
-        <!-- UPDATED LINK: Calls showSoonToast and closes menu -->
-        <a href="#" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="toggleMenu(); showSoonToast(translations[currentLanguage].soon_message);" data-i18n="nav_about">ما أنجزته </a>
-        <a href="#" id="contact-quiz-link-mobile" class="text-lg font-medium text-white hover:text-neon-cyan transition duration-300" onclick="openQuizFromMenu(event);" data-i18n="nav_contact">  اختبار المهارات</a>
-        
-        <!-- Resume Link (Now "نبذة تعريفية") - UPDATED TO OPEN MODAL -->
-        <div class="pt-8 border-t border-gray-700">
-             <a href="#" class="w-full block text-center bg-gradient-to-r from-violet-gradient-start to-violet-gradient-end text-white font-semibold py-2.5 px-5 rounded-full shadow-lg hover:opacity-90 transition duration-300" 
-                onclick="toggleMenu(); openAboutModal(event);" data-i18n="nav_resume">
-                نبذة تعريفية
-            </a>
-        </div>
-    </div>
-    <!-- END: Off-Canvas Menu -->
-
-
-    <!-- MAIN CONTENT: Restored two-column grid for desktop, but mobile content is prioritized in column 1 -->
-    <main class="relative z-20 p-4 md:p-12 lg:px-20 pt-12 pb-20 md:pt-24 md:pb-32">
-        <!-- Main container uses grid layout for md screens and up -->
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-
-            <!-- Column 1: Text, Buttons, Skills (Contains all mobile content + Avatar in mobile flow) -->
-            <div class="space-y-6 text-center md:text-left">
-                
-                <!-- NEW TEXT LINE (Always First in this column) -->
-                <p class="text-sm font-medium text-neon-green text-center md:text-left">
-                    <span data-i18n="new_tag" class="inline-block" id="new-tag-text">جديد</span> <span class="text-light-gray-text ml-2 rtl:mr-2 inline-block" data-i18n="new_text" id="new-text-content">آخر ما أنجزته وتجربتي الجديدة تجدونه هنا أولاً.</span>
-                </p>
-
-                <!-- Title -->
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
-                    <span data-i18n="title_part1" id="title-part1">وظف.</span> <br class="hidden sm:block"/> <span data-i18n="title_part2" id="title-part2">مرحباً بك في عالمي البرمجي</span>
-                </h1>
-
-                <!-- Description -->
-                <p class="text-base text-light-gray-text max-w-lg mb-8 mx-auto md:mx-0" data-i18n="description" id="hero-description">
-                    أنا لا أكتب أكواد فقط، بل أصنع تجارب، وأحل المشكلات، وأبتكر فناً رقمياً يتحدث عن نفسه
-                </p>
-
-                <!-- Buttons: Centered on Mobile, left-aligned on Desktop -->
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse pt-4 justify-center md:justify-start">
-                    <!-- UPDATED: Main CTA now opens the Contact Modal -->
-                    <button class="cta-primary bg-primary-blue text-white text-lg font-bold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-[1.03] shadow-lg shadow-primary-blue/50" data-i18n="btn_talent" onclick="openContactModal()">
-                        قل مرحبآ لا تخجل  
-                    </button>
-                    <!-- Button: "ما أنجزته" now calls showSoonToast -->
-                    <button class="bg-gray-800 text-light-gray-text text-lg font-bold py-3 px-8 rounded-xl transition duration-300 hover:bg-gray-700 flex items-center justify-center space-x-2 rtl:space-x-reverse border border-gray-700 transform hover:scale-[1.03]" data-i18n="btn_video" onclick="showSoonToast(translations[currentLanguage].soon_message);">
-                        <i class="fas fa-play text-sm"></i>
-                        <span> ما أنجزته</span>
-                    </button>
+        <!-- 1. ABOUT SECTION - Window Card --><section id="about" class="window-card" aria-labelledby="about-title">
+            <!-- Window Bar --><div class="window-bar">
+                <div class="window-controls">
+                    <span class="window-control-dot" style="background: #ff5f56;"></span>
+                    <span class="window-control-dot" style="background: #ffbd2e;"></span>
+                    <span class="window-control-dot" style="background: #27c93f;"></span>
                 </div>
-
-                <!-- ------------------------------------------------------------- -->
-                <!-- AVATAR SECTION - MOBILE ONLY (Placed after buttons, before social/skills) -->
-                <!-- ------------------------------------------------------------- -->
-                <!-- تم وضع مسافة علوية (mt-6) تعادل 24 بكسل لفصلها عن الأزرار -->
-                <div class="relative flex justify-center items-center min-h-[400px] md:hidden mx-auto mt-6 pb-0">
+                <div class="window-title" id="about-title" data-i18n="about_heading">ABOUT</div>
+            </div>
+            
+            <!-- Window Body --><div class="window-body">
+                <div class="about-grid">
                     
-                    <!-- Floating code elements (Mobile) -->
-                    <div class="absolute text-3xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-20 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
-                    
-                    <div class="absolute text-2xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
-                    
-                    <!-- Central Avatar -->
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 character-art text-center">
+                    <!-- Left: Portrait Image --><figure class="hero-photo">
                         <img 
-                            src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
-                            alt="3D Cartoon Male Character Avatar representing a developer" 
-                            class="character-img-vs"
-                            onerror="this.src='https://placehold.co/300x300/FF914D/FFFFFF?text=3D+Avatar'"
-                        />
-                    </div>
+                            src="https://i.postimg.cc/xjMV7796/unnamed.jpg" 
+                            alt="Portrait of Youseif Elshreif looking to the left in black and white" 
+                            loading="lazy">
+                    </figure>
 
-                    <!-- Central Code Snippet (VS Interface) - مُصغر وموضوع على الكتف -->
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
-                        <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
-                            <div class="code-line">
-                                <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="white">;</span>
-                            </div>
-                            <div class="code-line mt-2">
-                                <span class="text-vs-keyword">const</span> <span class="text-vs-orange">getBestDevs</span> <span class="white">=</span> <span class="text-vs-purple">async</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span>
-                            </div>
-                            <div class="code-line ml-4">
-                                <span class="text-vs-keyword">let</span> <span class="text-vs-orange">candidates</span> <span class="white">=</span> <span class="text-vs-purple">await</span> <span class="text-vs-orange">FindTalent</span><span class="text-vs-cyan">.</span><span class="text-vs-orange">query</span><span class="text-vs-cyan">({</span>
-                            </div>
-                            <div class="code-line ml-8">
-                                <span class="text-vs-purple">role</span>: <span class="text-vs-green">'FullStack'</span><span class="white">,</span>
-                            </div>
-                            <div class="code-line ml-8">
-                                <span class="text-vs-purple">vetted</span>: <span class="text-vs-orange">true</span><span class="white">,</span>
-                            </div>
-                            <div class="code-line ml-4">
-                                <span class="text-vs-cyan">})</span><span class="white">;</span>
-                            </div>
-                            <div class="code-line"><span class="text-vs-cyan">}</span><span class="white">;</span></div>
-                            <div class="code-line mt-2">
-                                <span class="text-vs-orange">getBestDevs</span><span class="text-vs-cyan">()</span><span class="white">;</span>
-                            </div>
+                    <!-- Right: Content --><div class="about-content">
+                        <small data-i18n="hello_im">Hello, I'm</small>
+                        <h1 data-i18n="name">Youseif Elshreif</h1>
+                        
+                        <!-- Badges --><div class="badges">
+                            <span class="badge">
+                                <span class="dot" style="background: var(--green);"></span>
+                                <span data-i18n="available_freelance">Available for Freelance</span>
+                            </span>
+                            <span class="badge">
+                                <span class="dot" style="background: var(--purple);"></span>
+                                <span data-i18n="open_to_work">Open to Work</span>
+                            </span>
+                        </div>
+
+                        <div class="role" data-i18n="job_title">Frontend Developer</div>
+                        
+                        <p class="bio" data-i18n="about_description">
+                            I love coding, learning, building real things that work, exploring new tech, and coffee.
+                        </p>
+                        
+                        <!-- Tech Chips --><div class="chips">
+                            <span class="chip">Next.js</span>
+                            <span class="chip">React.js</span>
+                            <span class="chip">TypeScript</span>
+                            <span class="chip">Tailwind CSS</span>
+                            <span class="chip">Axios</span>
+                        </div>
+                        
+                        <!-- Action Buttons --><div class="actions">
+                            <a href="#projects" class="btn-primary" data-i18n="view_projects_button" role="button">
+                                View Projects
+                            </a>
+                            <a href="#" class="btn-outline" data-i18n="view_resume_button" onclick="openResumeModal(event)" role="button">
+                                View Resume
+                            </a>
                         </div>
                     </div>
                 </div>
-                <!-- ------------------------------------------------------------- -->
-                <!-- END: AVATAR SECTION - MOBILE ONLY -->
-                <!-- ------------------------------------------------------------- -->
+            </div>
+        </section>
 
+        <!-- 2. SKILLS SECTION - Window Card --><section id="skills" class="window-card" aria-labelledby="skills-title">
+            <div class="window-bar">
+                <div class="window-controls">
+                    <span class="window-control-dot" style="background: #ff5f56;"></span>
+                    <span class="window-control-dot" style="background: #ffbd2e;"></span>
+                    <span class="window-control-dot" style="background: #27c93f;"></span>
+                </div>
+                <div class="window-title" id="skills-title" data-i18n="skills_heading">SKILLS</div>
+            </div>
+            
+            <div class="window-body">
+                <div class="skills-grid">
+                    <!-- Skills Grid Items --><!-- Row 1 --><article class="skill" role="img" aria-label="HTML skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-html5 skill-icon"></i> </div>
+                        <div class="skill-name">HTML</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="CSS skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-css3-alt skill-icon"></i> </div>
+                        <div class="skill-name">CSS</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="JS skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-js skill-icon"></i> </div>
+                        <div class="skill-name">JS</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="TypeScript skill icon">
+                        <div class="skill-icon-wrapper"> <img src="https://www.typescriptlang.org/icons/icon-48x48.png" alt="TS icon" class="skill-img"> </div>
+                        <div class="skill-name">TS</div>
+                    </article>
+                    
+                    <!-- Row 2 --><article class="skill" role="img" aria-label="React skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-react skill-icon"></i> </div>
+                        <div class="skill-name">React</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="Next.js skill icon">
+                        <div class="skill-icon-wrapper"> <span class="skill-icon font-black">N</span> </div>
+                        <div class="skill-name">Next</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="Git skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-git-alt skill-icon"></i> </div>
+                        <div class="skill-name">Git</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="Bootstrap skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-bootstrap skill-icon"></i> </div>
+                        <div class="skill-name">Bootstrap</div>
+                    </article>
 
-                <!-- ------------------------------------------------------------- -->
-                <!-- NEW: Social Media Links Section -->
-                <!-- ------------------------------------------------------------- -->
-                <div class="pt-8 mt-6 border-t border-gray-800/50">
-                    <p class="text-sm font-semibold text-light-gray-text mb-4 text-center md:text-left" data-i18n="social_connect"> تواصل معي:</p>
-                    <div class="flex space-x-6 rtl:space-x-reverse justify-center md:justify-start">
-                        <!-- GitHub -->
-                        <a href="#" class="text-3xl social-icon github" aria-label="GitHub">
+                    <!-- Row 3 --><article class="skill" role="img" aria-label="Tailwind CSS skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fab fa-tailwind-css skill-icon"></i> </div>
+                        <div class="skill-name">Tailwind</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="Axios skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fas fa-network-wired skill-icon"></i> </div>
+                        <div class="skill-name">Axios</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="Formik skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fas fa-wpforms skill-icon"></i> </div>
+                        <div class="skill-name">Formik</div>
+                    </article>
+                    <article class="skill" role="img" aria-label="MUI skill icon">
+                        <div class="skill-icon-wrapper"> <i class="fas fa-layer-group skill-icon"></i> </div>
+                        <div class="skill-name">MUI</div>
+                    </article>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PROJECTS SECTION - Window Card --><section id="projects" class="window-card" aria-labelledby="projects-title">
+            <div class="window-bar">
+                <div class="window-controls">
+                    <span class="window-control-dot" style="background: #ff5f56;"></span>
+                    <span class="window-control-dot" style="background: #ffbd2e;"></span>
+                    <span class="window-control-dot" style="background: #27c93f;"></span>
+                </div>
+                <div class="window-title" id="projects-title" data-i18n="projects_heading">PROJECTS</div>
+            </div>
+            
+            <div class="window-body">
+                <div class="projects-grid">
+                    
+                    <!-- Project Card 1: Yaqen Academy --><article class="project-card" role="article" aria-labelledby="project-1-title">
+                        <div class="project-media">
+                            <img src="https://placehold.co/600x360/171717/b3b3b3?text=Yaqen+Academy" alt="Yaqen Academy website screenshot" loading="lazy" />
+                            <span class="project-badge" data-i18n="tag_freelance">Freelance</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 id="project-1-title">Yaqen Academy</h3>
+                            <p class="project-desc" data-i18n="p1_desc">Islamic platform for Quran memorization with certified teachers and flexible online learning</p>
+                            <div class="project-tags">
+                                <span class="chip">Next</span>
+                                <span class="chip">TS</span>
+                                <span class="chip">Axios</span>
+                            </div>
+                            <button class="show-details" aria-label="Show details for Yaqen Academy" onclick="openProjectModal('Yaqen Academy')">
+                                ⦿ <span data-i18n="view_details_button">Show Details</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 2: Portfolio --><article class="project-card" role="article" aria-labelledby="project-2-title">
+                        <div class="project-media">
+                            <img src="https://placehold.co/600x360/171717/b3b3b3?text=Mohamed+Mostafa+Portfolio" alt="Mohamed Mostafa Portfolio website screenshot" loading="lazy" />
+                            <span class="project-badge" data-i18n="tag_freelance">Freelance</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 id="project-2-title">Mohamed Mostafa Portfolio</h3>
+                            <p class="project-desc" data-i18n="p2_desc">Portfolio website for DevOps engineer Mohamed Mostafa.</p>
+                            <div class="project-tags">
+                                <span class="chip">Next</span>
+                                <span class="chip">Tailwind CSS</span>
+                            </div>
+                            <button class="show-details" aria-label="Show details for Mohamed Mostafa Portfolio" onclick="openProjectModal('Mohamed Mostafa Portfolio')">
+                                ⦿ <span data-i18n="view_details_button">Show Details</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 3: Charity Association --><article class="project-card" role="article" aria-labelledby="project-3-title">
+                        <div class="project-media">
+                            <img src="https://placehold.co/600x360/171717/b3b3b3?text=Charity+App" alt="Officers Wives Charity Association website screenshot" loading="lazy" />
+                            <span class="project-badge" data-i18n="tag_freelance">Freelance</span>
+                        </div>
+                        <div class="project-body">
+                            <h3 id="project-3-title">Officers Wives Charity Association</h3>
+                            <p class="project-desc" data-i18n="p3_desc">A non-profit platform showcasing charitable activities and organizing Hajj & Umrah trips.</p>
+                            <div class="project-tags">
+                                <span class="chip">Next</span>
+                                <span class="chip">Tailwind CSS</span>
+                                <span class="chip">React-Icons</span>
+                            </div>
+                            <button class="show-details" aria-label="Show details for Officers Wives Charity Association" onclick="openProjectModal('Officers Wives Charity Association')">
+                                ⦿ <span data-i18n="view_details_button">Show Details</span>
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- 4. CONTACT SECTION - New Structure --><section id="contact" class="window-card" aria-labelledby="contact-title">
+            <div class="window-bar">
+                <div class="window-controls">
+                    <span class="window-control-dot" style="background: #ff5f56;"></span>
+                    <span class="window-control-dot" style="background: #ffbd2e;"></span>
+                    <span class="window-control-dot" style="background: #27c93f;"></span>
+                </div>
+                <div class="window-title" id="contact-title" data-i18n="contact_heading">CONTACT</div>
+            </div>
+            
+            <div class="window-body">
+                
+                <!-- Content and Form Row (Titles and content side-by-side) -->
+                <div class="contact-form-grid">
+                    
+                    <!-- Left Column: Contact Information -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent" data-i18n="contact_info_title">Contact Information</h3>
+                        <div class="space-y-4">
+                            
+                            <!-- Email --><div class="contact-info-card">
+                                <div class="contact-icon-wrapper"><i class="fas fa-envelope text-xl"></i></div>
+                                <div class="contact-info-details">
+                                    <p data-i18n="contact_email_label">Email</p>
+                                    <p data-i18n="contact_email_value">youseif.elshreif@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <!-- WhatsApp --><div class="contact-info-card">
+                                <div class="contact-icon-wrapper"><i class="fab fa-whatsapp text-xl"></i></div>
+                                <div class="contact-info-details">
+                                    <p data-i18n="contact_whatsapp_label">WhatsApp</p>
+                                    <p data-i18n="contact_whatsapp_value">+20 127 790 6691</p>
+                                </div>
+                            </div>
+
+                            <!-- Location --><div class="contact-info-card">
+                                <div class="contact-icon-wrapper"><i class="fas fa-map-marker-alt text-xl"></i></div>
+                                <div class="contact-info-details">
+                                    <p data-i18n="contact_location_label">Location</p>
+                                    <p data-i18n="contact_location_value">Ismailia, Egypt</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Icons --><div class="flex space-x-3 mt-8">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Send Me a Message Form -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent" data-i18n="contact_send_message">Send Me a Message</h3>
+                        <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-4">
+                            
+                            <!-- Name Input (Full Width) -->
+                            <div>
+                                <label for="contact-name" class="sr-only" data-i18n="form_name_placeholder">Name *</label>
+                                <input type="text" id="contact-name" name="name" class="form-input" placeholder="Name *" required data-i18n-placeholder="form_name_placeholder">
+                            </div>
+
+                            <!-- Phone and Email Group (Split) --><div class="form-input-group">
+                                <div style="flex-basis: 50%;">
+                                    <label for="contact-phone" class="sr-only" data-i18n="form_phone_placeholder">Phone Number</label>
+                                    <input type="tel" id="contact-phone" name="phone_number" class="form-input" placeholder="Phone Number" data-i18n-placeholder="form_phone_placeholder">
+                                </div>
+                                <div style="flex-basis: 50%;">
+                                    <label for="contact-email" class="sr-only" data-i18n="form_email_placeholder">Email Address *</label>
+                                    <input type="email" id="contact-email" name="email_address" class="form-input" placeholder="Email Address *" required data-i18n-placeholder="form_email_placeholder">
+                                </div>
+                            </div>
+                            
+                            <!-- Message Textarea -->
+                            <div>
+                                <label for="contact-message" class="sr-only" data-i18n="form_message_placeholder">Message *</label>
+                                <textarea id="contact-message" name="message" rows="5" class="form-textarea resize-y" placeholder="Message *" required data-i18n-placeholder="form_message_placeholder"></textarea>
+                            </div>
+
+                            <!-- Submit Button --><button type="submit" class="btn-primary w-full" data-i18n="form_send_button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Floating Email Button (FAB) --><button class="mail-fab" aria-label="Contact via email" onclick="window.location.href='mailto:youseif.elshreif@gmail.com'">
+        <i class="fas fa-envelope"></i>
+    </button>
+    
+    <!-- FOOTER SECTION - New structure added --><footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- About Column --><div class="footer-column">
+                    <h4 data-i18n="footer_about_title">About</h4>
+                    <p data-i18n="footer_about_text">
+                        I love coding, learning, building real things that work, exploring new tech, and coffee.
+                    </p>
+                </div>
+
+                <!-- Get In Touch Column --><div class="footer-column">
+                    <h4 data-i18n="footer_get_in_touch_title">Get In Touch</h4>
+                    <p class="mb-2">
+                        <i class="fas fa-envelope ml-2"></i> <a href="mailto:youseif.elshreif@gmail.com" data-i18n="contact_email_value_footer">youseif.elshreif@gmail.com</a>
+                    </p>
+                    <p>
+                        <i class="fab fa-whatsapp ml-2"></i> <a href="tel:+201277906691" data-i18n="contact_whatsapp_value_footer">+201277906691</a>
+                    </p>
+                </div>
+
+                <!-- Connect Column --><div class="footer-column">
+                    <h4 data-i18n="footer_connect_title">Connect</h4>
+                    <div class="flex mt-4">
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <!-- Facebook -->
-                        <a href="#" class="text-3xl social-icon facebook" aria-label="Facebook">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <!-- Instagram -->
-                        <a href="#" class="text-3xl social-icon instagram" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <!-- WhatsApp -->
-                        <a href="#" class="text-3xl social-icon whatsapp" aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
                     </div>
                 </div>
-                <!-- ------------------------------------------------------------- -->
-                <!-- END: Social Media Links Section -->
-                <!-- ------------------------------------------------------------- -->
-
-                <!-- Embedded Skills Showcase -->
-                <div id="skills-section" class="pt-10 border-t border-gray-800/50 mt-10 text-center md:text-left w-full">
-                    <h3 class="text-xl font-bold text-white mb-6" data-i18n="skills_title">مهاراتي التقنية  </h3>
-                    <!-- Skills List Container -->
-                    <div class="space-y-5">
-                        
-                        <!-- Skill Item 1: HTML -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
-                                    <i class="fab fa-html5 text-orange-500 text-lg"></i>
-                                    <span>HTML</span>
-                                </span>
-                                <span class="text-neon-cyan text-sm">100%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-orange-500 h-1.5 rounded-full" style="width: 100%; box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- Skill Item 2: CSS -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
-                                    <i class="fab fa-css3-alt text-blue-500 text-lg"></i>
-                                    <span>CSS</span>
-                                </span>
-                                <span class="text-neon-cyan text-sm">80%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 80%; box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);"></div>
-                            </div>
-                        </div>
-
-                        <!-- Skill Item 3: JavaScript (JS) -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
-                                    <i class="fab fa-js-square text-yellow-400 text-lg"></i>
-                                    <span>JavaScript (JS)</span>
-                                </span>
-                                <span class="text-neon-cyan text-sm">60%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-yellow-400 h-1.5 rounded-full" style="width: 60%; box-shadow: 0 0 8px rgba(250, 204, 21, 0.6);"></div>
-                            </div>
-                        </div>
-
-                        <!-- Skill Item 4: Python -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
-                                    <i class="fab fa-python text-sky-400 text-lg"></i>
-                                    <span>Python</span>
-                                </span>
-                                <span class="text-neon-cyan text-sm">90%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-sky-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);"></div>
-                            </div>
-                        </div>
-
-                        <!-- Skill Item 5: Flutter -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
-                                    <!-- Using mobile icon for Flutter framework -->
-                                    <i class="fas fa-mobile-alt text-cyan-400 text-lg"></i> 
-                                    <span>Flutter</span>
-                                </span>
-                                <span class="text-neon-cyan text-sm">90%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-cyan-400 h-1.5 rounded-full" style="width: 90%; box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- NEW Skill Item 6: AI / Machine Learning -->
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-light-gray-text font-semibold">
-                                <span class="flex items-center space-x-2 rtl:space-x-reverse text-white">
-                                    <i class="fas fa-microchip text-vs-purple text-lg"></i>
-                                    <span>AI / Machine Learning</span>
-                                </span>
-                                <span class="text-neon-cyan text-sm">60%</span>
-                            </div>
-                            <div class="w-full bg-gray-800 rounded-full h-1.5">
-                                <div class="bg-vs-purple h-1.5 rounded-full" style="width: 60%; box-shadow: 0 0 8px rgba(192, 132, 252, 0.6);"></div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <!-- END: Embedded Skills Showcase -->
             </div>
-            <!-- END: Column 1 -->
-
-            <!-- Column 2: Illustration Section (Desktop Only) -->
-            <div class="relative flex justify-center items-center h-full min-h-[600px] md:mt-0 mx-auto hidden md:block">
-                
-                <!-- Floating code elements (Desktop) -->
-                <div class="absolute text-5xl font-mono text-neon-cyan opacity-90 animate-float z-20 top-8 left-[15%] hologram-glow" style="animation-delay: 1s; filter: drop-shadow(0 0 10px rgba(52, 211, 255, 0.8));">{}</div>
-                
-                <div class="absolute text-4xl font-mono text-neon-violet opacity-90 animate-float z-20 bottom-1/4 right-[10%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(167,139,250,0.8)); animation-delay: 3s;">&lt;/&gt;</div>
-                
-                <div class="absolute text-xl font-mono text-neon-green opacity-80 animate-float z-20 top-1/2 right-0 transform translate-y-[-50%] hologram-glow hidden sm:block" style="filter: drop-shadow(0 0 8px rgba(16,185,129,0.8)); animation-delay: 5s;">0101101;</div>
-                
-                <!-- Code Snippet Above Avatar (Floating Code) -->
-                <div class="absolute w-32 h-20 p-2 bg-gray-600/30 backdrop-blur-md rounded-lg border border-gray-500/50 text-xs text-vs-cyan font-mono top-20 right-1/4 shadow-xl animate-float z-20 hidden md:block" style="animation-delay: 2s; transform: rotate(-5deg);">
-                    <p class="mb-1 text-vs-purple">const <span class="text-vs-orange">App</span> <span class="text-white">=</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span></p>
-                    <p class="ml-2 text-vs-green">return <span class="text-white">&lt;</span><span class="text-vs-orange">main</span><span class="text-white">&gt;</span>;</p>
-                    <p class="text-vs-cyan">}</p>
-                </div>
-                <!-- نهاية قطعة الكود العائمة -->
-
-
-                <div class="absolute w-3 h-3 rounded-full bg-yellow-400 opacity-90 animate-float z-20 bottom-0 left-[25%] hologram-glow" style="filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)); animation-delay: 6s;"></div>
-
-                <!-- Central Avatar -->
-                <!-- Avatar Position: تم تعديل موقعه ليكون تحت الكود العلوي -->
-                <div class="absolute top-28 left-1/2 transform -translate-x-1/2 translate-y-[10px] z-30 character-art text-center">
-                    <img 
-                        src="https://i.postimg.cc/j2twCcxs/3d-cartoon-avatar-of-a-man-minimal-3d-character-avatar-for-profile-Premium-AI-generated-image-remo.png" 
-                        alt="3D Cartoon Male Character Avatar representing a developer" 
-                        class="character-img-vs"
-                        onerror="this.src='https://placehold.co/300x300/FF914D/FFFFFF?text=3D+Avatar'"
-                    />
-                </div>
-
-                <!-- Central Code Snippet (VS Interface) -->
-                <!-- Z-index 40 ensures it overlaps the avatar -->
-                <div class="absolute top-28 left-1/2 transform -translate-x-[45%] translate-y-[100%] z-40 illustration-code-snippet">
-                    <div class="vs-interface" style="transform: rotate(-5deg) scale(0.75);">
-                        <div class="code-line">
-                            <span class="text-vs-purple">import</span> <span class="text-vs-cyan">{</span> <span class="text-vs-orange">FindTalent</span> <span class="text-vs-cyan">}</span> <span class="text-vs-purple">from</span> <span class="text-vs-green">'./hiring-engine'</span><span class="text-white">;</span>
-                        </div>
-                        <div class="code-line mt-2">
-                            <span class="text-vs-keyword">const</span> <span class="text-vs-orange">getBestDevs</span> <span class="text-white">=</span> <span class="text-vs-purple">async</span> <span class="text-vs-cyan">()</span> <span class="text-vs-cyan">=></span> <span class="text-vs-cyan">{</span>
-                        </div>
-                        <div class="code-line ml-4">
-                            <span class="text-vs-keyword">let</span> <span class="text-vs-orange">candidates</span> <span class="text-white">=</span> <span class="text-vs-purple">await</span> <span class="text-vs-orange">FindTalent</span><span class="text-vs-cyan">.</span><span class="text-vs-orange">query</span><span class="text-vs-cyan">({</span>
-                        </div>
-                        <div class="code-line ml-8">
-                            <span class="text-vs-purple">role</span>: <span class="text-vs-green">'FullStack'</span><span class="text-white">;</span>
-                        </div>
-                        <div class="code-line ml-8">
-                            <span class="text-vs-purple">vetted</span>: <span class="text-vs-orange">true</span><span class="text-white">;</span>
-                        </div>
-                        <div class="code-line ml-4">
-                            <span class="text-vs-cyan">})</span><span class="text-white">;</span>
-                        </div>
-                        <div class="code-line"><span class="text-vs-cyan">}</span><span class="text-white">;</span></div>
-                        <div class="code-line mt-2">
-                            <span class="text-vs-orange">getBestDevs</span><span class="text-vs-cyan">()</span><span class="text-white">;</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- END: Column 2: Illustration Section (Desktop Only) -->
-        </div>
-    </main>
-
-    <footer class="relative z-20 p-6 md:p-10 lg:px-20 border-t border-gray-800/50">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-light-gray-text text-sm space-y-4 md:space-y-0">
-            <!-- UPDATED: Footer Copyright -->
-            <p id="footer-copyright" data-i18n="footer_copyright">
-                &copy; 2025 TECHNO NANO.TN
-            </p>
-            
-            <!-- UPDATED: Only Privacy Policy link remains -->
-            <div class="flex space-x-6 rtl:space-x-reverse">
-                <a href="#" class="hover:text-white transition duration-200" data-i18n="footer_privacy" onclick="openPrivacyModal()">سياسة الخصوصية</a>
+            <div class="activate-windows">
+                Activate Windows <a href="#">Go to Settings to activate Windows.</a>
             </div>
         </div>
     </footer>
-    
-    <!-- START: Quiz Modal (Tech Quiz) -->
-    <div id="quiz-modal" class="grid" onclick="closeQuiz(event)">
-        <div id="quiz-content" onclick="event.stopPropagation()">
-            <!-- Close Button -->
-            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closeQuiz(event)">
-                &times;
-            </button>
-            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-4" data-i18n="quiz_title" id="quiz-title">اختبار المهارات التقنية (Tech Quiz)</h2>
-            
-            <div id="quiz-status"></div>
-            
-            <div id="quiz-area">
-                <p id="question-text" class="text-lg text-white font-semibold mb-6"></p>
-                <div id="answers-container" class="space-y-3">
-                    <!-- Answer buttons generated here -->
+
+
+    <!-- Modal for Project Details --><div id="project-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-card">
+            <div class="window-bar">
+                <div class="window-controls">
+                    <span class="window-control-dot" style="background: #ff5f56;"></span>
+                    <span class="window-control-dot" style="background: #ffbd2e;"></span>
+                    <span class="window-control-dot" style="background: #27c93f;"></span>
                 </div>
+                <div class="window-title" id="modal-title" data-i18n="project_details_title">PROJECT DETAILS</div>
             </div>
-
-            <div id="final-score-message" style="display: none;">
-                <!-- Final score message here -->
+            <div class="window-body">
+                <h3 id="project-name-modal" class="text-3xl font-bold mb-4"></h3>
+                <p class="text-subtle-text mb-4" data-i18n="project_details_body">
+                    A detailed breakdown of this project, including role, challenges, and outcomes, would be presented here.
+                </p>
+                <button onclick="closeProjectModal()" class="btn-outline" data-i18n="close_modal">Close</button>
             </div>
-
-            <!-- Control Buttons -->
-            <div class="mt-6 flex justify-center space-x-4 rtl:space-x-reverse">
-                <button id="start-quiz-btn" class="quiz-control-btn start-btn-glow" data-i18n="quiz_start">ابدأ الاختبار</button>
-                <button id="next-question-btn" class="quiz-control-btn next-btn-glow hidden" data-i18n="quiz_next">السؤال التالي</button>
-                <button id="restart-quiz-btn" class="quiz-control-btn next-btn-glow hidden" data-i18n="quiz_restart">إعادة الاختبار</button>
-            </div>
+            <button class="modal-close" aria-label="Close dialog" onclick="closeProjectModal()">&times;</button>
         </div>
     </div>
-    <!-- END: Quiz Modal -->
 
-    <!-- START: Contact Modal -->
-    <div id="contact-modal" class="grid" onclick="closeContactModal(event)">
-        <div id="contact-content" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closeContactModal(event)">
-                &times;
-            </button>
-            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-6" data-i18n="contact_title">تواصل معي مباشرة</h2>
-            
-            <form action="https://formspree.io/f/mqaygejp" method="POST" class="space-y-4">
-                
-                <div class="text-left">
-                    <label for="name" class="block text-sm font-medium text-light-gray-text" data-i18n="contact_name">الاسم:</label>
-                    <input type="text" id="name" name="name" class="form-input" required data-i18n-placeholder="contact_name_placeholder" placeholder="أدخل اسمك هنا...">
-                </div>
-
-                <div class="text-left">
-                    <label for="email" class="block text-sm font-medium text-light-gray-text" data-i18n="contact_email">البريد الإلكتروني:</label>
-                    <input type="email" id="_replyto" name="_replyto" class="form-input" required data-i18n-placeholder="contact_email_placeholder" placeholder="your.email@example.com">
-                </div>
-
-                <div class="text-left">
-                    <label for="message" class="block text-sm font-medium text-light-gray-text" data-i18n="contact_message">رسالتك:</label>
-                    <textarea id="message" name="message" rows="4" class="form-textarea" required data-i18n-placeholder="contact_message_placeholder" placeholder="اكتب رسالتك هنا..."></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-neon-green text-black font-bold py-3 rounded-xl hover:bg-neon-green/90 transition duration-300 shadow-lg shadow-neon-green/40" data-i18n="contact_send">
-                    إرسال الرسالة
-                </button>
-            </form>
-        </div>
-    </div>
-    <!-- END: Contact Modal -->
-    
-    <!-- START: Privacy Policy Modal -->
-    <div id="privacy-modal" class="grid" onclick="closePrivacyModal(event)">
-        <div id="privacy-content" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closePrivacyModal(event)">
-                &times;
-            </button>
-            <div id="privacy-markdown-display">
-                <!-- Content will be injected here by JavaScript -->
-            </div>
-        </div>
-    </div>
-    <!-- END: Privacy Policy Modal -->
-
-    <!-- START: About Me Modal (نبذة تعريفية) -->
-    <div id="about-modal" class="grid" onclick="closeAboutModal(event)">
-        <div id="about-content" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 text-white text-2xl hover:text-red-500 transition duration-200 close-btn" onclick="closeAboutModal(event)">
-                &times;
-            </button>
-            <h2 class="text-neon-cyan font-bold text-2xl text-center mb-6" data-i18n="nav_resume">نبذة تعريفية</h2>
-            <div id="about-markdown-display" class="space-y-6">
-                <!-- Content will be injected here by JavaScript -->
-            </div>
-        </div>
-    </div>
-    <!-- END: About Me Modal -->
-
-
-    <script>
-        // --- Language and Translation Setup ---
+    <!-- Translations and JavaScript --><script>
+        // --- Translations Data ---
         const translations = {
             en: {
-                // Header & Nav
-                page_title: "TECHNO NANO.TN - Modern UI",
-                nav_title: "Navigation Menu",
-                nav_home: "Home",
-                nav_for_developers: "Technical Skills",
-                nav_about: "My Projects",
-                nav_contact: " Quiz",
-                nav_resume: "About Me", // Updated text
-                lang_button: "AR",
-                // Hero Section
-                new_tag: "NEW",
-                new_text: "Discover my latest achievements and new experiences here first.",
-                title_part1: "Hire.",
-                title_part2: "Hello and welcome to my programming universe",
-                description: "I don’t only code; I transform ideas into experiences and craft digital creations that tell their own story.",
-                btn_talent: "Feel free to say hello",
-                btn_video: "What I’ve Accomplished",
-                social_connect: "Get in Touch:",
-                // Skills
-                skills_title: "Technical Skills",
-                // Footer
-                footer_copyright: "© 2025 TECHNO NANO.TN", // UPDATED TEXT
-                footer_privacy: "Privacy Policy",
-                footer_terms: "Terms of Service",
-                footer_careers: "Careers",
-                // Quiz
-                quiz_title: "Tech Skills Quiz",
-                quiz_start: "Start Quiz",
-                quiz_next: "Next Question",
-                quiz_restart: "Restart Quiz",
-                quiz_status_base: "Question",
-                quiz_status_from: "of",
-                quiz_status_score: "Current Score",
-                quiz_result_perfect: "Amazing! You are a top-tier developer. Perfect performance!",
-                quiz_result_strong: "Strong performance! You have a solid foundation in these technologies.",
-                quiz_result_needs_work: "Not bad, maybe you need more review! Keep learning.",
-                quiz_result_final_score: "Final Score",
-                quiz_question1: "What element is used to define page styling in HTML5?",
-                quiz_answer1: ["<style>", "<format>", "<css>", "<layout>"],
-                quiz_question2: "What property is used to change the background color in CSS?",
-                quiz_answer2: ["color", "font-color", "background-color", "bgcolor"],
-                quiz_question3: "What keyword is used to declare a constant (non-reassignable) variable in JavaScript?",
-                quiz_answer3: ["var", "let", "const", "static"],
-                quiz_question4: "In Python, which function is used to print output to the screen?",
-                quiz_answer4: ["output()", "print()", "display()", "write()"],
-                quiz_question5: "In Flutter, what concept describes how the Graphical User Interface (UI) is built?",
-                quiz_answer5: ["Components", "Widgets", "Elements", "Views"],
-                // Toast Message
-                soon_message: "Projects section coming soon!",
-                // Contact Modal
-                contact_title: "Contact Me Directly",
-                contact_name: "Name:",
-                contact_name_placeholder: "Enter your name here...",
-                contact_email: "Email:",
-                contact_email_placeholder: "your.email@example.com",
-                contact_message: "Your Message:",
-                contact_message_placeholder: "Write your message here...",
-                contact_send: "Send Message",
-                // Privacy Policy Content (Markdown/HTML)
-                privacy_policy_content: `
-                    <h1>Privacy Policy for TECHNO NANO.TN</h1>
-                    <p><strong>Last Updated:</strong> October 13, 2025</p>
-                    <p>We highly value the privacy of our visitors and users. This document explains the types of information collected, how it is used, and how it is protected regarding your use of my personal website, TECHNO NANO.TN.</p>
-                    <h2>1. Information We Collect</h2>
-                    <h3>A. Information You Provide Directly (Via Contact Form)</h3>
-                    <p>When you use the "Feel free to say hello" contact form (powered by Formspree), we collect the following information:</p>
-                    <ul>
-                        <li><strong>Name:</strong> For the purpose of addressing you appropriately.</li>
-                        <li><strong>Email:</strong> To communicate with you and respond to your message.</li>
-                        <li><strong>Message/Inquiry:</strong> The content of the message you send.</li>
-                    </ul>
-                    <p><strong>Note on Formspree:</strong> This data is processed and temporarily stored by Formspree before being sent to us via email. This data is not stored directly in the site's databases.</p>
-                    <h3>B. Automatic Tracking and Usage Information</h3>
-                    <p>We use analytics tools (such as Google Analytics - implied) to understand how visitors use the site. This includes:</p>
-                    <ul>
-                        <li><strong>Device Data:</strong> Device type, operating system, browser type.</li>
-                        <li><strong>Usage Data:</strong> Pages visited, duration of visit, links clicked, and skills tests taken.</li>
-                    </ul>
-                    <h2>2. How We Use the Information</h2>
-                    <p>We use the collected information for the following purposes:</p>
-                    <ul>
-                        <li><strong>Communication:</strong> To respond to your inquiries and messages sent via the contact form.</li>
-                        <li><strong>Site Improvement:</strong> Analyzing feature usage (like quizzes and skills sections) to develop and enhance the site's design and performance.</li>
-                    </ul>
-                    <h2>3. Data Protection (Security)</h2>
-                    <p>We are committed to taking all reasonable measures to protect your personal data from unauthorized access, alteration, disclosure, or destruction. Data sent via Formspree is secured according to their service standards.</p>
-                    <h2>4. Sharing Information</h2>
-                    <p>We do not sell or trade or rent your personal information collected via the contact form to any third party. Non-personal information (like aggregated usage data) may be shared with analytics providers to improve the site.</p>
-                    <h2>5. Your Legal Rights</h2>
-                    <p>As a user, you have the right to request access to, correction, or deletion of the personal data we hold about you. You can exercise these rights by contacting us directly via the email address you provide.</p>
-                    <h2>6. Changes to the Privacy Policy</h2>
-                    <p>We may update this policy periodically. The latest version will be posted here, and your continued use of the site after any changes constitutes your acceptance of the updated policy.</p>
-                    <p><strong>For any inquiries regarding the Privacy Policy, please contact us via the available contact form on the homepage.</strong></p>
-                `,
-                // About Me Content
-                about_me_content: `
-                    <div class="text-center mb-6">
-                        <p class="text-5xl mb-4">✨</p>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Hello, I'm Adham</h2>
-                        <p class="text-neon-cyan text-lg">Passionate about coding and design, where ideas meet code.</p>
-                    </div>
-                    <div class="space-y-6">
-                        <p>I am <strong>Adham</strong>, passionate about the world of <strong>programming and design</strong>. I believe that code is not just commands, but a language that creates **creativity** and narrates ideas. This passion is the driving force behind every line I write.</p>
-                        <p>I love transforming concepts into <strong>living applications and websites</strong>, and I constantly seek new ways to invent <strong>digital experiences</strong> that combine beauty and intelligence.</p>
-                        <p>I strive to leave my mark in the technology world through **distinctive projects** that reflect my passion and determination for **excellence** and continuous innovation.</p>
-                    </div>
-                `
+                name: "Youseif Elshreif",
+                nav_about: "About",
+                nav_skills: "Skills",
+                nav_projects: "Projects",
+                nav_contact: "Contact",
+                github_link: "GitHub ↗",
+                linkedin_link: "LinkedIn ↗",
+                resume_link: "Resume ↗",
+                about_heading: "ABOUT",
+                hello_im: "Hello, I'm",
+                available_freelance: "Available for Freelance",
+                open_to_work: "Open to Work",
+                job_title: "Frontend Developer",
+                about_description: "I love coding, learning, building real things that work, exploring new tech, and coffee.",
+                view_projects_button: "View Projects",
+                view_resume_button: "View Resume",
+                skills_heading: "SKILLS",
+                projects_heading: "PROJECTS",
+                view_details_button: "Show Details",
+                contact_heading: "CONTACT",
+                tag_freelance: "Freelance",
+                tag_personal: "Personal",
+                tag_nonprofit: "Non-Profit",
+                p1_desc: "Islamic platform for Quran memorization with certified teachers and flexible online learning",
+                p2_desc: "Portfolio website for DevOps engineer Mohamed Mostafa.",
+                p3_desc: "A non-profit platform showcasing charitable activities and organizing Hajj & Umrah trips.",
+                project_details_title: "PROJECT DETAILS",
+                project_details_body: "A detailed breakdown of this project, including role, challenges, and outcomes, would be presented here.",
+                close_modal: "Close",
+                resume_modal_title: "Resume Details",
+                resume_modal_body: "This is a dedicated space for your Resume/CV content. You can embed an iframe, link a PDF, or display the document directly here.",
+                
+                // NEW CONTACT KEYS
+                contact_info_title: "Contact Information",
+                contact_email_label: "Email",
+                contact_email_value: "youseif.elshreif@gmail.com",
+                contact_whatsapp_label: "WhatsApp",
+                contact_whatsapp_value: "+20 127 790 6691",
+                contact_location_label: "Location",
+                contact_location_value: "Ismailia, Egypt",
+                contact_send_message: "Send Me a Message",
+                form_name_placeholder: "Name *",
+                form_phone_placeholder: "Phone Number",
+                form_email_placeholder: "Email Address *",
+                form_message_placeholder: "Message *",
+                form_send_button: "Send Message",
+
+                // NEW FOOTER KEYS
+                footer_about_title: "About",
+                footer_about_text: "I love coding, learning, building real things that work, exploring new tech, and coffee.",
+                footer_get_in_touch_title: "Get In Touch",
+                contact_email_value_footer: "youseif.elshreif@gmail.com",
+                contact_whatsapp_value_footer: "+201277906691",
+                footer_connect_title: "Connect",
             },
             ar: {
-                // Header & Nav
-                page_title: "TECHNO NANO.TN - واجهة عصرية",
-                nav_title: "قائمة التنقل",
-                nav_home: "الرئيسية",
-                nav_for_developers: "المهارات التقنية",
-                nav_about: "مشاريعي",
-                nav_contact: "  اختبار",
-                nav_resume: "نبذة تعريفية", // Updated text
-                lang_button: "EN",
-                // Hero Section
-                new_tag: "جديد",
-                new_text: "آخر ما أنجزته وتجربتي الجديدة تجدونه هنا أولاً.",
-                title_part1: "وظف.",
-                title_part2: "مرحباً بك في عالمي البرمجي",
-                description: "أنا لا أكتب أكواد فقط، بل أصنع تجارب، وأحل المشكلات، وأبتكر فناً رقمياً يتحدث عن نفسه",
-                btn_talent: "قل مرحبآ لا تخجل  ",
-                btn_video: " ما أنجزته",
-                social_connect: "  تواصل معي:",
-                // Skills
-                skills_title: "مهاراتي التقنية  ",
-                // Footer
-                footer_copyright: "© 2025 TECHNO NANO.TN", // UPDATED TEXT
-                footer_privacy: "سياسة الخصوصية",
-                footer_terms: "شروط الخدمة",
-                footer_careers: "الوظائف",
-                // Quiz
-                quiz_title: "اختبار المهارات التقنية (Tech Quiz)",
-                quiz_start: "ابدأ الاختبار",
-                quiz_next: "السؤال التالي",
-                quiz_restart: "إعادة الاختبار",
-                quiz_status_base: "السؤال",
-                quiz_status_from: "من",
-                quiz_status_score: "النقاط الحالية",
-                quiz_result_perfect: "مذهل! أنت مطور من الطراز الأول. أداء مثالي!",
-                quiz_result_strong: "أداء قوي! لديك أساس متين في هذه التقنيات.",
-                quiz_result_needs_work: "لا بأس، ربما تحتاج لمزيد من المراجعة! استمر في التعلم.",
-                quiz_result_final_score: "النتيجة النهائية",
-                quiz_question1: "ما هو العنصر الذي يُستخدم لتحديد تنسيق الصفحة في HTML5؟",
-                quiz_answer1: ["<style>", "<format>", "<css>", "<layout>"],
-                quiz_question2: "ما هي الخاصية التي تُستخدم لتغيير لون الخلفية في CSS؟",
-                quiz_answer2: ["color", "font-color", "background-color", "bgcolor"],
-                quiz_question3: "ما هي الكلمة المفتاحية (Keyword) التي تُستخدم لإعلان متغير ثابت (لا يمكن إعادة تعيينه) في JavaScript؟",
-                quiz_answer3: ["var", "let", "const", "static"],
-                quiz_question4: "في Python، ما هي الدالة التي تُستخدم لطباعة مخرجات على الشاشة؟",
-                quiz_answer4: ["output()", "print()", "display()", "write()"],
-                quiz_question5: "في Flutter، ما هو المفهوم الذي يصف كيفية بناء الواجهة الرسومية (UI)؟",
-                quiz_answer5: ["Components", "Widgets", "Elements", "Views"],
-                // Toast Message
-                soon_message: "قسم المشاريع سيفتح قريباً!",
-                // Contact Modal
-                contact_title: "تواصل معي مباشرة",
-                contact_name: "الاسم:",
-                contact_name_placeholder: "أدخل اسمك هنا...",
-                contact_email: "البريد الإلكتروني:",
-                contact_email_placeholder: "your.email@example.com",
-                contact_message: "رسالتك:",
-                contact_message_placeholder: "اكتب رسالتك هنا...",
-                contact_send: "إرسال الرسالة",
-                // Privacy Policy Content (Markdown/HTML)
-                privacy_policy_content: `
-                    <h1>سياسة الخصوصية لموقع TECHNO NANO.TN</h1>
-                    <p><strong>تاريخ آخر تحديث:</strong> 13 أكتوبر 2025</p>
-                    <p>نحن نولي أهمية قصوى لخصوصية زوارنا ومستخدمينا. توضح هذه الوثيقة أنواع المعلومات التي يتم جمعها وكيفية استخدامها وحمايتها، وذلك فيما يتعلق باستخدامك لموقعنا الشخصي TECHNO NANO.TN.</p>
-                    <h2>1. المعلومات التي نجمعها</h2>
-                    <h3>أ. المعلومات المقدمة مباشرة من قبلك (عبر نموذج التواصل)</h3>
-                    <p>عند استخدامك لنموذج <strong>"قل مرحباً لا تخجل"</strong> (المقدم عبر خدمة Formspree)، فإننا نجمع المعلومات التالية التي تزودنا بها طواعية:</p>
-                    <ul>
-                        <li><strong>الاسم:</strong> لغرض مخاطبتك بشكل لائق.</li>
-                        <li><strong>البريد الإلكتروني:</strong> للتواصل معك والرد على استفساراتك ورسالتك.</li>
-                        <li><strong>الرسالة/الاستفسار:</strong> محتوى الرسالة التي ترسلها إلينا.</li>
-                    </ul>
-                    <p><strong>ملاحظة حول Formspree:</strong> يتم التعامل مع هذه البيانات وتخزينها مؤقتاً بواسطة خدمة Formspree قبل إرسالها إلينا عبر البريد الإلكتروني. لا يتم تخزين هذه البيانات في قواعد بيانات الموقع مباشرة.</p>
-                    <h3>ب. معلومات التتبع والاستخدام التلقائية</h3>
-                    <p>نحن نستخدم أدوات تحليلية (مثل Google Analytics - افتراضياً) لمساعدتنا على فهم كيفية استخدام الزوار لموقعنا وتحسين تجربتهم. تشمل هذه المعلومات:</p>
-                    <ul>
-                        <li><strong>بيانات الجهاز:</strong> نوع الجهاز، نظام التشغيل، نوع المتصفح.</li>
-                        <li><strong>بيانات الاستخدام:</strong> الصفحات التي تمت زيارتها، مدة الزيارة، الروابط التي تم النقر عليها، واختبار المهارات الذي تم إجراؤه.</li>
-                    </ul>
-                    <h2>2. كيفية استخدامنا للمعلومات</h2>
-                    <p>نستخدم المعلومات المجمعة للأغراض التالية:</p>
-                    <ul>
-                        <li><strong>للتواصل:</strong> الرد على استفساراتك ورسائلك المرسلة إلينا عبر نموذج التواصل.</li>
-                        <li><strong>لتحسين الموقع:</strong> تحليل كيفية استخدام الزوار للميزات (مثل الاختبارات وأقسام المهارات) لتطوير الموقع وتحسين تصميمه وأدائه.</li>
-                    </ul>
-                    <h2>3. حماية البيانات (الأمان)</h2>
-                    <p>نحن نلتزم باتخاذ جميع التدابير المعقولة لحماية بياناتك الشخصية من الوصول غير المصرح به أو التغيير أو الإفصاح أو الإتلاف. يتم تخزين البيانات المرسلة عبر نموذج Formspree وتأمينها وفقاً لمعايير الخدمة الخاصة بهم.</p>
-                    <h2>4. مشاركة المعلومات</h2>
-                    <p>نحن لا نبيع أو نتاجر أو نؤجر معلوماتك الشخصية التي تم جمعها عبر نموذج الاتصال (الاسم والبريد الإلكتروني والرسالة) لأي طرف ثالث. يمكن مشاركة المعلومات غير الشخصية (مثل بيانات الاستخدام المجمعة) مع مزودي خدمات التحليل لتحسين الموقع.</p>
-                    <h2>5. حقوقك القانونية</h2>
-                    <p>بصفتك مستخدماً، لديك الحق في طلب الوصول إلى البيانات الشخصية التي نحتفظ بها عنك، أو طلب تصحيحها أو حذفها. يمكنك ممارسة هذه الحقوق عن طريق التواصل معنا مباشرة عبر البريد الإلكتروني الذي سنرد عليك من خلاله.</p>
-                    <h2>6. التغييرات في سياسة الخصوصية</h2>
-                    <p>قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سيتم نشر أحدث إصدار على هذه الصفحة، ويعتبر استخدامك المستمر للموقع بعد أي تعديلات بمثابة موافقة منك على السياسة المحدثة.</p>
-                    <p><strong>لأي استفسارات بخصوص سياسة الخصوصية، يرجى التواصل معنا عبر نموذج الاتصال المتاح في الصفحة الرئيسية.</strong></p>
-                `,
-                // About Me Content
-                about_me_content: `
-                    <div class="text-center mb-6">
-                        <p class="text-5xl mb-4">✨</p>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">أهلاً بك في عالمي، أنا أدهم</h2>
-                        <p class="text-neon-cyan text-lg">شغوف بالبرمجة والتصميم، أين تلتقي الأفكار بالكود.</p>
-                    </div>
-                    <div class="space-y-6">
-                        <p class="text-light-gray-text leading-relaxed">
-                            أنا <strong>أدهم</strong>، شغوف بعالم <strong>البرمجة والتصميم</strong>، أؤمن أن الكود ليس مجرد أوامر، بل هو لغة تصنع <strong>الإبداع</strong> وتروي الأفكار. هذا الشغف هو الدافع وراء كل سطر أكتبه.
-                        </p>
-                        <p class="text-light-gray-text leading-relaxed">
-                            أحب تحويل المفاهيم إلى <strong>تطبيقات ومواقع تنبض بالحياة</strong>، وأبحث دائمًا عن طرق جديدة لابتكار <strong>تجارب رقمية</strong> تجمع بين الجمال والذكاء.
-                        </p>
-                        <p class="text-light-gray-text leading-relaxed">
-                            أسعى لأن أترك بصمتي في عالم التقنية من خلال <strong>مشاريع مميزة</strong> تعكس شغفي وإصراري على <strong>التميز</strong> والابتكار المستمر.
-                        </p>
-                    </div>
-                `
+                name: "يوسف الشريف",
+                nav_about: "عني",
+                nav_skills: "مهاراتي",
+                nav_projects: "مشاريعي",
+                nav_contact: "تواصل",
+                github_link: "جيت هاب ↗",
+                linkedin_link: "لينكد إن ↗",
+                resume_link: "السيرة الذاتية ↗",
+                about_heading: "عني",
+                hello_im: "أهلاً، أنا",
+                available_freelance: "متاح للعمل الحر",
+                open_to_work: "متاح للتوظيف",
+                job_title: "مطور واجهات أمامية",
+                about_description: "أحب البرمجة، التعلم، بناء أشياء حقيقية تعمل، استكشاف التقنيات الجديدة، والقهوة.",
+                view_projects_button: "عرض المشاريع",
+                view_resume_button: "عرض السيرة الذاتية",
+                skills_heading: "المهارات",
+                projects_heading: "المشاريع",
+                view_details_button: "عرض التفاصيل",
+                contact_heading: "تواصل",
+                tag_freelance: "عمل حر",
+                tag_personal: "شخصي",
+                tag_nonprofit: "غير ربحي",
+                p1_desc: "منصة إسلامية لتحفيظ القرآن مع مدرسين معتمدين وتعلم مرن عبر الإنترنت",
+                p2_desc: "موقع بورتفوليو لمهندس DevOps محمد مصطفى.",
+                p3_desc: "منصة غير ربحية لعرض الأنشطة الخيرية وتنظيم رحلات الحج والعمرة.",
+                project_details_title: "تفاصيل المشروع",
+                project_details_body: "سيتم عرض تحليل مفصل لهذا المشروع، بما في ذلك الدور، التحديات، والنتائج، هنا.",
+                close_modal: "إغلاق",
+                resume_modal_title: "تفاصيل السيرة الذاتية",
+                resume_modal_body: "هذه مساحة مخصصة لمحتوى سيرتك الذاتية. يمكنك تضمين إطار iframe، أو ربط ملف PDF، أو عرض المستند مباشرة هنا.",
+
+                // NEW CONTACT KEYS
+                contact_info_title: "معلومات التواصل",
+                contact_email_label: "البريد الإلكتروني",
+                contact_email_value: "youseif.elshreif@gmail.com",
+                contact_whatsapp_label: "واتساب",
+                contact_whatsapp_value: "+20 127 790 6691",
+                contact_location_label: "الموقع",
+                contact_location_value: "الإسماعيلية، مصر",
+                contact_send_message: "أرسل لي رسالة",
+                form_name_placeholder: "الاسم *",
+                form_phone_placeholder: "رقم الهاتف",
+                form_email_placeholder: "البريد الإلكتروني *",
+                form_message_placeholder: "الرسالة *",
+                form_send_button: "إرسال الرسالة",
+
+                // NEW FOOTER KEYS
+                footer_about_title: "عني",
+                footer_about_text: "أحب البرمجة، التعلم، بناء أشياء حقيقية تعمل، استكشاف التقنيات الجديدة، والقهوة.",
+                footer_get_in_touch_title: "تواصل معي",
+                contact_email_value_footer: "youseif.elshreif@gmail.com",
+                contact_whatsapp_value_footer: "+201277906691",
+                footer_connect_title: "تواصل",
             }
         };
 
-        // Quiz Logic Data (Answers are locale-agnostic, questions/options come from translations)
-        const quizQuestions = [
-            { q_key: "quiz_question1", o_key: "quiz_answer1", answer: "<style>" },
-            { q_key: "quiz_question2", o_key: "quiz_answer2", answer: "background-color" },
-            { q_key: "quiz_question3", o_key: "quiz_answer3", answer: "const" },
-            { q_key: "quiz_question4", o_key: "quiz_answer4", answer: "print()" },
-            { q_key: "quiz_question5", o_key: "quiz_answer5", answer: "Widgets" }
-        ];
-
-        let currentLanguage = 'ar'; // Default language is Arabic
+        let currentLanguage = 'ar';
         const htmlRoot = document.getElementById('html-root');
-        const langToggleBtn = document.getElementById('language-toggle-btn');
-        const privacyModal = document.getElementById('privacy-modal'); // Define privacy modal globally
-        const privacyDisplay = document.getElementById('privacy-markdown-display'); // Define privacy display globally
-        const aboutModal = document.getElementById('about-modal'); // Define about modal globally
-        const aboutDisplay = document.getElementById('about-markdown-display'); // Define about display globally
-
-
-        function updateContent() {
-            // Check if language key exists, otherwise default to 'en'
-            if (!translations[currentLanguage]) {
-                currentLanguage = 'en'; 
-            }
+        
+        // Function to apply translations and direction
+        function applyTranslations() {
             const t = translations[currentLanguage];
             const direction = currentLanguage === 'ar' ? 'rtl' : 'ltr';
             
-            // 1. Update HTML Root and Direction
             htmlRoot.setAttribute('lang', currentLanguage);
             htmlRoot.setAttribute('dir', direction);
 
-            // 2. Update Page Title
-            document.title = t.page_title;
-
-            // 3. Update Language Toggle Button
-            langToggleBtn.textContent = t.lang_button;
-
-            // 4. Update Text Content using data-i18n attributes
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
                 if (t[key]) {
-                    element.innerHTML = t[key];
+                    if (element.tagName === 'TITLE') {
+                        document.title = t[key];
+                    } else {
+                        // Check if the element contains nested elements (like the external links)
+                        if (element.querySelector('span')) {
+                            // Only update text content if it's not an empty span for visual formatting
+                            if (element.querySelector('span').textContent.trim() !== '') {
+                                element.querySelector('span').textContent = t[key].replace(' ↗', '').trim();
+                            }
+                        } else {
+                            element.textContent = t[key];
+                        }
+                    }
                 }
             });
-            // 4.1 Update Placeholder Texts (requires manual lookup for inputs/textareas)
-            document.querySelectorAll('input[data-i18n-placeholder], textarea[data-i18n-placeholder]').forEach(element => {
+            
+            // Update placeholders separately
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
                 const key = element.getAttribute('data-i18n-placeholder');
                 if (t[key]) {
                     element.setAttribute('placeholder', t[key]);
                 }
             });
-
-
-            // 5. Update the split Title dynamically (needed because it's split with <br>)
-            document.getElementById('title-part1').textContent = t.title_part1;
-            document.getElementById('title-part2').textContent = t.title_part2;
-
-            // 6. Update Modal content if currently open
-            if (privacyModal.style.display === 'grid') {
-                privacyDisplay.innerHTML = t.privacy_policy_content;
-            }
-            if (aboutModal.style.display === 'grid') {
-                aboutDisplay.innerHTML = t.about_me_content;
-            }
-
-
-            // 7. Re-render the current quiz state if the modal is open, to update language immediately
-            if (quizModal.style.display === 'grid' && currentQuestionIndex < quizQuestions.length) {
-                if (isAnswered) {
-                    // If an answer was selected, reload to show correct/wrong in new language
-                    loadQuestion(true); 
-                } else if (currentQuestionIndex > 0) {
-                    // If on a question but not answered
-                    loadQuestion();
-                }
-            } else if (quizModal.style.display === 'grid' && currentQuestionIndex >= quizQuestions.length) {
-                // If on final score screen
-                showFinalScore();
-            }
-        }
-
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
-            // Call updateContent to apply new language and direction immediately
-            updateContent(); 
-        }
-
-        // Initialize content on load
-        window.onload = updateContent;
-
-
-        // --- Sidebar/Off-Canvas Menu Logic ---
-        const menuToggleBtn = document.getElementById('menu-toggle-btn');
-        const offcanvasMenu = document.getElementById('offcanvas-menu');
-        const menuBackdrop = document.getElementById('menu-backdrop');
-        
-        // Function to toggle the menu visibility and backdrop
-        function toggleMenu() {
-            offcanvasMenu.classList.toggle('open');
-            menuBackdrop.style.display = offcanvasMenu.classList.contains('open') ? 'block' : 'none';
         }
         
-        menuToggleBtn.onclick = toggleMenu;
-        
-        // Function to open quiz from the mobile menu link
-        function openQuizFromMenu(e) {
-            e.preventDefault();
-            // Close the sidebar first
-            if (offcanvasMenu.classList.contains('open')) {
-                   toggleMenu();
-            }
+        // --- Navigation & Scrolling Logic ---
+        function smoothScrollTo(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const headerHeight = document.querySelector('.site-header').offsetHeight;
+                const offsetPosition = section.offsetTop - headerHeight - 20;
 
-            // Hide other modals if open
-            contactModal.style.display = 'none';
-            privacyModal.style.display = 'none';
-            aboutModal.style.display = 'none';
-
-
-            // Show the modal
-            quizModal.style.display = 'grid'; 
-            
-            // Reset quiz state to show the start button
-            quizArea.style.display = 'none';
-            quizStatus.style.display = 'none';
-            finalScoreMessage.style.display = 'none';
-            startQuizBtn.classList.remove('hidden');
-            startQuizBtn.classList.add('start-btn-glow'); 
-            nextQuestionBtn.classList.add('hidden');
-            restartQuizBtn.classList.add('hidden');
-            currentQuestionIndex = 0; // Reset index to ensure start screen shows
-            score = 0;
-            isAnswered = false;
-        }
-
-        // --- Contact Modal Logic ---
-        const contactModal = document.getElementById('contact-modal');
-
-        function openContactModal() {
-            // Hide other modals if open
-            quizModal.style.display = 'none';
-            privacyModal.style.display = 'none';
-            aboutModal.style.display = 'none';
-
-            contactModal.style.display = 'grid';
-            updateContent(); // Update form placeholders if language changed
-        }
-        
-        function closeContactModal(e) {
-             // Check if the click target is the modal backdrop or the explicitly tagged close button
-            if (e.target.id === 'contact-modal' || e.target.classList.contains('close-btn')) {
-                contactModal.style.display = 'none';
-            }
-        }
-        
-        // --- Privacy Modal Logic ---
-        function openPrivacyModal() {
-            // Hide other modals if open
-            quizModal.style.display = 'none';
-            contactModal.style.display = 'none';
-            aboutModal.style.display = 'none';
-            
-            // Set content and show modal
-            privacyDisplay.innerHTML = translations[currentLanguage].privacy_policy_content;
-            privacyModal.style.display = 'grid';
-        }
-
-        function closePrivacyModal(e) {
-             // Check if the click target is the modal backdrop or the explicitly tagged close button
-            if (e.target.id === 'privacy-modal' || e.target.classList.contains('close-btn')) {
-                privacyModal.style.display = 'none';
-            }
-        }
-        
-        // --- About Modal Logic (New) ---
-        function openAboutModal(e) {
-            e.preventDefault();
-            // Hide other modals if open
-            quizModal.style.display = 'none';
-            contactModal.style.display = 'none';
-            privacyModal.style.display = 'none';
-            
-            // Set content and show modal
-            aboutDisplay.innerHTML = translations[currentLanguage].about_me_content;
-            aboutModal.style.display = 'grid';
-            updateContent(); // Ensure modal header and content titles are updated if language changes
-        }
-        
-        function closeAboutModal(e) {
-            // Check if the click target is the modal backdrop or the explicitly tagged close button
-            if (e.target.id === 'about-modal' || e.target.classList.contains('close-btn')) {
-                aboutModal.style.display = 'none';
-            }
-        }
-
-
-        // --- Quiz Data and Logic ---
-        
-        // Quiz Logic Variables
-        const quizModal = document.getElementById('quiz-modal');
-        const questionText = document.getElementById('question-text');
-        const answersContainer = document.getElementById('answers-container');
-        const quizStatus = document.getElementById('quiz-status');
-        const startQuizBtn = document.getElementById('start-quiz-btn');
-        const nextQuestionBtn = document.getElementById('next-question-btn');
-        const restartQuizBtn = document.getElementById('restart-quiz-btn');
-        const finalScoreMessage = document.getElementById('final-score-message');
-        const quizArea = document.getElementById('quiz-area');
-
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let isAnswered = false;
-        let shuffledQuestions = [];
-
-        // Main function to load a question
-        function loadQuestion(reloading = false) {
-            const t = translations[currentLanguage];
-            
-            if (currentQuestionIndex >= shuffledQuestions.length) {
-                showFinalScore();
-                return;
-            }
-
-            const qIndex = shuffledQuestions[currentQuestionIndex];
-            const qData = quizQuestions[qIndex];
-            
-            // 1. Get localized question and options
-            const localizedQuestion = t[qData.q_key];
-            const localizedOptions = t[qData.o_key];
-
-            questionText.textContent = localizedQuestion;
-            answersContainer.innerHTML = '';
-            
-            if (!reloading) {
-                isAnswered = false;
-            }
-
-            // Update status text with current language
-            quizStatus.textContent = `${t.quiz_status_base} ${currentQuestionIndex + 1} ${t.quiz_status_from} ${quizQuestions.length} | ${t.quiz_status_score}: ${score}`;
-            
-            if (!reloading) {
-                nextQuestionBtn.classList.add('hidden');
-                nextQuestionBtn.classList.remove('start-btn-glow'); 
-            }
-
-            const optionsToDisplay = !reloading ? shuffleArray(localizedOptions.slice()) : localizedOptions.slice();
-            const correctOption = qData.answer;
-
-            optionsToDisplay.forEach(option => {
-                const button = document.createElement('button');
-                button.classList.add('answer-btn');
-                button.textContent = option;
-                
-                if (reloading && isAnswered) {
-                    // If reloading after answering (for language change), apply previous state
-                    const wasCorrect = option === correctOption;
-                    
-                    if (wasCorrect) {
-                        button.classList.add('correct');
-                        button.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
-                    }
-                    button.onclick = null;
-                    if (isAnswered) nextQuestionBtn.classList.remove('hidden');
-
-                } else {
-                    // Normal behavior: allow selection
-                    button.onclick = () => checkAnswer(button, option, correctOption);
-                }
-                
-                answersContainer.appendChild(button);
-            });
-        }
-
-        // Function to check the selected answer
-        function checkAnswer(selectedButton, selectedAnswer, correctAnswer) {
-            if (isAnswered) return;
-            isAnswered = true;
-            const t = translations[currentLanguage];
-
-            const allButtons = answersContainer.querySelectorAll('.answer-btn');
-            
-            allButtons.forEach(btn => {
-                btn.onclick = null; // Disable all buttons
-                
-                // Note: selectedAnswer is the *localized* text, but we check against the English/canonical answer text
-                const currentQuestion = quizQuestions[shuffledQuestions[currentQuestionIndex]];
-                const correctCanonicalAnswer = currentQuestion.answer;
-                
-                // Find the canonical text for the clicked button's content
-                let clickedCanonicalAnswer = null;
-                const optionsMap = {};
-                translations[currentLanguage][currentQuestion.o_key].forEach((text, index) => {
-                    optionsMap[text] = translations['en'][currentQuestion.o_key][index];
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
                 });
-                clickedCanonicalAnswer = optionsMap[selectedAnswer];
+            }
+        }
+
+        // Pill navigation click handler
+        document.querySelectorAll('.pill').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetSectionId = e.target.getAttribute('data-section');
+                
+                document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+
+                smoothScrollTo(targetSectionId);
+            });
+        });
+
+        // Initialize smooth scroll for section anchors (if clicked from outside nav)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.classList.contains('pill') || this.closest('.actions')) return; // Handled by specific listeners
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // Update nav state if the anchor targets a main section
+                const pill = document.querySelector(`.pill[data-section="${targetId}"]`);
+                if (pill) {
+                    document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+                    pill.classList.add('active');
+                }
+                
+                smoothScrollTo(targetId);
+            });
+        });
+
+        // --- Resume Modal Logic (Placeholder for View Resume button) ---
+        function openResumeModal(e) {
+            e.preventDefault();
+            const modalTitleElement = document.getElementById('modal-title');
+            const projectNameModalElement = document.getElementById('project-name-modal');
+            const projectDetailsBodyElement = document.querySelector('#project-modal-overlay .window-body p');
+            const closeButton = document.querySelector('#project-modal-overlay .window-body .btn-outline');
+
+            if (modalTitleElement) modalTitleElement.textContent = translations[currentLanguage].resume_modal_title || 'Resume';
+            if (projectNameModalElement) projectNameModalElement.textContent = translations[currentLanguage].resume_modal_title || 'Resume';
+            if (projectDetailsBodyElement) projectDetailsBodyElement.textContent = translations[currentLanguage].resume_modal_body || 'This is a dedicated space for your Resume/CV content. You can embed an iframe, link a PDF, or display the document directly here.';
+            if (closeButton) closeButton.textContent = translations[currentLanguage].close_modal;
+
+            modalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
 
 
-                // Apply colors based on canonical comparison
-                if (btn.textContent === selectedButton.textContent) { // This is the button clicked
-                    if (clickedCanonicalAnswer === correctCanonicalAnswer) {
-                        selectedButton.classList.add('correct');
-                        selectedButton.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
-                        score++;
-                    } else {
-                        selectedButton.classList.add('wrong');
-                        selectedButton.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.7)';
-                        // Also highlight the correct answer in green
-                        allButtons.forEach(b => {
-                            if (b.textContent === translations[currentLanguage][currentQuestion.o_key][translations['en'][currentQuestion.o_key].indexOf(correctCanonicalAnswer)]) {
-                                b.classList.add('correct');
-                                b.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.7)';
-                            }
-                        });
-                    }
+        // --- Project Modal Logic ---
+        const modalOverlay = document.getElementById('project-modal-overlay');
+        
+        function openProjectModal(projectName) {
+            // Reset modal content to project specific details
+            const modalTitleElement = document.getElementById('modal-title');
+            const projectNameModalElement = document.getElementById('project-name-modal');
+            const projectDetailsBodyElement = document.querySelector('#project-modal-overlay .window-body p');
+            const closeButton = document.querySelector('#project-modal-overlay .window-body .btn-outline');
+
+            if (modalTitleElement) modalTitleElement.textContent = translations[currentLanguage].project_details_title || 'Project Details';
+            if (projectNameModalElement) projectNameModalElement.textContent = projectName;
+            if (projectDetailsBodyElement) projectDetailsBodyElement.textContent = translations[currentLanguage].project_details_body || 'A detailed breakdown of this project, including role, challenges, and outcomes, would be presented here.';
+            if (closeButton) closeButton.textContent = translations[currentLanguage].close_modal;
+
+            modalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
+
+        function closeProjectModal() {
+            modalOverlay.classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Close modal when pressing Escape key (a11y)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+                closeProjectModal();
+            }
+        });
+
+        // Close modal when clicking outside (on overlay)
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target.id === 'project-modal-overlay') {
+                closeProjectModal();
+            }
+        });
+
+        // --- Scrollspy Logic (The requested feature) ---
+        const sections = document.querySelectorAll('.window-card');
+        const headerHeight = 100; // Approximate height of the fixed header + padding
+
+        function handleScrollspy() {
+            let currentActivePill = 'about'; 
+            const scrollY = window.scrollY;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.id;
+                
+                // Determine if the scroll position is within the visible section area (considering header height)
+                // We use a midpoint check (sectionTop + sectionHeight / 2) for smoother transition between sections
+                if (scrollY >= sectionTop - headerHeight && scrollY < sectionTop + sectionHeight - headerHeight) {
+                    currentActivePill = sectionId;
                 }
             });
-            
-            quizStatus.textContent = `${t.quiz_status_base} ${currentQuestionIndex + 1} ${t.quiz_status_from} ${quizQuestions.length} | ${t.quiz_status_score}: ${score}`;
-            
-            nextQuestionBtn.classList.remove('hidden');
+
+            // Update the active pill in the navigation bar
+            document.querySelectorAll('.pill').forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.getAttribute('data-section') === currentActivePill) {
+                    pill.classList.add('active');
+                }
+            });
         }
+
+        // --- Initial Load & Event Listeners ---
+        window.onload = () => {
+            applyTranslations();
+            // Initial check to set the correct pill on page load (in case of deep link)
+            handleScrollspy(); 
+        };
         
-        // Function to display the final score
-        function showFinalScore() {
-            const t = translations[currentLanguage];
-            quizArea.style.display = 'none';
-            quizStatus.style.display = 'none';
-            nextQuestionBtn.classList.add('hidden');
-            restartQuizBtn.classList.remove('hidden');
+        // Listen for scroll events to update the active pill
+        window.addEventListener('scroll', handleScrollspy);
 
-            let message = '';
-            let color = 'text-neon-cyan';
 
-            if (score === quizQuestions.length) {
-                message = t.quiz_result_perfect;
-                color = 'text-neon-green';
-            } else if (score >= quizQuestions.length / 2) {
-                message = t.quiz_result_strong;
-                color = 'text-vs-orange';
-            } else {
-                message = t.quiz_result_needs_work;
-                color = 'text-vs-keyword';
+        // Initialize smooth scroll for buttons using data-section attribute
+        document.querySelectorAll('.actions a').forEach(a => {
+            if (a.getAttribute('href') !== '#') { // Ignore the new View Resume button
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = a.getAttribute('href').substring(1);
+                    smoothScrollTo(targetId);
+                    
+                    // Update nav active state immediately on click
+                    document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+                    document.querySelector(`.pill[data-section="${targetId}"]`)?.classList.add('active');
+                });
             }
-
-            finalScoreMessage.innerHTML = `
-                <p class="text-3xl font-extrabold mb-4 ${color}">${t.quiz_result_final_score}: ${score} / ${quizQuestions.length}</p>
-                <p class="text-xl text-white">${message}</p>
-            `;
-            finalScoreMessage.style.display = 'block';
-        }
-
-        // Function to initialize the quiz
-        function startQuiz() {
-            // Shuffles indices (0 to 4) to pick questions in a random order
-            shuffledQuestions = shuffleArray(quizQuestions.map((_, index) => index)); 
-            currentQuestionIndex = 0;
-            score = 0;
-            finalScoreMessage.style.display = 'none';
-            quizArea.style.display = 'block';
-            quizStatus.style.display = 'block';
-            startQuizBtn.classList.add('hidden');
-            restartQuizBtn.classList.add('hidden');
-            loadQuestion();
-        }
-
-        // Function to move to the next question
-        function nextQuestion() {
-            currentQuestionIndex++;
-            loadQuestion();
-        }
-
-        // Utility: Fisher-Yates shuffle algorithm (for randomness)
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        // --- Event Listeners and Modal Control ---
+        });
         
-        // Modal close function (handles backdrop and internal close button)
-        function closeQuiz(e) {
-            // Check if the click target is the modal backdrop or the explicitly tagged close button
-            if (e.target.id === 'quiz-modal' || e.target.classList.contains('close-btn')) {
-                quizModal.style.display = 'none';
-            }
-        }
-        
-        // Initial button attachments
-        startQuizBtn.onclick = startQuiz;
-        nextQuestionBtn.onclick = nextQuestion;
-        restartQuizBtn.onclick = startQuiz;
-
-        // --- TOAST NOTIFICATION LOGIC ---
-        const toastContainer = document.getElementById('toast-container');
-
-        function showSoonToast(message) {
-            // 1. Create toast element
-            const toast = document.createElement('div');
-            toast.classList.add('toast-message', 'animate-toast-in');
-            toast.textContent = message;
-
-            // 2. Append to container
-            toastContainer.appendChild(toast);
-
-            // 3. Set timeout to start fade out animation after a delay (3000ms total)
-            setTimeout(() => {
-                toast.classList.remove('animate-toast-in');
-                toast.classList.add('animate-toast-out');
-            }, 2700); // Start fade-out animation slightly before 3s mark
-
-            // 4. Remove element after animation finishes (3s total duration)
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
-
     </script>
 </body>
 </html>
